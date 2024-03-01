@@ -12,6 +12,7 @@
   "dependencies": {
     "@mistralai/mistralai": "^0.0.10",
     "dompurify": "^3.0.8",
+    "dotenv": "^16.4.5",
     "openai": "^4.26.0",
     "pdfjs-dist": "^4.0.379",
     "pdfreader": "^3.0.2",
