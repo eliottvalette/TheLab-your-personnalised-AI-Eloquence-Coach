@@ -1,8 +1,8 @@
 // Laboratoire/src/components/api_whisper.js
 import OpenAI from "openai";
-console.log(process.env.OPENAI_API_KEY)
+console.log(process.env.REACT_APP_OPENAI_API_KEY)
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
     dangerouslyAllowBrowser: true
 });
 
