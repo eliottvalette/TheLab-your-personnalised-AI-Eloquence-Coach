@@ -1,6 +1,7 @@
 // Laboratoire/src/components/api_mistral.js
 import MistralClient from '@mistralai/mistralai';
 
+console.log(process.env.MISTRAL_API_KEY)
 const apiKey = process.env.MISTRAL_API_KEY
 const client = new MistralClient(apiKey);
 
