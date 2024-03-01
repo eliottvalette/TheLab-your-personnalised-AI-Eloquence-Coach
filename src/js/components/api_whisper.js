@@ -1,6 +1,5 @@
 // Laboratoire/src/components/api_whisper.js
 import OpenAI from "openai";
-require('dotenv').config()
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
