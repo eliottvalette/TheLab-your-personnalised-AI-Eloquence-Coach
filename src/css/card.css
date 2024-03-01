@@ -1,0 +1,40 @@
+/* Laboratoire/src/components/card.css */
+.cards-list {
+    margin-top: 25px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    overflow-x:auto;
+    height: 290px;
+}
+
+.card {
+    width: 175px;
+    background-color: rgb(249, 249, 230);
+    border-radius: 9px;
+    padding: 10px;
+    font-size: 12px;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.card.selected {
+    background-color: rgb(255, 255, 255);
+    scale: 0.97;
+}
+
+.card-image {
+    width: 100%;
+    border-radius: 9px;
+    margin-bottom: 9px;
+}
+
+.card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

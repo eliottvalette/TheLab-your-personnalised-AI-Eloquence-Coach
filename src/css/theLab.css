@@ -1,0 +1,116 @@
+/* Laboratoire/src/TheLab.css */
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+#root {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+    font-size: 22px;
+    margin :auto;
+    justify-content: center;
+    min-height: 60vh;
+    background: rgb(29, 29, 29);
+    font-family: "Poppins", sans-serif;
+}
+
+h1{
+    background-color: rgb(249, 249, 200); 
+    border-radius: 5px;
+    
+    margin-inline : auto;
+    padding-inline: 20px;
+    justify-content: center;
+    width: fit-content;
+    
+    text-align: center;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+h2{
+    background-color: rgb(249, 249, 200); 
+    border-radius: 5px;
+    
+    margin-inline : auto;
+    padding-inline: 15px;
+    justify-content: center;
+    width: fit-content;
+    
+    text-align: center;
+    font-weight: 500;
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+h3{
+  margin-top: 10px;
+}
+
+.formBase{
+  border-radius: 5px;
+  
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 60%;
+  
+  padding : 10px 10px 10px 10px;
+  margin-top : 5px;
+  gap: 10px;
+}
+
+.select-box {
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  background-color: rgb(245, 245, 200);
+  color: #000;
+  border-radius: 10px;
+  border: 1px solid rgb(76, 76, 62);
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+  width: 100%;
+  max-width: 300px;
+  transition: all .4s 0s ease;
+}
+
+.lab-btn, .lab-input, .lab-label{
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 4px 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: rgb(245, 245, 200);
+  color: #000;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all .4s 0s ease;
+  border: 1px solid rgb(76, 76, 62);
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+}
+
+.lab-btn:hover, .lab-btn:active, .lab-input:hover, .lab-input:active , .lab-label:hover, .lab-label:active, .select-box:hover {
+  background-color: rgb(29, 29, 29);
+  color: rgb(245, 245, 200);
+  border: 1px solid rgb(245, 245, 200);
+}
+
+.response-container{
+  background-color: rgb(249, 249, 229); 
+  border-radius: 5px;
+  margin: auto;
+  box-shadow: 6px 6px 30px #010101b3;
+  padding : 10px 20px 10px 20px;
+  text-align: justify;
+  max-width: 65%;
+  width:fit-content;
+  font-weight: 400;
+  font-size: 14px;
+}

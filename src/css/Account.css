@@ -1,0 +1,28 @@
+/* Laboratoire/src/account.css */
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+#root {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+    font-size: 22px;
+    justify-content: center;
+    min-height: 60vh;
+    background: rgb(29, 29, 29);
+    font-family: "Poppins", sans-serif;
+}
+
+.account-main{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.account-form-login{
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    gap: 30px;
+}

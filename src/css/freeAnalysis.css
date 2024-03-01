@@ -1,0 +1,84 @@
+/* Laboratoire/src/freeAnalysis.css */
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+#root {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+    font-size: 22px;
+    margin :auto;
+    justify-content: center;
+    min-height: 60vh;
+    background: rgb(29, 29, 29);
+    font-family: "Poppins", sans-serif;
+}
+
+h1{
+    background-color: rgb(249, 249, 200); 
+    border-radius: 5px;
+    
+    margin : auto;
+    padding-inline: 20px;
+    justify-content: center;
+    width: fit-content;
+    
+    text-align: center;
+    font-weight: 700;
+    margin-top: 40px;
+}
+
+.formBase{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  
+  padding : 10px 10px 10px 10px;
+  margin-top : 30px;
+}
+
+.free-btn, .free-input, .free-label{
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 4px 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: rgb(245, 245, 200);
+  color: #000;
+  border-radius: 10px;
+  text-decoration: none;
+  -webkit-transition: all .4s 0s ease;
+  -moz-transition: all .4s 0s ease;
+  -ms-transition: all .4s 0s ease;
+  -o-transition: all .4s 0s ease;
+  transition: all .4s 0s ease;
+  border: 1px solid rgb(76, 76, 62);
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+}
+
+.free-btn:hover, .free-btn:active, .free-input:hover, .free-input:active , .free-label:hover, .free-label:active {
+  background-color: rgb(29, 29, 29);
+  color: rgb(245, 245, 200);
+  border: 1px solid rgb(245, 245, 200);
+}
+
+.form-input-files, .form-input-context{
+  display: flex;
+  flex-direction: column;
+  margin-block: 20px;
+  gap:10px
+}
+
+.response-container{
+  background-color: rgb(249, 249, 229); 
+  border-radius: 5px;
+  margin: 20px;
+  box-shadow: 6px 6px 30px #010101b3;
+  padding : 10px 10px 10px 10px;
+  text-align: justify;
+  width:fit-content;
+}
