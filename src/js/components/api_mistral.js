@@ -2,7 +2,7 @@
 import MistralClient from '@mistralai/mistralai';
 
 
-const apiKey = 'zqpebDxID0ExjhXOHb5zZcF8VbkyhyfI'
+const apiKey = process.env.MISTRAL_API_KEY
 const client = new MistralClient(apiKey);
 
 const models = ['mistral-tiny','mistral-small','mistral-medium']
