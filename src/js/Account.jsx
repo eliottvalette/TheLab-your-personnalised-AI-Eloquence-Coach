@@ -1,7 +1,7 @@
 // Laboratoire/src/Account.jsx 
 import React, { useState } from "react";
 import {Link} from "react-router-dom"
-import '../css/account.css'
+import '../css/Account.css'
 
 export default function Account(){
     return(
