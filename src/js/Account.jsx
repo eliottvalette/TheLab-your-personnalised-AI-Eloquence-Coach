@@ -69,8 +69,8 @@ export default function Account(){
                 <input type="email" id="email" name="email" placeholder="Votre email" onChange={(e)=>setEmail(e.target.value)}/>
                 <label htmlFor="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Votre mot de passe" autoComplete="current-password" onChange={(e)=>setPassword(e.target.value)}/>
-                <button className="home-connect" id="home-connect" onClick={(e)=>authSignInWithEmail(email,password)}>Se connecter</button>
-                <button className="home-create" id="home-create" onClick={(e)=>authCreateAccountWithEmail(email,password)}>Créer un compte</button>
+                <button className="home-connect" id="home-connect" onClick={authSignInWithEmail(email,password)}>Se connecter</button>
+                <button className="home-create" id="home-create" onClick={authCreateAccountWithEmail(email,password)}>Créer un compte</button>
             </form>
         </main>
         )
