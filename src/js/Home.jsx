@@ -23,7 +23,7 @@ export default function Home(){
                 </div>
             </section>
             <section className="home-img-section">
-                <img src="./assets/home.jpg" alt="" className="home-img" id="home-img"/>
+                <img src="/src/assets/home.jpg" alt="" className="home-img" id="home-img"/>
             </section>
           </main>
         )
