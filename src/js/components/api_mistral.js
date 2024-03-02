@@ -1,9 +1,8 @@
 // Laboratoire/src/components/api_mistral.js
 import MistralClient from '@mistralai/mistralai';
 
-console.log(process.env.REACT_APP_MISTRAL_API_KEY)
-const apiKey = process.env.REACT_APP_MISTRAL_API_KEY
-const client = new MistralClient(apiKey);
+const mistralApiKey= import.meta.env.VITE_REACT_MISTRAL_API_KEY
+const client = new MistralClient(mistralApiKey);
 
 const models = ['mistral-tiny','mistral-small','mistral-medium']
 const status = ['Waiting','in-progress','Terminated']
