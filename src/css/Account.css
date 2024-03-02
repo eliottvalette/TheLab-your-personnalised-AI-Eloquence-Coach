@@ -26,3 +26,27 @@ body {
     margin: 50px;
     gap: 30px;
 }
+
+.account-btn, .account-input, .account-label{
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 4px 8px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: rgb(245, 245, 200);
+    color: #000;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all .4s 0s ease;
+    border: 1px solid rgb(76, 76, 62);
+    cursor: pointer;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .account-btn:hover, .account-btn:active, .account-input:hover, .account-input:active {
+    background-color: rgb(29, 29, 29);
+    color: rgb(245, 245, 200);
+    border: 1px solid rgb(245, 245, 200);
+  }
