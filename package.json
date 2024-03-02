@@ -13,6 +13,7 @@
     "@mistralai/mistralai": "^0.0.10",
     "dompurify": "^3.0.8",
     "dotenv": "^16.4.5",
+    "firebase": "^10.8.1",
     "netlify": "^13.1.14",
     "openai": "^4.26.0",
     "pdfjs-dist": "^4.0.379",
