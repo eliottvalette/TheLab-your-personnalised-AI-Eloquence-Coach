@@ -59,10 +59,10 @@ export default function FreeAnalysis() {
 
   return (
     
-    <main>
+    <main className='free-main'>
       
       <h1 className='free-h1'>Le Lab'oratoire</h1>
-      <form className="formBase" action="" method="post" encType="multipart/form-data" id="baseForm">
+      <form className="free-form" action="" method="post" encType="multipart/form-data" id="baseForm">
         <div className="form-input-files">
           <label htmlFor="fichier-el" className="free-label" id ='fichier-label-el'>
               <span className="custom-file-upload" id="custom-file-upload">Inserez votre fichier audio<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>

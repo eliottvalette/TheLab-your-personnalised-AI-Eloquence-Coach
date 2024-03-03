@@ -1,6 +1,5 @@
 // Laboratoire/src/Account.jsx 
 import React, { useState , useEffect} from "react";
-import {Link} from "react-router-dom"
 import '../css/Account.css'
 
 import { initializeApp } from "firebase/app";
@@ -57,12 +56,12 @@ function authSignInWithEmail(emailInputEl, passwordInputEl) {
         createUserWithEmailAndPassword(auth, emailInputEl, passwordInputEl)
             .then(() => {
                 console.log('Account created');
-                resolve(); // Résoudre la promesse en cas de succès
+                resolve();
             })
             .catch((error) => {
                 console.error(error.message);
                 alert(error.message);
-                reject(error); // Rejeter la promesse en cas d'erreur
+                reject(error);
             });
     });
 }
@@ -104,7 +103,6 @@ export default function Account(){
             authUpdateProfile(`${name} ${firstName}`);
         })
         .catch((error) => {
-            // Handle errors
         });
     }
     const handleCreateAccount = () => {
@@ -113,7 +111,6 @@ export default function Account(){
             authUpdateProfile(`${name} ${firstName}`);
         })
         .catch((error) => {
-            // Handle errors
         });
         
     }
@@ -132,7 +129,7 @@ export default function Account(){
               }
         });
         return () => unsubscribe();
-    }, []);
+    }, [isLoggedIn]);
 
     return(
         <main className="account-main-login">
