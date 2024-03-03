@@ -3,16 +3,22 @@
 // L'utilisateur peut ici aussi soummetre le fichier audio de sa prise de parole ainsi que son support pdf. 
 // Mais l'interet particulier de ce mode et le choix d'un orateur modèle (présent sur les cartes). Le fichier audio est envoyé a l'api whisper pour un speech to text, le tout est ensuite envoyé a l'api mistral pour aider l'utilisateur a perfectionner son discours en suivant les pas de l'orateur choisit.
 import React, { useState, useEffect } from 'react'
+
+import PropTypes from "prop-types";
+import DOMPurify from 'dompurify';
+
 import '../css/theLab.css'
 import '../css/card.css'
-import PropTypes from "prop-types";
+
 import whisperApi from './components/api_whisper.js';
 import { labApi } from './components/api_mistral.js'
 import data from './components/models_data.js'
 import Card from './components/Cards.jsx'
-import DOMPurify from 'dompurify';
+
 import { initializeApp, getApp } from "firebase/app"
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+import CircleLoader from "react-spinners/CircleLoader";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
@@ -76,10 +82,12 @@ export default function TheLab() {
   const [category, setCategory] = useState("Politiques");
   const [modelChosen, setModelChosen] = useState(null);
   const [modelStyle, setModelStyle] = useState(null);
+  const [isLoading, setIsLoading] = useState(false)
 
   const launchAnalysis = async () => {
     if(modelChosen){
       console.log(`Lancement de l'analyse avec pour modèle : ${modelChosen}`)
+      setIsLoading(true)
       let MistResponse = await labApi({
       modelChosen: modelChosen,
       modelStyle: modelStyle,
@@ -89,6 +97,7 @@ export default function TheLab() {
     });
       MistResponse = DOMPurify.sanitize(MistResponse);
       document.getElementById('response-container').innerHTML = MistResponse
+      setIsLoading(false)
       console.log(`MistralAi Response : \n ${MistResponse}`)
       document.getElementById('response-container').style.display = 'block'
     }else{
@@ -139,7 +148,18 @@ export default function TheLab() {
 
       <button type="button" className="launchbtn lab-btn" id="launchbtn" onClick={launchAnalysis}>Analyse mon discours en comparant avec mon modèle</button>
     </form>
-    <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
+    {isLoading ? (
+      <div className='lab-loading-div'>
+        <CircleLoader
+          color={'rgb(249, 249, 200)'}
+          loading={isLoading}
+          size={200}
+          data-testid="loader"
+        />
+      </div>
+    ) : (
+        <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
+      )}
   </main>
 
 

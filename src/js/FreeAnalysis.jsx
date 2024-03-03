@@ -2,12 +2,15 @@
 // Le module FreeAnalysis est un des 2 modes a disposition. 
 // L'utilisateur peut ici soummetre le fichier audio de sa prise de parole ainsi que son support pdf. Il est ensuite invité à préciser le contexte de ceux-ci.
 // Le fichier audio est envoyé a l'api whisper pour un speech to text, le tout est ensuite envoyé a l'api mistral pour un compte rendu détaillé
-import React, { useState } from 'react'
-import '../css/freeAnalysis.css'
+import React, { useState } from 'react';
 import PropTypes from "prop-types";
+
+import '../css/freeAnalysis.css';
 import whisperApi from './components/api_whisper.js';
-import freeApi from './components/api_mistral.js'
-import { extractText } from './components/pdf_reader.js'
+import freeApi from './components/api_mistral.js';
+import { extractText } from './components/pdf_reader.js';
+
+import CircleLoader from "react-spinners/CircleLoader";
 
 Inputs.propTypes = {
   id: PropTypes.string.isRequired,
@@ -37,12 +40,14 @@ export default function FreeAnalysis() {
   const [aim, setAim] = useState('');
   const [audiofile, setAudiofile]= useState('');
   const [support, setSupport]= useState('');
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
 }
 
   const launchAnalysis = async () => {
+    setIsLoading(true)
     const MistResponse = await freeApi({
       userPrompt: await whisperApi(audiofile),
       mistralModel: 0,
@@ -53,6 +58,7 @@ export default function FreeAnalysis() {
       aim: aim,
       support: await extractText(support)
     });
+    setIsLoading(false)
     document.getElementById('response-container').innerHTML = MistResponse;
     document.getElementById('response-container').style.display = 'block'
   };
@@ -123,7 +129,18 @@ export default function FreeAnalysis() {
         </div>        
         <button type="button" className="launchbtn free-btn" id="launchbtn" onClick={launchAnalysis}>Analyse mon discours</button>
       </form>
-      <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
+      {isLoading ? (
+        <div className='free-loading-div'>
+          <CircleLoader
+            color={'rgb(249, 249, 200)'}
+            loading={isLoading}
+            size={200}
+            data-testid="loader"
+          />
+        </div>
+        ) : (
+        <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
+      )}
     </main>
   )
 }

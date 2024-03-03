@@ -33,7 +33,7 @@ body {
 
 .account-form-login {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 35% 25% 25% 25%;
     grid-template-rows: 35px 35px 35px 35px 35px 35px;
     gap: 30px;
     justify-content: center;

@@ -121,3 +121,9 @@ body {
   text-align: justify;
   width:fit-content;
 }
+
+.free-loading-div{
+  width:fit-content;
+  padding : 10px 10px 10px 10px;
+  margin: auto;
+}
