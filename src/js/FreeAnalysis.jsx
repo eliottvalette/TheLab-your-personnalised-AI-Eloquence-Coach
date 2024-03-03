@@ -87,7 +87,7 @@ export default function FreeAnalysis() {
           <Inputs
             id="who"
             name="who-el free-input"
-            label="Qui êtes vous est quel est votre statut lors de ce discours (exemple : une professeur de...) "
+            label="exemple : une professeur de médecine experte en ..."
             onChange={(e) => setWho(e.target.value)}
           />
 
@@ -97,7 +97,7 @@ export default function FreeAnalysis() {
           <Inputs
             id="context"
             name="context-el free-input"
-            label="Précisez le contexte de votre prise de parole"
+            label="exemple : congrès francais de ... "
             onChange={(e) => setContext(e.target.value)}
           />
           
@@ -107,7 +107,7 @@ export default function FreeAnalysis() {
           <Inputs
             id="public"
             name="public-el free-input"
-            label="A quel public vous adressez vous ?"
+            label="exemple : un public de chercheurs ..."
             onChange={(e) => setPublicValue(e.target.value)}
           />
           
@@ -117,7 +117,7 @@ export default function FreeAnalysis() {
           <Inputs
             id="aim"
             name="aim-el free-input"
-            label="Quel l'objectif de votre prise de parole ?"
+            label="exemple : vulgariser et transmettre les dernières avancées en ..."
             onChange={(e) => setAim(e.target.value)}
           />
         </div>        
