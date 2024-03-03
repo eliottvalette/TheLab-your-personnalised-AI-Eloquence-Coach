@@ -76,7 +76,7 @@ export default function Account(){
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user && user.displayName) {console.log("current user : " + user.displayName)}
+            if (user) {console.log("current user : " + user.displayName)}
             setIsLoggedIn(!!user);
         });
         return () => unsubscribe();
