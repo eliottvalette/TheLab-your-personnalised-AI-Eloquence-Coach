@@ -91,8 +91,8 @@ export default function TheLab() {
       let MistResponse = await labApi({
       modelChosen: modelChosen,
       modelStyle: modelStyle,
-      mistralModel: 0,
-      maxTokens: 5000,
+      mistralModel: 2,
+      maxTokens: 3000,
       userPrompt: await whisperApi(audiofile),
     });
       MistResponse = DOMPurify.sanitize(MistResponse);

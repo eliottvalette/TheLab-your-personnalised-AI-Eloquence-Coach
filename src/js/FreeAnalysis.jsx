@@ -50,8 +50,8 @@ export default function FreeAnalysis() {
     setIsLoading(true)
     const MistResponse = await freeApi({
       userPrompt: await whisperApi(audiofile),
-      mistralModel: 0,
-      maxTokens: 5000,
+      mistralModel: 2,
+      maxTokens: 3000,
       who: who,
       context: context,
       audience: publicValue,
