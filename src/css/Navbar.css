@@ -12,7 +12,7 @@
   --clr: rgb(29, 29, 29);
 }
 
-header{
+.nav-header{
   display: flex;
   justify-content: center;
   background: transparent;

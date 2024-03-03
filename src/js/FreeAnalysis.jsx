@@ -61,7 +61,7 @@ export default function FreeAnalysis() {
     
     <main>
       
-      <h1>Le Lab'oratoire</h1>
+      <h1 className='free-h1'>Le Lab'oratoire</h1>
       <form className="formBase" action="" method="post" encType="multipart/form-data" id="baseForm">
         <div className="form-input-files">
           <label htmlFor="fichier-el" className="free-label" id ='fichier-label-el'>

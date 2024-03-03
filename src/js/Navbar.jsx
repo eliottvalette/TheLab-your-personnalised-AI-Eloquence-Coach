@@ -37,7 +37,7 @@ export default function Navbar() {
   }, [activeId]);
   
   return (
-  <header>
+  <header className="nav-header">
       <nav className="navigation">
         <ul>
           <Pages

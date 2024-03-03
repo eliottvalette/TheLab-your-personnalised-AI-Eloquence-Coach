@@ -79,8 +79,8 @@ export default function TheLab() {
 
   return (
   <main>
-    <h1>Le Lab'oratoire</h1>
-    <h2>Choisissez votre modèle</h2>
+    <h1 className='lab-h1'>Le Lab'oratoire</h1>
+    <h2 className='lab-h2'>Choisissez votre modèle</h2>
     <div className='model-select-el'>
       <aside>
         <select className="select-box" id="categories-el" name="categories-el" size="1" onChange={(e) => {setCategory(e.target.value)}}>
@@ -98,7 +98,7 @@ export default function TheLab() {
       setModelStyle={setModelStyle}/>
     </div>
     <form className="formBase" action="" method="post" encType="multipart/form-data" id="baseForm">
-      <h2>Votre présentation</h2>
+      <h2 className='lab-h2'>Votre présentation</h2>
       
       <input type="file" className="lab-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} onChange={(e) => { setAudiofile(e.target.files[0]); aestheticFileChange(e, 'fichier-label-el',"file","mic") }}/>
       <label htmlFor="fichier-el" className="lab-label" id ='fichier-label-el'>

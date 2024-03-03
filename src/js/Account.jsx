@@ -30,7 +30,7 @@ const provider = new GoogleAuthProvider()
 
 function authSignInWithGoogle() {
     signInWithPopup(auth, provider)
-        .then((result) => {
+        .then(() => {
             console.log("Signed in with Google")
         }).catch((error) => {
             console.error(error.message)
@@ -41,6 +41,7 @@ function authSignInWithEmail(emailInputEl, passwordInputEl) {
 
     signInWithEmailAndPassword(auth, emailInputEl, passwordInputEl)
       .then(() => {
+        console.log('Signed In with email')
       })
       .catch((error) => {
         console.error(error.message);
@@ -52,6 +53,7 @@ function authSignInWithEmail(emailInputEl, passwordInputEl) {
   
     createUserWithEmailAndPassword(auth, emailInputEl, passwordInputEl)
       .then(() => {
+        console.log('Account created')
       })
       .catch((error) => {
         console.error(error.message);
@@ -73,21 +75,38 @@ export default function Account(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [name, setName] = useState('');
+    const [firstName, setFirstName] = useState('');
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {console.log("current user : " + user.displayName)}
             setIsLoggedIn(!!user);
+            if (user) {
+                console.log("current user : " + user.displayName)
+              }
         });
         return () => unsubscribe();
     }, []);
 
     const handleSignIn = () => {
         authSignInWithEmail(email, password);
+        updateProfile(auth.currentUser, {
+            displayName:firstName,
+          }).then(() => {
+          }).catch((error) => {
+            // An error occurred
+          });
     }
 
     const handleCreateAccount = () => {
         authCreateAccountWithEmail(email, password);
+        updateProfile(auth.currentUser, {
+            displayName:firstName
+          }).then(() => {
+            console.log(user.displayName)
+          }).catch((error) => {
+            // An error occurred
+          });
     }
 
     const handleSubmit = async (e)=>{
@@ -101,17 +120,57 @@ export default function Account(){
                 // Login view
                 (<section id="logged-in-view">
                     <form className="account-form-login" id="account-form-login" onSubmit={handleSubmit}>
-                        <label htmlFor="name" className="account-label" >Nom</label>
-                        <input type="name" className="account-input" id="name" name="name" placeholder="Votre nom" onChange={(e)=>setName(e.target.value)} autoComplete="family-name"/>
+                        <label htmlFor="name" className="account-label" >
+                            Nom
+                        </label>
+                        <input 
+                            type="name" 
+                            className="account-input" 
+                            id="name" 
+                            name="name" 
+                            placeholder="Votre nom" 
+                            onChange={(e)=>setName(e.target.value)} 
+                            autoComplete="family-name"
+                        />
                     
-                        <label htmlFor="firstname" className="account-label" >Prénom</label>
-                        <input type="firstname" className="account-input" id="firstname" name="firstname" placeholder="Votre prénom" onChange={(e)=>setFirstName(e.target.value)} autoComplete="name"/>
+                        <label htmlFor="firstname" className="account-label" >
+                                Prénom
+                        </label>
+                        <input 
+                            type="firstname" 
+                            className="account-input" 
+                            id="firstname" 
+                            name="firstname" 
+                            placeholder="Votre prénom" 
+                            onChange={(e)=>setFirstName(e.target.value)} 
+                            autoComplete="name"
+                        />
                         
-                        <label htmlFor="email" className="account-label" >Email</label>
-                        <input type="email" className="account-input" id="email" name="email" placeholder="Votre email" onChange={(e)=>setEmail(e.target.value)} autoComplete="username"/>
+                        <label htmlFor="email" className="account-label" >
+                            Email
+                        </label>
+                        <input 
+                            type="email" 
+                            className="account-input" 
+                            id="email" 
+                            name="email" 
+                            placeholder="Votre email" 
+                            onChange={(e)=>setEmail(e.target.value)} 
+                            autoComplete="username"
+                        />
                         
-                        <label htmlFor="password" className="account-label">Mot de passe</label>
-                        <input type="password" className="account-input" id="password" name="password" placeholder="Votre mot de passe" autoComplete="current-password" onChange={(e)=>setPassword(e.target.value)}/>
+                        <label htmlFor="password" className="account-label">
+                            Mot de passe
+                        </label>
+                        <input 
+                            type="password" 
+                            className="account-input" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Votre mot de passe" 
+                            autoComplete="current-password" 
+                            onChange={(e)=>setPassword(e.target.value)}
+                        />
                         
                         <button className="account-btn" id="account-connect" onClick={handleSignIn}>Se connecter</button>
                         <button className="account-btn" id="account-create" onClick={handleCreateAccount}>Créer un compte</button>
@@ -123,7 +182,7 @@ export default function Account(){
                 // Logout view
                 <section id="logged-out-view">
                     <h2 className="account-h1">Bienvenue chez vous</h2>
-                    <button className="account-btn" id="account-disconnect" onClick={authSignOut}>Se déconnecter</button>f
+                    <button className="account-btn" id="account-disconnect" onClick={authSignOut}>Se déconnecter</button>
                 </section>
              )}
             
