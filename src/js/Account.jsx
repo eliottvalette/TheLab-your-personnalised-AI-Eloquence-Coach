@@ -38,28 +38,34 @@ function authSignInWithGoogle() {
 }
 
 function authSignInWithEmail(emailInputEl, passwordInputEl) {
-
-    signInWithEmailAndPassword(auth, emailInputEl, passwordInputEl)
-      .then(() => {
-        console.log('Signed In with email')
-      })
-      .catch((error) => {
-        console.error(error.message);
-        alert(error.message); 
-      });
-  }
+    return new Promise((resolve, reject) => {
+        signInWithEmailAndPassword(auth, emailInputEl, passwordInputEl)
+            .then(() => {
+                console.log('Signed In with email');
+                resolve(); // Résoudre la promesse en cas de succès
+            })
+            .catch((error) => {
+                console.error(error.message);
+                alert(error.message);
+                reject(error); // Rejeter la promesse en cas d'erreur
+            });
+    });
+}
   
   function authCreateAccountWithEmail(emailInputEl, passwordInputEl) {
-  
-    createUserWithEmailAndPassword(auth, emailInputEl, passwordInputEl)
-      .then(() => {
-        console.log('Account created')
-      })
-      .catch((error) => {
-        console.error(error.message);
-        alert(error.message); 
-      });
-  }
+    return new Promise((resolve, reject) => {
+        createUserWithEmailAndPassword(auth, emailInputEl, passwordInputEl)
+            .then(() => {
+                console.log('Account created');
+                resolve(); // Résoudre la promesse en cas de succès
+            })
+            .catch((error) => {
+                console.error(error.message);
+                alert(error.message);
+                reject(error); // Rejeter la promesse en cas d'erreur
+            });
+    });
+}
 
 function authSignOut() {
     signOut(auth)
@@ -67,6 +73,16 @@ function authSignOut() {
             console.log('Signed Out')
         }).catch((error) => {
             console.error(error.message)
+        })
+}
+
+function authUpdateProfile(username) {    
+    updateProfile(auth.currentUser, {
+            displayName: username,
+        }).then(() => {
+            console.log("Profile updated")
+            console.log("current user : " + auth.currentUser.displayName)
+        }).catch((error) => {
         })
 }
 
@@ -78,40 +94,35 @@ export default function Account(){
     const [name, setName] = useState('');
     const [firstName, setFirstName] = useState('');
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setIsLoggedIn(!!user);
-            if (user) {
-                console.log("current user : " + user.displayName)
-              }
-        });
-        return () => unsubscribe();
-    }, []);
-
     const handleSignIn = () => {
-        authSignInWithEmail(email, password);
-        updateProfile(auth.currentUser, {
-            displayName:firstName,
-          }).then(() => {
-          }).catch((error) => {
-            // An error occurred
-          });
+        authSignInWithEmail(email, password)
+        .then(()=>{
+            authUpdateProfile(`${name} ${firstName}`);
+        })
+        .catch((error) => {
+            // Handle errors
+        });
     }
-
     const handleCreateAccount = () => {
-        authCreateAccountWithEmail(email, password);
-        updateProfile(auth.currentUser, {
-            displayName:firstName
-          }).then(() => {
-            console.log(user.displayName)
-          }).catch((error) => {
-            // An error occurred
-          });
+        authCreateAccountWithEmail(email, password)
+        .then(()=>{
+            authUpdateProfile(`${name} ${firstName}`);
+        })
+        .catch((error) => {
+            // Handle errors
+        });
+        
     }
-
     const handleSubmit = async (e)=>{
         e.preventDefault()
     }
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setIsLoggedIn(!!user);
+        });
+        return () => unsubscribe();
+    }, []);
 
     return(
         <main className="account-main-login">
