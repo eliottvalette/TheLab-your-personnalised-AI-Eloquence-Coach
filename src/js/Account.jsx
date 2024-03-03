@@ -9,7 +9,10 @@ import { getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword, 
     signOut,
-    onAuthStateChanged } from "firebase/auth"
+    onAuthStateChanged,
+    GoogleAuthProvider,
+    signInWithPopup,
+    updateProfile } from "firebase/auth"
 
 const firebaseConfig = {
   apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
@@ -23,15 +26,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider()
+
+function authSignInWithGoogle() {
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            console.log("Signed in with Google")
+        }).catch((error) => {
+            console.error(error.message)
+        })
+}
 
 function authSignInWithEmail(emailInputEl, passwordInputEl) {
-    const email = emailInputEl;
-    const password = passwordInputEl;
-  
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log('You are now connected to you account');
-        console.log(userCredential)
+
+    signInWithEmailAndPassword(auth, emailInputEl, passwordInputEl)
+      .then(() => {
       })
       .catch((error) => {
         console.error(error.message);
@@ -40,13 +49,9 @@ function authSignInWithEmail(emailInputEl, passwordInputEl) {
   }
   
   function authCreateAccountWithEmail(emailInputEl, passwordInputEl) {
-    const email = emailInputEl;
-    const password = passwordInputEl;
   
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log('Account created');
-        console.log(userCredential)
+    createUserWithEmailAndPassword(auth, emailInputEl, passwordInputEl)
+      .then(() => {
       })
       .catch((error) => {
         console.error(error.message);
@@ -71,11 +76,23 @@ export default function Account(){
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            console.log(isLoggedIn)
+            if (user && user.displayName) {console.log("current user : " + user.displayName)}
             setIsLoggedIn(!!user);
         });
         return () => unsubscribe();
     }, []);
+
+    const handleSignIn = () => {
+        authSignInWithEmail(email, password);
+    }
+
+    const handleCreateAccount = () => {
+        authCreateAccountWithEmail(email, password);
+    }
+
+    const handleSubmit = async (e)=>{
+        e.preventDefault()
+    }
 
     return(
         <main className="account-main-login">
@@ -83,20 +100,30 @@ export default function Account(){
             {!isLoggedIn ? 
                 // Login view
                 (<section id="logged-in-view">
-                    <form className="account-form-login" id="account-form-login">
+                    <form className="account-form-login" id="account-form-login" onSubmit={handleSubmit}>
+                        <label htmlFor="name" className="account-label" >Nom</label>
+                        <input type="name" className="account-input" id="name" name="name" placeholder="Votre nom" onChange={(e)=>setName(e.target.value)} autoComplete="family-name"/>
+                    
+                        <label htmlFor="firstname" className="account-label" >Prénom</label>
+                        <input type="firstname" className="account-input" id="firstname" name="firstname" placeholder="Votre prénom" onChange={(e)=>setFirstName(e.target.value)} autoComplete="name"/>
+                        
                         <label htmlFor="email" className="account-label" >Email</label>
                         <input type="email" className="account-input" id="email" name="email" placeholder="Votre email" onChange={(e)=>setEmail(e.target.value)} autoComplete="username"/>
+                        
                         <label htmlFor="password" className="account-label">Mot de passe</label>
                         <input type="password" className="account-input" id="password" name="password" placeholder="Votre mot de passe" autoComplete="current-password" onChange={(e)=>setPassword(e.target.value)}/>
-                        <button className="account-btn" id="home-connect" onClick={() => {authSignInWithEmail(email,password)}}>Se connecter</button>
-                        <button className="account-btn" id="home-create" onClick={() => {authCreateAccountWithEmail(email,password)}}>Créer un compte</button>
+                        
+                        <button className="account-btn" id="account-connect" onClick={handleSignIn}>Se connecter</button>
+                        <button className="account-btn" id="account-create" onClick={handleCreateAccount}>Créer un compte</button>
+                        <button className="account-btn" id="account-google" onClick={authSignInWithGoogle}>Se connecter avec Google</button>
+
                     </form>
                 </section>
              ) : (
                 // Logout view
                 <section id="logged-out-view">
                     <h2 className="account-h1">Bienvenue chez vous</h2>
-                    <button className="account-btn" id="home-disconnect" onClick={() => {authSignOut()}}>Se déconnecter</button>f
+                    <button className="account-btn" id="account-disconnect" onClick={authSignOut}>Se déconnecter</button>f
                 </section>
              )}
             
