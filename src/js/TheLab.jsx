@@ -157,9 +157,8 @@ export default function TheLab() {
           data-testid="loader"
         />
       </div>
-    ) : (
-        <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
-      )}
+    ) : (<></>)}
+      <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
   </main>
 
 

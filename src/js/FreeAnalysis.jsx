@@ -59,6 +59,7 @@ export default function FreeAnalysis() {
       support: await extractText(support)
     });
     setIsLoading(false)
+    console.log("MistResponse : " + MistResponse)
     document.getElementById('response-container').innerHTML = MistResponse;
     document.getElementById('response-container').style.display = 'block'
   };
@@ -137,10 +138,8 @@ export default function FreeAnalysis() {
             size={200}
             data-testid="loader"
           />
-        </div>
-        ) : (
+        </div>):(<></>)}
         <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
-      )}
     </main>
   )
 }
