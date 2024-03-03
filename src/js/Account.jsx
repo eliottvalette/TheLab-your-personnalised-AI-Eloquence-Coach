@@ -93,6 +93,10 @@ export default function Account(){
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [name, setName] = useState('');
     const [firstName, setFirstName] = useState('');
+    const [userData, setUserData] = useState({
+        name: "",
+        firstName: "",
+      });
 
     const handleSignIn = () => {
         authSignInWithEmail(email, password)
@@ -120,6 +124,12 @@ export default function Account(){
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setIsLoggedIn(!!user);
+            if (user) {
+                setUserData({
+                  name: user.displayName ? user.displayName.split(" ")[0] : "",
+                  firstName: user.displayName ? user.displayName.split(" ")[1] : "",
+                });
+              }
         });
         return () => unsubscribe();
     }, []);
@@ -128,10 +138,10 @@ export default function Account(){
         <main className="account-main-login">
             <h1 className="account-h1">Mon compte</h1>
             {!isLoggedIn ? 
-                // Login view
-                (<section id="logged-in-view">
+                // Not logged in view
+                (<section className="logged-out-view" id="logged-out-view">
                     <form className="account-form-login" id="account-form-login" onSubmit={handleSubmit}>
-                        <label htmlFor="name" className="account-label" >
+                        <label id="name-label" htmlFor="name" className="account-label" >
                             Nom
                         </label>
                         <input 
@@ -142,9 +152,10 @@ export default function Account(){
                             placeholder="Votre nom" 
                             onChange={(e)=>setName(e.target.value)} 
                             autoComplete="family-name"
+                            required
                         />
                     
-                        <label htmlFor="firstname" className="account-label" >
+                        <label id="firstname-label" htmlFor="firstname" className="account-label" >
                                 Prénom
                         </label>
                         <input 
@@ -154,10 +165,11 @@ export default function Account(){
                             name="firstname" 
                             placeholder="Votre prénom" 
                             onChange={(e)=>setFirstName(e.target.value)} 
-                            autoComplete="name"
+                            autoComplete="given-name"
+                            required
                         />
                         
-                        <label htmlFor="email" className="account-label" >
+                        <label id="email-label" htmlFor="email" className="account-label" >
                             Email
                         </label>
                         <input 
@@ -168,9 +180,10 @@ export default function Account(){
                             placeholder="Votre email" 
                             onChange={(e)=>setEmail(e.target.value)} 
                             autoComplete="username"
+                            required
                         />
                         
-                        <label htmlFor="password" className="account-label">
+                        <label id="password-label" htmlFor="password" className="account-label">
                             Mot de passe
                         </label>
                         <input 
@@ -181,8 +194,8 @@ export default function Account(){
                             placeholder="Votre mot de passe" 
                             autoComplete="current-password" 
                             onChange={(e)=>setPassword(e.target.value)}
+                            required
                         />
-                        
                         <button className="account-btn" id="account-connect" onClick={handleSignIn}>Se connecter</button>
                         <button className="account-btn" id="account-create" onClick={handleCreateAccount}>Créer un compte</button>
                         <button className="account-btn" id="account-google" onClick={authSignInWithGoogle}>Se connecter avec Google</button>
@@ -190,9 +203,12 @@ export default function Account(){
                     </form>
                 </section>
              ) : (
-                // Logout view
-                <section id="logged-out-view">
-                    <h2 className="account-h1">Bienvenue chez vous</h2>
+                // Logged in view
+                <section className="logged-in-view" id="logged-in-view">
+
+                    <p className="account-p">Nom : {userData.name}</p>
+                    <p className="account-p">Prénom : {userData.firstName}</p>
+                    <p className="account-p">Email : {auth.currentUser.email}</p>
                     <button className="account-btn" id="account-disconnect" onClick={authSignOut}>Se déconnecter</button>
                 </section>
              )}

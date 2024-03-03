@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 Card.propTypes = {
     id: PropTypes.number.isRequired,
-    coverImg: PropTypes.string.isRequired,
+    coverImg: PropTypes.string,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     isSelected: PropTypes.bool.isRequired,

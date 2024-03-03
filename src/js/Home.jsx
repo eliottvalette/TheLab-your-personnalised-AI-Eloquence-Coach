@@ -1,12 +1,41 @@
 //Laboratoire/src/Home.jsx
 //Le fichier Home constitue la page d'accueil du site, l'utilisateur peut comprendre son fonctionnement ou etre redirigé vers la page de connection
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom"
 import '../css/home.css'
+import { initializeApp, getApp } from "firebase/app"
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
+    authDomain: "thelab-d1229.firebaseapp.com",
+    projectId: "thelab-d1229",
+    storageBucket: "thelab-d1229.appspot.com",
+    appId: "1:334167578954:web:a87c19aee3a4d8f31ac9b3",
+  };
+  
+  // Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const firebaseApp = getApp();
+const homeStorage = getStorage(firebaseApp, "gs://thelab-d1229.appspot.com");
+const homeImg = ref(homeStorage, 'home-image/home.jpg');
+
 
 export default function Home(){
+    const [imageUrl, setImageUrl] = useState('');
     const [isAbout, setIsAbout] = useState(false);
+
+    useEffect(() => {
+        getDownloadURL(homeImg)
+            .then((url) => {
+                setImageUrl(url);
+            })
+            .catch((error) => {
+                console.error("Error downloading image: ", error);
+            });
+    }, []);
+    
     const handleClickAbout = () => {
     setIsAbout(!isAbout);
     };
@@ -23,7 +52,7 @@ export default function Home(){
                 </div>
             </section>
             <section className="home-img-section">
-                <img src="/src/assets/home.jpg" alt="" className="home-img" id="home-img"/>
+                <img src={imageUrl} alt="" className="home-img" id="home-img"/>
             </section>
           </main>
         )

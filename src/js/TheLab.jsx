@@ -2,7 +2,7 @@
 // Le module TheLab est le deuxième mode a disposition. 
 // L'utilisateur peut ici aussi soummetre le fichier audio de sa prise de parole ainsi que son support pdf. 
 // Mais l'interet particulier de ce mode et le choix d'un orateur modèle (présent sur les cartes). Le fichier audio est envoyé a l'api whisper pour un speech to text, le tout est ensuite envoyé a l'api mistral pour aider l'utilisateur a perfectionner son discours en suivant les pas de l'orateur choisit.
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../css/theLab.css'
 import '../css/card.css'
 import PropTypes from "prop-types";
@@ -11,30 +11,58 @@ import { labApi } from './components/api_mistral.js'
 import data from './components/models_data.js'
 import Card from './components/Cards.jsx'
 import DOMPurify from 'dompurify';
+import { initializeApp, getApp } from "firebase/app"
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
+    authDomain: "thelab-d1229.firebaseapp.com",
+    projectId: "thelab-d1229",
+    storageBucket: "thelab-d1229.appspot.com",
+    appId: "1:334167578954:web:a87c19aee3a4d8f31ac9b3",
+  };
+  
+  // Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const firebaseApp = getApp();
+const modelStorage = getStorage(firebaseApp, "gs://thelab-d1229.appspot.com");
+const modelImgRef = ref(modelStorage, 'model-images/');
 
 Models.propTypes = {
   category: PropTypes.string.isRequired,
   modelChosen: PropTypes.string,
   setModelChosen: PropTypes.func.isRequired,
   setModelStyle: PropTypes.func.isRequired,
-  
 };
 
 export function Models({category, modelChosen, setModelChosen , setModelStyle}) {
-  const cards = data[0][category].map(item => {
-      return (
-          <Card
-              key={item.id}
-              id={item.id}
-              coverImg={item.coverImg}
-              name={item.name}
-              description={item.description}
-              onClick={() => {setModelChosen(item.name);setModelStyle(item.style)}}
-              isSelected={modelChosen === item.name}
-          />
-      );
-  });
+  const [modelImages, setModelImages] = useState([]);
 
+  useEffect(() => {
+    const imagePromises = [];
+    data[0][category].forEach(item => {
+      const imageRef = ref(modelImgRef, item.coverImg);
+      imagePromises.push(getDownloadURL(imageRef));
+    });
+
+    Promise.all(imagePromises)
+      .then(urls => setModelImages(urls))
+      .catch(error => console.error("Error fetching image URLs:", error));
+  }, [category]);
+
+  const cards = data[0][category].map((item,index) => {
+    return (
+        <Card
+            key={item.id}
+            id={item.id}
+            coverImg={modelImages[index]}
+            name={item.name}
+            description={item.description}
+            onClick={() => {setModelChosen(item.name);setModelStyle(item.style)}}
+            isSelected={modelChosen === item.name}
+        />
+      );
+    });
   return (
       <section className="cards-list">
           {cards}
