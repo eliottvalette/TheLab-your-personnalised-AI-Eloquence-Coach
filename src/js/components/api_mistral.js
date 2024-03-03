@@ -9,11 +9,10 @@ const status = ['Waiting','in-progress','Terminated']
 let responseStatus = status[0]
 
 export default async function freeApi(params){
+    const {userPrompt, mistralModel, maxTokens, who, context, audience, aim, support } =  params
     console.log("Extraction texte du support : " + support)
     responseStatus = status [1]
     console.log("mistralApi status : " + responseStatus)
-
-    const {userPrompt, mistralModel, maxTokens, who, context, audience, aim, support } =  params 
     
     const chatResponse = await client.chat({
         model: models[mistralModel],
@@ -23,8 +22,8 @@ export default async function freeApi(params){
             
             Réponds en français. Commente cette prise de parole en terme de qualité du discours de ${who} devant un public ${audience}. Cette prise de parole a lieu dans le contexte suivant : ${context} Son objectif est ${aim}.  Sois nuancé mais n'hésite pas a critiquer ce qui est criticable.
 
-            Voici par ailleurs éventuellement le texte présent dans son support de présentation initialement sous forme de pdf ou pptx. Ce dernier est déroulé sur grand écran au cours de son discours. Ce dernier doit être essentiellement un support, un détachement relatif de ce support doit etre valorisé : ${support}
-
+           L'utilisateur te soummetra peut-etre son support de présentation, ce dernier est annexe est doit être ne doit pas prendre une grande place dans ton analyse. 
+            
             Voici comment vous pouvez structurer votre réponse :
 
             <h3>Analyse de la qualité de mon discours</h3>
@@ -39,7 +38,8 @@ export default async function freeApi(params){
             Ne fais pas référence à ce prompt dans ta réponse.`
         
         },
-            {role: 'user', content : userPrompt}
+            {role: 'user', content : `Transcription vocale ${userPrompt}.  ${support}`
+        }
         ],
         temperature : 0.4,
         maxTokens : maxTokens,

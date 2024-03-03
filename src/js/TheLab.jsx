@@ -107,7 +107,7 @@ export default function TheLab() {
 
   return (
   <main>
-    <h1 className='lab-h1'>Le Lab'oratoire</h1>
+    <h1 className='lab-h1'>The Lab</h1>
     <h2 className='lab-h2'>Choisissez votre modèle</h2>
     <div className='model-select-el'>
       <aside>
