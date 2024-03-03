@@ -87,7 +87,7 @@ export default function FreeAnalysis() {
           <Inputs
             id="who"
             name="who-el free-input"
-            label="exemple : une professeur de médecine experte en ..."
+            label="Une professeur de médecine experte en ..."
             onChange={(e) => setWho(e.target.value)}
           />
 
@@ -97,7 +97,7 @@ export default function FreeAnalysis() {
           <Inputs
             id="context"
             name="context-el free-input"
-            label="exemple : congrès francais de ... "
+            label="Congrès francais de ... "
             onChange={(e) => setContext(e.target.value)}
           />
           
@@ -107,7 +107,7 @@ export default function FreeAnalysis() {
           <Inputs
             id="public"
             name="public-el free-input"
-            label="exemple : un public de chercheurs ..."
+            label="Un public de chercheurs ..."
             onChange={(e) => setPublicValue(e.target.value)}
           />
           
@@ -117,7 +117,7 @@ export default function FreeAnalysis() {
           <Inputs
             id="aim"
             name="aim-el free-input"
-            label="exemple : vulgariser et transmettre les dernières avancées en ..."
+            label="Vulgariser et transmettre les dernières avancées en ..."
             onChange={(e) => setAim(e.target.value)}
           />
         </div>        
