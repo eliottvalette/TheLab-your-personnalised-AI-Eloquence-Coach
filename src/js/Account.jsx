@@ -149,7 +149,6 @@ export default function Account(){
                             placeholder="Votre nom" 
                             onChange={(e)=>setName(e.target.value)} 
                             autoComplete="family-name"
-                            required
                         />
                     
                         <label id="firstname-label" htmlFor="firstname" className="account-label" >
@@ -163,7 +162,6 @@ export default function Account(){
                             placeholder="Votre prénom" 
                             onChange={(e)=>setFirstName(e.target.value)} 
                             autoComplete="given-name"
-                            required
                         />
                         
                         <label id="email-label" htmlFor="email" className="account-label" >
@@ -177,7 +175,6 @@ export default function Account(){
                             placeholder="Votre email" 
                             onChange={(e)=>setEmail(e.target.value)} 
                             autoComplete="username"
-                            required
                         />
                         
                         <label id="password-label" htmlFor="password" className="account-label">
@@ -191,7 +188,6 @@ export default function Account(){
                             placeholder="Votre mot de passe" 
                             autoComplete="current-password" 
                             onChange={(e)=>setPassword(e.target.value)}
-                            required
                         />
                         <button className="account-btn" id="account-connect" onClick={handleSignIn}>Se connecter</button>
                         <button className="account-btn" id="account-create" onClick={handleCreateAccount}>Créer un compte</button>
