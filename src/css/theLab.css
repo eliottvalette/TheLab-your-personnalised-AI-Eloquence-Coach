@@ -4,24 +4,44 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  --cream-background-color: rgb(249, 249, 200);
-  --light-cream-background-color: rgb(249, 249, 229);
-  --black-background-color: rgb(29, 29, 29);
-  --black-border-color: rgb(76, 76, 62)
+}
+:root{
+  --box-background-color: rgb(249, 249, 200);
+  --light-box-background-color: rgb(249, 249, 229);
+  --wall-background-color: rgb(29, 29, 29);
+  --font-color: #000;
+  --border-color: rgb(76, 76, 62)
+}
+
+:root{
+  --box-background-color: rgb(249, 249, 200);
+  --light-box-background-color: rgb(249, 249, 229);
+  --wall-background-color: rgb(29, 29, 29);
+  --font-color: #000;
+  --border-color: rgb(76, 76, 62)
+}
+
+[data-theme="light"]{
+  --box-background-color: rgb(29, 29, 29);
+  --light-box-background-color: rgb(92, 91, 91);
+  --wall-background-color: rgb(249, 249, 200);
+  --font-color: rgb(249, 249, 200);
+  --border-color: rgb(76, 76, 62);
 }
 
 body {
-    font-size: 22px;
-    margin :auto;
-    justify-content: center;
-    min-height: 60vh;
-    background: var(--black-background-color);
-    font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  justify-content: center;
+  min-height: 60vh;
+  color: var(--font-color);
+  background: var(--wall-background-color);
+  font-family: "Poppins", sans-serif;
 }
 
 .lab-h1{
-    background-color: var(--cream-background-color); 
+    background-color: var(--box-background-color); 
     border-radius: 5px;
+    color: var(--font-color);
     
     margin-inline : auto;
     padding-inline: 20px;
@@ -34,8 +54,9 @@ body {
 }
 
 .lab-h2{
-    background-color: var(--cream-background-color); 
+    background-color: var(--box-background-color); 
     border-radius: 5px;
+    color: var(--font-color);
     
     margin-inline : auto;
     padding-inline: 15px;
@@ -66,10 +87,10 @@ body {
   line-height: 1.5;
   padding: 4px 8px;
   box-sizing: border-box;
-  background-color: var(--cream-background-color);
-  color: #000;
+  background-color: var(--box-background-color);
+  color: var(--font-color);
   border-radius: 10px;
-  border: 1px solid var(--black-border-color);
+  border: 1px solid var(--border-color);
   cursor: pointer;
   text-align: center;
   font-weight: 500;
@@ -85,25 +106,25 @@ body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background-color: var(--cream-background-color);
-  color: #000;
+  background-color: var(--box-background-color);
+  color: var(--font-color);
   border-radius: 10px;
   text-decoration: none;
   transition: all .4s 0s ease;
-  border: 1px solid var(--black-border-color);
+  border: 1px solid var(--border-color);
   cursor: pointer;
   text-align: center;
   font-weight: 500;
 }
 
 .lab-btn:hover, .lab-btn:active, .lab-input:hover, .lab-input:active , .lab-label:hover, .lab-label:active, .select-box:hover {
-  background-color: var(--black-background-color);
-  color: var(--light-cream-background-color);
-  border: 1px solid var(--light-cream-background-color);
+  background-color: var(--wall-background-color);
+  color: var(--light-box-background-color);
+  border: 1px solid var(--light-box-background-color);
 }
 
 .response-container{
-  background-color: var(--light-cream-background-color); 
+  background-color: var(--light-box-background-color); 
   border-radius: 5px;
   margin: auto;
   box-shadow: 6px 6px 30px #010101b3;

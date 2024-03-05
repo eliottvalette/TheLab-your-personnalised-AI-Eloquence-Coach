@@ -4,17 +4,32 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  --cream-background-color: rgb(249, 249, 200);
-  --light-cream-background-color: rgb(249, 249, 229);
-  --black-background-color: rgb(29, 29, 29);
-  --black-border-color: rgb(76, 76, 62)
+}
+
+:root{
+    --box-background-color: rgb(249, 249, 200);
+    --light-box-background-color: rgb(249, 249, 229);
+    --wall-background-color: rgb(29, 29, 29);
+    --font-color: #000;
+    --inverted-font-color:rgb(249, 249, 200);
+    --border-color: rgb(76, 76, 62)
+  }
+
+[data-theme="light"]{
+    --box-background-color: rgb(29, 29, 29);
+    --light-box-background-color: rgb(92, 91, 91);
+    --wall-background-color: rgb(249, 249, 200);
+    --font-color: rgb(249, 249, 200);
+    --inverted-font-color:#000;
+    --border-color: rgb(76, 76, 62);
 }
 
 body {
     font-size: 22px;
     justify-content: center;
     min-height: 60vh;
-    background: var(--black-background-color);
+    color: var(--font-color);
+    background: var(--wall-background-color);
     font-family: "Poppins", sans-serif;
 }
 
@@ -43,7 +58,7 @@ body {
 
 .home-h1{
     background-color: transparent;
-    color: var(--cream-background-color); 
+    color: var(--inverted-font-color); 
 
     justify-content: left;
     
@@ -54,7 +69,7 @@ body {
 
 .home-p{
     background-color: transparent;
-    color: var(--cream-background-color); 
+    color: var(--box-background-color); 
 
     justify-content: left;
     
@@ -64,7 +79,7 @@ body {
 
 .home-ul{
     background-color: transparent;
-    color: var(--cream-background-color); 
+    color: var(--box-background-color); 
 
     justify-content: left;
     
@@ -108,7 +123,7 @@ body {
 
 .home-analysis, .home-lab{
     width: 100%;
-    background-color: var(--light-cream-background-color);
+    background-color: var(--light-box-background-color);
     border-radius: 9px;
     padding: 20px;
 
@@ -127,8 +142,8 @@ body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background-color: var(--cream-background-color);
-  color: #000;
+  background-color: var(--box-background-color);
+  color: var(--font-color);
   border-radius: 10px;
   text-decoration: none;
   -webkit-transition: all .4s 0s ease;
@@ -136,14 +151,14 @@ body {
   -ms-transition: all .4s 0s ease;
   -o-transition: all .4s 0s ease;
   transition: all .4s 0s ease;
-  border: 1px solid var(--black-border-color);
+  border: 1px solid var(--border-color);
   cursor: pointer;
   text-align: center;
   font-weight: 500;
 }
 
 .home-btn:hover, .home-btn:active {
-  background-color: var(--black-background-color);
-  color: var(--cream-background-color);
-  border: 1px solid var(--cream-background-color);
+  background-color: var(--wall-background-color);
+  color: var(--box-background-color);
+  border: 1px solid var(--box-background-color);
 }

@@ -3,6 +3,8 @@
 
 import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom"
+import useLocalStorage from "use-local-storage"
+
 import '../css/home.css'
 import { initializeApp, getApp } from "firebase/app"
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
@@ -23,6 +25,7 @@ const homeImg = ref(homeStorage, 'home-image/home.jpg');
 
 
 export default function Home(){
+    const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
     const [imageUrl, setImageUrl] = useState('');
     const [isAbout, setIsAbout] = useState(false);
 
@@ -42,7 +45,7 @@ export default function Home(){
 
     if (!isAbout){//Tant que le bouton about n'est pas cliqué
         return (
-            <main className="home-main">
+            <main className="home-main" data-theme={isDarkMode ? "dark" : "light"}>
             <section className="home-text-section">
                 <h1 className="home-h1">Libérez votre potentiel d'orateur</h1>
                 <p className="home-p"> Devenez un orateur persuasif et influent en suivant les pas de vos orateurs favoris grâce à la puissance de l'intelligence artificielle à moindre coût</p>

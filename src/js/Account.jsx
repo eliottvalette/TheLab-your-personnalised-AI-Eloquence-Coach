@@ -1,6 +1,7 @@
 // Laboratoire/src/Account.jsx 
 import React, { useState , useEffect} from "react";
 import '../css/Account.css'
+import useLocalStorage from "use-local-storage"
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -96,6 +97,8 @@ export default function Account(){
         name: "",
         firstName: "",
       });
+    const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
+
 
     const handleSignIn = () => {
         authSignInWithEmail(email, password)
@@ -132,7 +135,7 @@ export default function Account(){
     }, [isLoggedIn]);
 
     return(
-        <main className="account-main-login">
+        <main className="account-main-login" data-theme={isDarkMode ? "dark" : "light"}>
             <h1 className="account-h1">Mon compte</h1>
             {!isLoggedIn ? 
                 // Not logged in view

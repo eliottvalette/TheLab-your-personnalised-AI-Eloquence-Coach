@@ -1,8 +1,12 @@
 //Laboratoire/src/Navbar.js
 import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom"
+
 import '../css/Navbar.css'
+
 import PropTypes from "prop-types";
+import useLocalStorage from "use-local-storage"
+
 
 Pages.propTypes = {
   path: PropTypes.string.isRequired,
@@ -27,6 +31,8 @@ export function Pages({ path, active, id, icon, title, setActiveId }) {
 
 export default function Navbar() {
   const [activeId, setActiveId] = useState("page_1");
+  const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
+
   
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -37,7 +43,7 @@ export default function Navbar() {
   }, [activeId]);
   
   return (
-  <header className="nav-header">
+  <header className="nav-header" data-theme={isDarkMode ? "dark" : "light"}>
       <nav className="navigation">
         <ul>
           <Pages

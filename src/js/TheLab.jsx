@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react'
 
 import PropTypes from "prop-types";
 import DOMPurify from 'dompurify';
+import useLocalStorage from "use-local-storage"
 
 import '../css/theLab.css'
 import '../css/card.css'
@@ -43,6 +44,7 @@ Models.propTypes = {
 
 export function Models({category, modelChosen, setModelChosen , setModelStyle}) {
   const [modelImages, setModelImages] = useState([]);
+  
 
   useEffect(() => {
     const imagePromises = [];
@@ -83,6 +85,7 @@ export default function TheLab() {
   const [modelChosen, setModelChosen] = useState(null);
   const [modelStyle, setModelStyle] = useState(null);
   const [isLoading, setIsLoading] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
 
   const launchAnalysis = async () => {
     if(modelChosen){
@@ -115,7 +118,7 @@ export default function TheLab() {
   };
 
   return (
-  <main>
+  <main id="lab-main" data-theme={isDarkMode ? "dark" : "light"} >
     <h1 className='lab-h1'>The Lab</h1>
     <h2 className='lab-h2'>Choisissez votre modèle</h2>
     <div className='model-select-el'>

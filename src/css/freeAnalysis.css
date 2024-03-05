@@ -4,10 +4,22 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  --cream-background-color: rgb(249, 249, 200);
-  --light-cream-background-color: rgb(249, 249, 229);
-  --black-background-color: rgb(29, 29, 29);
-  --black-border-color: rgb(76, 76, 62)
+}
+
+:root{
+  --box-background-color: rgb(249, 249, 200);
+  --light-box-background-color: rgb(249, 249, 229);
+  --wall-background-color: rgb(29, 29, 29);
+  --font-color: #000;
+  --border-color: rgb(76, 76, 62)
+}
+
+[data-theme="light"]{
+  --box-background-color: rgb(29, 29, 29);
+  --light-box-background-color: rgb(92, 91, 91);
+  --wall-background-color: rgb(249, 249, 200);
+  --font-color: rgb(249, 249, 200);
+  --border-color: rgb(76, 76, 62);
 }
 
 body {
@@ -15,22 +27,24 @@ body {
     margin :auto;
     justify-content: center;
     min-height: 60vh;
-    background: var(--black-background-color);
+    color: var(--font-color);
+    background: var(--wall-background-color);
     font-family: "Poppins", sans-serif;
 }
 
 .free-h1{
-    background-color: var(--cream-background-color); 
-    border-radius: 5px;
-    
-    margin : auto;
-    padding-inline: 20px;
-    justify-content: center;
-    width: fit-content;
-    
-    text-align: center;
-    font-weight: 700;
-    margin-top: 40px;
+  background-color: var(--box-background-color);
+  color: var(--font-color); 
+  border-radius: 5px;
+  
+  margin-inline : auto;
+  padding-inline: 20px;
+  justify-content: center;
+  width: fit-content;
+  
+  text-align: center;
+  font-weight: 700;
+  margin-top: 20px;
 }
 
 .free-form{
@@ -92,23 +106,23 @@ body {
   line-height: 1.5;
   padding: 4px 8px;
   box-sizing: border-box;
-  background-color: var(--cream-background-color);
-  color: #000;
+  background-color: var(--box-background-color);
+  color: var(--font-color);
   border-radius: 10px;
   text-decoration: none;
   transition: all .4s 0s ease;
-  border: 1px solid var(--black-border-color);
+  border: 1px solid var(--border-color);
   font-weight: 500;
 }
 
 .free-input{
-  background-color: var(--light-cream-background-color)
+  background-color: var(--light-box-background-color)
 }
 
 .free-btn:hover, .free-btn:active, .free-input:hover, .free-input:active, .file-label:hover, .file-label:active{
-  background-color: var(--black-background-color);
-  color: var(--cream-background-color);
-  border: 1px solid var(--cream-background-color);
+  background-color: var(--wall-background-color);
+  color: var(--box-background-color);
+  border: 1px solid var(--box-background-color);
   cursor: pointer;
 }
 
@@ -121,7 +135,7 @@ body {
 }
 
 .response-container{
-  background-color: var(--light-cream-background-color); 
+  background-color: var(--light-box-background-color); 
   border-radius: 5px;
   margin: 20px;
   box-shadow: 6px 6px 30px #010101b3;

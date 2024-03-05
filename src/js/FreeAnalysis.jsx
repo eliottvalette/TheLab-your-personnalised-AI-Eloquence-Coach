@@ -4,6 +4,8 @@
 // Le fichier audio est envoyé a l'api whisper pour un speech to text, le tout est ensuite envoyé a l'api mistral pour un compte rendu détaillé
 import React, { useState } from 'react';
 import PropTypes from "prop-types";
+import useLocalStorage from "use-local-storage"
+
 
 import '../css/freeAnalysis.css';
 import whisperApi from './components/api_whisper.js';
@@ -41,6 +43,7 @@ export default function FreeAnalysis() {
   const [audiofile, setAudiofile]= useState('');
   const [support, setSupport]= useState('');
   const [isLoading, setIsLoading] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
@@ -71,7 +74,7 @@ export default function FreeAnalysis() {
 
   return (
     
-    <main className='free-main'>
+    <main className='free-main' data-theme={isDarkMode ? "dark" : "light"}>
       
       <h1 className='free-h1'>Analyse Libre</h1>
       <form className="free-form" action="" method="post" encType="multipart/form-data" id="baseForm" onSubmit={handleSubmit}>

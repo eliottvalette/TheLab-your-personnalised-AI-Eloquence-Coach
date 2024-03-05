@@ -1,9 +1,18 @@
 /* Laboratoire/src/components/card.css */
-#root{
-    --cream-background-color: rgb(249, 249, 200);
-    --light-cream-background-color: rgb(249, 249, 229);
-    --black-background-color: rgb(29, 29, 29);
-    --black-border-color: rgb(76, 76, 62)  
+:root{
+    --box-background-color: rgb(249, 249, 200);
+    --light-box-background-color: rgb(249, 249, 229);
+    --wall-background-color: rgb(29, 29, 29);
+    --font-color: #000;
+    --border-color: rgb(76, 76, 62)
+  }
+
+[data-theme="light"]{
+    --box-background-color: rgb(29, 29, 29);
+    --light-box-background-color: rgb(92, 91, 91);
+    --wall-background-color: rgb(249, 249, 200);
+    --font-color: rgb(249, 249, 200);
+    --border-color: rgb(76, 76, 62);
 }
 
 .cards-list {
@@ -18,7 +27,8 @@
 
 .card {
     width: 175px;
-    background-color: var(--light-cream-background-color);
+    color: var(--font-color);
+    background-color: var(--light-box-background-color);
     border-radius: 9px;
     padding: 10px;
     font-size: 12px;
