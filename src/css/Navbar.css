@@ -9,7 +9,10 @@
 }
 
 :root {
-  --clr: rgb(29, 29, 29);
+  --cream-background-color: rgb(249, 249, 200);
+  --light-cream-background-color: rgb(249, 249, 229);
+  --black-background-color: rgb(29, 29, 29);
+  --black-border-color: rgb(76, 76, 62)
 }
 
 .nav-header{
@@ -23,7 +26,7 @@
   position: relative;
   width: 400px;
   height: 70px;
-  background: rgb(249, 249, 229);
+  background: var(--light-cream-background-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,7 +64,7 @@
   font-size: 1.5em;
   text-align: center;
   transition: 0.5s;
-  color: var(--clr);
+  color: var(--black-background-color);
 }
 
 .navigation ul li.active a .icon {
@@ -70,7 +73,7 @@
 
 .navigation ul li a .text {
   position: absolute;
-  color: var(--clr);
+  color: var(--black-background-color);
   font-weight: 400;
   font-size: 0.75em;
   letter-spacing: 0.05em;
@@ -89,9 +92,9 @@
   top: -50%;
   width: 70px;
   height: 70px;
-  background: rgb(249, 249, 200);
+  background: var(--cream-background-color);
   border-radius: 50%;
-  border: 6px solid var(--clr);
+  border: 6px solid var(--black-background-color);
   transition: 0.5s;
 }
 
@@ -104,7 +107,7 @@
   height: 20px;
   background: transparent;
   border-top-right-radius: 20px;
-  box-shadow: 1px -10px 0 0 var(--clr);
+  box-shadow: 1px -10px 0 0 var(--black-background-color);
 }
 
 .indicator::after {
@@ -116,7 +119,7 @@
   height: 20px;
   background: transparent;
   border-top-left-radius: 20px;
-  box-shadow: -1px -10px 0 0 var(--clr);
+  box-shadow: -1px -10px 0 0 var(--black-background-color);
 }
 
 /* Indicator Transitions */

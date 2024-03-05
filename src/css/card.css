@@ -1,4 +1,11 @@
 /* Laboratoire/src/components/card.css */
+#root{
+    --cream-background-color: rgb(249, 249, 200);
+    --light-cream-background-color: rgb(249, 249, 229);
+    --black-background-color: rgb(29, 29, 29);
+    --black-border-color: rgb(76, 76, 62)  
+}
+
 .cards-list {
     margin-top: 25px;
     justify-content: center;
@@ -11,7 +18,7 @@
 
 .card {
     width: 175px;
-    background-color: rgb(249, 249, 230);
+    background-color: var(--light-cream-background-color);
     border-radius: 9px;
     padding: 10px;
     font-size: 12px;
@@ -24,7 +31,7 @@
 }
 
 .card.selected {
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     scale: 0.97;
 }
 

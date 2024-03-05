@@ -4,6 +4,10 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  --cream-background-color: rgb(249, 249, 200);
+  --light-cream-background-color: rgb(249, 249, 229);
+  --black-background-color: rgb(29, 29, 29);
+  --black-border-color: rgb(76, 76, 62)
 }
 
 body {
@@ -11,12 +15,12 @@ body {
     margin :auto;
     justify-content: center;
     min-height: 60vh;
-    background: rgb(29, 29, 29);
+    background: var(--black-background-color);
     font-family: "Poppins", sans-serif;
 }
 
 .lab-h1{
-    background-color: rgb(249, 249, 200); 
+    background-color: var(--cream-background-color); 
     border-radius: 5px;
     
     margin-inline : auto;
@@ -30,7 +34,7 @@ body {
 }
 
 .lab-h2{
-    background-color: rgb(249, 249, 200); 
+    background-color: var(--cream-background-color); 
     border-radius: 5px;
     
     margin-inline : auto;
@@ -62,10 +66,10 @@ body {
   line-height: 1.5;
   padding: 4px 8px;
   box-sizing: border-box;
-  background-color: rgb(245, 245, 200);
+  background-color: var(--cream-background-color);
   color: #000;
   border-radius: 10px;
-  border: 1px solid rgb(76, 76, 62);
+  border: 1px solid var(--black-border-color);
   cursor: pointer;
   text-align: center;
   font-weight: 500;
@@ -81,25 +85,25 @@ body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background-color: rgb(245, 245, 200);
+  background-color: var(--cream-background-color);
   color: #000;
   border-radius: 10px;
   text-decoration: none;
   transition: all .4s 0s ease;
-  border: 1px solid rgb(76, 76, 62);
+  border: 1px solid var(--black-border-color);
   cursor: pointer;
   text-align: center;
   font-weight: 500;
 }
 
 .lab-btn:hover, .lab-btn:active, .lab-input:hover, .lab-input:active , .lab-label:hover, .lab-label:active, .select-box:hover {
-  background-color: rgb(29, 29, 29);
-  color: rgb(245, 245, 200);
-  border: 1px solid rgb(245, 245, 200);
+  background-color: var(--black-background-color);
+  color: var(--light-cream-background-color);
+  border: 1px solid var(--light-cream-background-color);
 }
 
 .response-container{
-  background-color: rgb(249, 249, 229); 
+  background-color: var(--light-cream-background-color); 
   border-radius: 5px;
   margin: auto;
   box-shadow: 6px 6px 30px #010101b3;
