@@ -16,8 +16,8 @@ import { labApi } from './components/api_mistral.js'
 import data from './components/models_data.js'
 import Card from './components/Cards.jsx'
 
-import { initializeApp }  from "firebase/app"
-import { getApp, getAuth } from "firebase/auth"
+import { initializeApp, getApp }  from "firebase/app"
+import { getAuth } from "firebase/auth"
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 import CircleLoader from "react-spinners/CircleLoader";

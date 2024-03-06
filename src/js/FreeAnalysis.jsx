@@ -12,8 +12,8 @@ import whisperApi from './components/api_whisper.js';
 import freeApi from './components/api_mistral.js';
 import { extractText } from './components/pdf_reader.js';
 
-import { initializeApp } from "firebase/app";
-import { getApp, getAuth } from "firebase/auth"
+import { initializeApp, getApp } from "firebase/app";
+import { getAuth } from "firebase/auth"
 import { getFirestore, collection, addDoc } from "firebase/firestore"
 
 import CircleLoader from "react-spinners/CircleLoader";
