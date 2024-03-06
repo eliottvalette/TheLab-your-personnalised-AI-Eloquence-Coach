@@ -78,6 +78,19 @@ export function Models({category, modelChosen, setModelChosen , setModelStyle}) 
   );
 }
 
+async function saveResponse(response){
+  try {
+    const userData = {
+      email: auth.currentUser.email,
+      Mode : "freeAnalysis",
+      MistResponse: response,  
+    };
+    await addDoc(collection(db, "users"), userData);
+  } catch (error) {
+      console.error("Error creating account:", error);
+  } 
+}
+
 export default function TheLab() {
     
   const [audiofile, setAudiofile]= useState('');
@@ -98,9 +111,10 @@ export default function TheLab() {
       maxTokens: 3000,
       userPrompt: await whisperApi(audiofile),
     });
+      setIsLoading(false)
+      saveResponse(MistResponse)
       MistResponse = DOMPurify.sanitize(MistResponse);
       document.getElementById('response-container').innerHTML = MistResponse
-      setIsLoading(false)
       console.log(`MistralAi Response : \n ${MistResponse}`)
       document.getElementById('response-container').style.display = 'block'
     }else{
