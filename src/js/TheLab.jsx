@@ -16,7 +16,8 @@ import { labApi } from './components/api_mistral.js'
 import data from './components/models_data.js'
 import Card from './components/Cards.jsx'
 
-import { initializeApp, getApp } from "firebase/app"
+import { initializeApp }  from "firebase/app"
+import { getApp, getAuth } from "firebase/auth"
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 import CircleLoader from "react-spinners/CircleLoader";
@@ -31,8 +32,8 @@ const firebaseConfig = {
   
   // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const firebaseApp = getApp();
 const auth = getAuth(app);
+const firebaseApp = getApp();
 const modelStorage = getStorage(firebaseApp, "gs://thelab-d1229.appspot.com");
 const modelImgRef = ref(modelStorage, 'model-images/');
 
