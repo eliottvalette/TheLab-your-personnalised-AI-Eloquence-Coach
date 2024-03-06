@@ -1,0 +1,164 @@
+/* Laboratoire/src/home.css */
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+#root {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+:root{
+    --box-background-color: rgb(249, 249, 200);
+    --light-box-background-color: rgb(249, 249, 229);
+    --wall-background-color: rgb(29, 29, 29);
+    --font-color: #000;
+    --inverted-font-color:rgb(249, 249, 200);
+    --border-color: rgb(76, 76, 62)
+  }
+
+[data-theme="light"]{
+    --box-background-color: rgb(29, 29, 29);
+    --light-box-background-color: rgb(39, 39, 39);
+    --wall-background-color: rgb(249, 249, 200);
+    --font-color: rgb(249, 249, 200);
+    --inverted-font-color:#000;
+    --border-color: rgb(76, 76, 62);
+}
+
+body {
+    font-size: 22px;
+    justify-content: center;
+    min-height: 60vh;
+    color: var(--font-color);
+    background: var(--wall-background-color);
+    font-family: "Poppins", sans-serif;
+}
+
+.home-main{
+    display: flex;
+    flex-direction: row;
+    margin: 50px;
+    gap: 30px;
+}
+
+.home-main-about{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: auto;
+    gap: 20px;
+    width: 50%;
+}
+
+
+.home-text-section{
+    width:50%;
+    margin-block: auto;
+}
+
+.home-h1{
+    background-color: transparent;
+    color: var(--inverted-font-color); 
+
+    justify-content: left;
+    
+    text-align: left;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+.home-p{
+    background-color: transparent;
+    color: var(--box-background-color); 
+
+    justify-content: left;
+    
+    text-align: left;
+    font-weight: 400;
+}
+
+.home-ul{
+    background-color: transparent;
+    color: var(--box-background-color); 
+
+    justify-content: left;
+    
+    text-align: left;
+    font-weight: 400;
+}
+
+.home-form{
+    margin-left: 15%;
+    margin-top: 30px;
+    gap: 10px;
+    width: 90%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.home-btn{
+    justify-content: center;
+    width: 200px;
+}
+
+.home-about-btn{
+    margin: auto;
+}
+
+.home-img-section{
+    width: 50%
+}
+
+.home-img{
+    width: 90%;
+}
+
+.home-div-about{
+    display: flex;
+    flex-direction: row;
+    gap:30px;
+    justify-content: center;
+}
+
+.home-analysis, .home-lab{
+    width: 100%;
+    background-color: var(--light-box-background-color);
+    border-radius: 9px;
+    padding: 20px;
+
+    text-align: justify;
+
+}
+
+.home-h2{
+    font-size: 25px;
+}
+
+.home-btn{
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 4px 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: var(--box-background-color);
+  color: var(--font-color);
+  border-radius: 10px;
+  text-decoration: none;
+  -webkit-transition: all .4s 0s ease;
+  -moz-transition: all .4s 0s ease;
+  -ms-transition: all .4s 0s ease;
+  -o-transition: all .4s 0s ease;
+  transition: all .4s 0s ease;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+}
+
+.home-btn:hover, .home-btn:active {
+  background-color: var(--wall-background-color);
+  color: var(--box-background-color);
+  border: 1px solid var(--box-background-color);
+}
