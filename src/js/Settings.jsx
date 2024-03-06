@@ -16,9 +16,9 @@ export default function Settings(){
 
     return(
         <main className="settings-main" id="settings-main" data-theme={isDarkMode ? "dark" : "light"}>
-            <h1 className="settings-h1"> Settings </h1>
+            <h1 className="settings-h1"> Réglages </h1>
             <button className="settings-btn" onClick={toggleDarkMode}>
-                {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+                {isDarkMode ? 'Mode Clair' : 'Mode Sombre'}
             </button>   
         </main>
         )

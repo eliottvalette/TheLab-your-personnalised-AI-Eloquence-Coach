@@ -32,6 +32,7 @@ const firebaseConfig = {
   // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const firebaseApp = getApp();
+const auth = getAuth(app);
 const modelStorage = getStorage(firebaseApp, "gs://thelab-d1229.appspot.com");
 const modelImgRef = ref(modelStorage, 'model-images/');
 
