@@ -112,6 +112,10 @@ export default function TheLab() {
     
   };
 
+  useEffect(() => {
+    document.body.style.backgroundColor = isDarkMode ? "var(--wall-background-color)" : "var(--light-box-background-color)"; // Use CSS variables for customization
+  }, [isDarkMode]);
+
   const aestheticFileChange = (e, labelId, id , icon) => {
     const fileName = e.target.value.split('\\').pop().split('.')[0];
     document.getElementById(labelId).innerHTML = `<span class="custom-${id}-upload" id="custom-${id}-upload">${fileName}<ion-icon name=${icon}></ion-icon></span>`;
@@ -153,12 +157,17 @@ export default function TheLab() {
     </form>
     {isLoading ? (
       <div className='lab-loading-div'>
+        <h3 className='lab-h3'>Chargement en cours... Veuillez ne pas quitter la page</h3>
+        <div className='lab-loader-div'>
         <CircleLoader
-          color={'rgb(249, 249, 200)'}
+          color={isDarkMode ? 'rgb(249, 249, 200)' : 'rgb(29, 29, 29)'}
           loading={isLoading}
           size={200}
           data-testid="loader"
         />
+        </div>
+          
+          
       </div>
     ) : (<></>)}
       <div className='response-container' id='response-container' style={{ display: 'none' }}></div>

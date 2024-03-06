@@ -2,7 +2,7 @@
 // Le module FreeAnalysis est un des 2 modes a disposition. 
 // L'utilisateur peut ici soummetre le fichier audio de sa prise de parole ainsi que son support pdf. Il est ensuite invité à préciser le contexte de ceux-ci.
 // Le fichier audio est envoyé a l'api whisper pour un speech to text, le tout est ensuite envoyé a l'api mistral pour un compte rendu détaillé
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import useLocalStorage from "use-local-storage"
 
@@ -12,7 +12,22 @@ import whisperApi from './components/api_whisper.js';
 import freeApi from './components/api_mistral.js';
 import { extractText } from './components/pdf_reader.js';
 
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth"
+import { getFirestore, collection, addDoc } from "firebase/firestore"
+
 import CircleLoader from "react-spinners/CircleLoader";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
+  authDomain: "thelab-d1229.firebaseapp.com",
+  projectId: "thelab-d1229",
+  storageBucket: "thelab-d1229.appspot.com",
+  appId: "1:334167578954:web:a87c19aee3a4d8f31ac9b3",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app)
 
 Inputs.propTypes = {
   id: PropTypes.string.isRequired,
@@ -32,6 +47,19 @@ export function Inputs({id, name, label, onChange}) {
       onChange={onChange}
     />
   )
+}
+
+async function saveResponse(response){
+  try {
+    const userData = {
+      email: auth.currentUser.email,
+      Mode : "freeAnalysis",
+      MistResponse: response,  
+    };
+    await addDoc(collection(db, "users"), userData);
+  } catch (error) {
+      console.error("Error creating account:", error);
+  } 
 }
 
 export default function FreeAnalysis() {
@@ -62,6 +90,7 @@ export default function FreeAnalysis() {
       support: await extractText(support)
     });
     setIsLoading(false)
+    saveResponse(MistResponse)
     console.log("MistResponse : " + MistResponse)
     document.getElementById('response-container').innerHTML = MistResponse;
     document.getElementById('response-container').style.display = 'block'
@@ -71,6 +100,10 @@ export default function FreeAnalysis() {
     const fileName = e.target.value.split('\\').pop().split('.')[0];
     document.getElementById(labelId).innerHTML = `<span class="custom-${id}-upload" id="custom-${id}-upload">${fileName}<ion-icon name=${icon}></ion-icon></span>`;
   };
+
+  useEffect(() => {
+    document.body.style.backgroundColor = isDarkMode ? "var(--wall-background-color)" : "var(--light-box-background-color)"; // Use CSS variables for customization
+  }, [isDarkMode]);
 
   return (
     
@@ -135,12 +168,15 @@ export default function FreeAnalysis() {
       </form>
       {isLoading ? (
         <div className='free-loading-div'>
+          <h3 className='free-h3'>Chargement en cours... Veuillez ne pas quitter la page</h3>
+          <div className='free-loader-div'>
           <CircleLoader
-            color={'rgb(249, 249, 200)'}
+            color={isDarkMode ? 'rgb(249, 249, 200)' : 'rgb(29, 29, 29)'}
             loading={isLoading}
             size={200}
             data-testid="loader"
           />
+        </div>
         </div>):(<></>)}
         <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
     </main>

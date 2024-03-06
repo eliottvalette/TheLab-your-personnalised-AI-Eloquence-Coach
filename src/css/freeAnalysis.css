@@ -33,9 +33,9 @@ body {
 }
 
 .free-h1{
-  background-color: var(--box-background-color);
-  color: var(--font-color); 
+  background-color: transparent; 
   border-radius: 5px;
+  color: var(--inverted-font-color);
   
   margin-inline : auto;
   padding-inline: 20px;
@@ -145,7 +145,28 @@ body {
 }
 
 .free-loading-div{
-  width:fit-content;
-  padding : 10px 10px 10px 10px;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.free-h3{
+  background-color: transparent; 
+  color: var(--inverted-font-color);
+  font-size: 12px;
+  
+  margin-inline : auto;
+  padding-inline: 20px;
+  justify-content: center;
+  width: fit-content;
+  
+  text-align: center;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
+.free-loader-div{
+  display: flex;
+  justify-content: center;
+  padding : 10px 20px 10px 20px;
 }

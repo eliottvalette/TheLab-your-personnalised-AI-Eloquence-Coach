@@ -39,9 +39,9 @@ body {
 }
 
 .lab-h1{
-    background-color: var(--box-background-color); 
+    background-color: transparent; 
     border-radius: 5px;
-    color: var(--font-color);
+    color: var(--inverted-font-color);
     
     margin-inline : auto;
     padding-inline: 20px;
@@ -83,7 +83,7 @@ body {
 }
 
 .select-box {
-  font-size: 15px;
+  font-size: 12px;
   line-height: 1.5;
   padding: 4px 8px;
   box-sizing: border-box;
@@ -94,7 +94,7 @@ body {
   cursor: pointer;
   text-align: center;
   font-weight: 500;
-  width: 100%;
+  width: fit-content;
   max-width: 300px;
   transition: all .4s 0s ease;
 }
@@ -137,6 +137,28 @@ body {
 }
 
 .lab-loading-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lab-h3{
+  background-color: transparent; 
+  color: var(--inverted-font-color);
+  font-size: 12px;
+  
+  margin-inline : auto;
+  padding-inline: 20px;
+  justify-content: center;
+  width: fit-content;
+  
+  text-align: center;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
+
+.lab-loader-div{
   display: flex;
   justify-content: center;
   padding : 10px 20px 10px 20px;

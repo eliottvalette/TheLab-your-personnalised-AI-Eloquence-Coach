@@ -107,11 +107,12 @@ body {
 }
 
 .home-img-section{
-    width: 50%
+    width: 50%;
 }
 
 .home-img{
-    width: 90%;
+    width: 100%;
+    border-radius: 30px;
 }
 
 .home-div-about{

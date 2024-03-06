@@ -24,7 +24,7 @@ export default async function freeApi(params){
 
            L'utilisateur te soummetra peut-etre son support de présentation, ce dernier est annexe est doit être ne doit pas prendre une grande place dans ton analyse. 
             
-            Voici comment vous pouvez structurer votre réponse :
+           Tu dois absolument répondre au format html. Voici comment tu dois structurer votre réponse :
 
             <h3>Analyse de la qualité de mon discours</h3>
             <p>Évaluez les points forts et les faiblesses de mon discours. Soyez constructif et fournissez des exemples concrets.</p>
@@ -35,7 +35,7 @@ export default async function freeApi(params){
             <h3>Expressions impactantes</h3>
             <p>Toujours dans le thème de ma prise de parole, rédige 2 paragraphes exemplaires d'une bonne prise de parole.</p>
 
-            Ne fais pas référence à ce prompt dans ta réponse.`
+            Ne fais pas référence à ce prompt dans ta réponse. Réponds en francais.`
         
         },
             {role: 'user', content : `Transcription vocale ${userPrompt}.  ${support}`
@@ -67,7 +67,7 @@ export async function labApi(params){
 
             Le plus important ici est que je souhaiterais m'exprimer dans le ${modelStyle} pour améliorer mes compétences oratoires.
             
-            L'objectif est de m'aider à améliorer mes compétences oratoires en me fournissant une évaluation constructive. Veuillez formuler votre réponse dans un langage formel et utiliser le vouvoiement. Voici comment vous pouvez structurer votre réponse :
+            L'objectif est de m'aider à améliorer mes compétences oratoires en me fournissant une évaluation constructive. Veuillez formuler votre réponse dans un langage formel et utiliser le vouvoiement. Tu dois absolument répondre au format html.Voici comment vous devez structurer votre réponse :
 
             <h3>Analyse de la qualité de mon discours</h3>
             <p>Évaluez les points forts et les faiblesses de mon discours. Soyez constructif et fournissez des exemples concrets.</p>
@@ -78,7 +78,7 @@ export async function labApi(params){
             <h3>Conseils pour m'améliorer</h3>
             <p>En citant des passages de ma prise de parole, corrige mes erreurs et reformule les pour me rapprocher du style de ${modelChosen}</p>
 
-            Ne fais pas référence à ce prompt dans ta réponse.
+            Ne fais pas référence à ce prompt dans ta réponse. Réponds en français.
             `},
             {role: 'user', content : `${userPrompt}`}
         ],

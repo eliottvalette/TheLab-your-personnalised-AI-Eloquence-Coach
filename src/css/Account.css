@@ -23,8 +23,6 @@
     --border-color: rgb(76, 76, 62);
 }
    
-    
-
 body {
     font-size: 22px;
     color: var(--font-color);
@@ -37,9 +35,9 @@ body {
 
 
 .account-h1{
-    background-color: var(--box-background-color);
-    color: var(--font-color); 
+    background-color: transparent; 
     border-radius: 5px;
+    color: var(--inverted-font-color);
     
     margin-inline : auto;
     padding-inline: 20px;

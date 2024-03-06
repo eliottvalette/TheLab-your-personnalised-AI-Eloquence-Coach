@@ -4,6 +4,7 @@ import '../css/Account.css'
 import useLocalStorage from "use-local-storage"
 
 import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore"
 import { getAnalytics } from "firebase/analytics";
 import { getAuth,
     createUserWithEmailAndPassword,
@@ -27,8 +28,9 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider()
+const db = getFirestore(app)
 
-function authSignInWithGoogle() {
+async function authSignInWithGoogle(name,firstName) {
     signInWithPopup(auth, provider)
         .then(() => {
             console.log("Signed in with Google")
@@ -36,7 +38,6 @@ function authSignInWithGoogle() {
             console.error(error.message)
         })
 }
-
 function authSignInWithEmail(emailInputEl, passwordInputEl) {
     return new Promise((resolve, reject) => {
         signInWithEmailAndPassword(auth, emailInputEl, passwordInputEl)
@@ -51,22 +52,22 @@ function authSignInWithEmail(emailInputEl, passwordInputEl) {
             });
     });
 }
-  
-  function authCreateAccountWithEmail(emailInputEl, passwordInputEl) {
-    return new Promise((resolve, reject) => {
-        createUserWithEmailAndPassword(auth, emailInputEl, passwordInputEl)
-            .then(() => {
-                console.log('Account created');
-                resolve();
-            })
-            .catch((error) => {
-                console.error(error.message);
-                alert(error.message);
-                reject(error);
-            });
-    });
-}
 
+async function authCreateAccountWithEmail(name, firstName, emailInputEl, passwordInputEl) {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, emailInputEl, passwordInputEl);
+
+        const user = userCredential.user;
+        const userData = {
+            name: name,
+            firstName: firstName,
+            email: user.email,
+        };
+        await addDoc(collection(db, "users"), userData);
+    } catch (error) {
+        console.error("Error creating account:", error);
+    }
+}
 function authSignOut() {
     signOut(auth)
         .then(() => {
@@ -75,7 +76,6 @@ function authSignOut() {
             console.error(error.message)
         })
 }
-
 function authUpdateProfile(username) {    
     updateProfile(auth.currentUser, {
             displayName: username,
@@ -97,7 +97,7 @@ export default function Account(){
         name: "",
         firstName: "",
       });
-    const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
+    const [isDarkMode] = useLocalStorage("isDarkMode",true);
 
 
     const handleSignIn = () => {
@@ -108,15 +108,16 @@ export default function Account(){
         .catch((error) => {
         });
     }
-    const handleCreateAccount = () => {
-        authCreateAccountWithEmail(email, password)
-        .then(()=>{
-            authUpdateProfile(`${name} ${firstName}`);
-        })
-        .catch((error) => {
-        });
-        
-    }
+
+    const handleCreateAccount = async () => {
+        try {
+          await authCreateAccountWithEmail(name, firstName, email, password);
+          await authUpdateProfile(`${name} ${firstName}`);
+          console.log("Account created and user data added to Firestore!");
+        } catch (error) {
+          console.error("Error creating account:", error);
+        }
+      };
     const handleSubmit = async (e)=>{
         e.preventDefault()
     }
@@ -133,6 +134,10 @@ export default function Account(){
         });
         return () => unsubscribe();
     }, [isLoggedIn]);
+    
+    useEffect(() => {
+        document.body.style.backgroundColor = isDarkMode ? "var(--wall-background-color)" : "var(--light-box-background-color)"; // Use CSS variables for customization
+    }, [isDarkMode]);
 
     return(
         <main className="account-main-login" data-theme={isDarkMode ? "dark" : "light"}>
