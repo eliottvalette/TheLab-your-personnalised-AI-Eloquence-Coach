@@ -53,12 +53,18 @@ export function Inputs({id, name, label, onChange}) {
 
 async function saveResponse(response){
   try {
+    let mail
+    if (auth.currentUser){
+      mail = auth.currentUser.email
+    }else{
+      mail = "Unknown user"
+    }
     const userData = {
-      email: auth.currentUser.email,
+      email: mail,
       Mode : "freeAnalysis",
       MistResponse: response,  
     };
-    await addDoc(collection(db, "users"), userData);
+    await addDoc(collection(db, "responses"), userData);
   } catch (error) {
       console.error("Error creating account:", error);
   } 
@@ -91,9 +97,9 @@ export default function FreeAnalysis() {
       aim: aim,
       support: await extractText(support)
     });
+    console.log("MistResponse : " + MistResponse)
     setIsLoading(false)
     saveResponse(MistResponse)
-    console.log("MistResponse : " + MistResponse)
     document.getElementById('response-container').innerHTML = MistResponse;
     document.getElementById('response-container').style.display = 'block'
   };

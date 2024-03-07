@@ -18,6 +18,7 @@ import Card from './components/Cards.jsx'
 
 import { initializeApp, getApp }  from "firebase/app"
 import { getAuth } from "firebase/auth"
+import { getFirestore, collection, addDoc } from "firebase/firestore"
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 import CircleLoader from "react-spinners/CircleLoader";
@@ -33,6 +34,7 @@ const firebaseConfig = {
   // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app)
 const firebaseApp = getApp();
 const modelStorage = getStorage(firebaseApp, "gs://thelab-d1229.appspot.com");
 const modelImgRef = ref(modelStorage, 'model-images/');
@@ -80,14 +82,21 @@ export function Models({category, modelChosen, setModelChosen , setModelStyle}) 
   );
 }
 
-async function saveResponse(response){
+async function saveResponse(response,modelChosen){
   try {
+    let mail
+    if (auth.currentUser){
+      mail = auth.currentUser.email
+    }else{
+      mail = "Unknown user"
+    }
     const userData = {
-      email: auth.currentUser.email,
-      Mode : "freeAnalysis",
+      email: mail,
+      modelChosen: modelChosen,
+      Mode: "TheLab",
       MistResponse: response,  
     };
-    await addDoc(collection(db, "users"), userData);
+    await addDoc(collection(db, "responses"), userData);
   } catch (error) {
       console.error("Error creating account:", error);
   } 
@@ -113,18 +122,17 @@ export default function TheLab() {
       maxTokens: 3000,
       userPrompt: await whisperApi(audiofile),
     });
-      setIsLoading(false)
-      saveResponse(MistResponse)
       MistResponse = DOMPurify.sanitize(MistResponse);
-      document.getElementById('response-container').innerHTML = MistResponse
-      console.log(`MistralAi Response : \n ${MistResponse}`)
-      document.getElementById('response-container').style.display = 'block'
+      console.log(`MistralAi Response : \n ${MistResponse}`);
+      setIsLoading(false);
+      saveResponse(MistResponse,modelChosen);
+      document.getElementById('response-container').innerHTML = MistResponse;
+      document.getElementById('response-container').style.display = 'block';
     }else{
       const MistResponse = 'Veuillez selectionner un modèle'
       document.getElementById('response-container').innerHTML = MistResponse;
       document.getElementById('response-container').style.display = 'block'
     }
-
     
   };
 
