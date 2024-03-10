@@ -5,13 +5,6 @@
   padding: 2rem;
   text-align: center;
 }
-:root{
-  --box-background-color: rgb(249, 249, 200);
-  --light-box-background-color: rgb(249, 249, 229);
-  --wall-background-color: rgb(29, 29, 29);
-  --font-color: #000;
-  --border-color: rgb(76, 76, 62)
-}
 
 :root{
   --box-background-color: rgb(249, 249, 200);
