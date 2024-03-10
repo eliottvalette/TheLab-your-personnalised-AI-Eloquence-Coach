@@ -140,10 +140,11 @@ const medecinsCards = [
     },
     {
         id: 22,
-        name: "Jean-Charles Soria",
+        name: "Fabrice Barlési",
         description: "Professeur oncologue, directeur général de Gustave Roussy",
-        coverImg: "jean-charles-soria.jpeg",
-        style:` style du Professeur oncologue, directeur général de Gustave Roussy, Jean-Charles Soria `
+        coverImg: "fabrice-barlesi.jpg",
+        style: "style du Professeur oncologue, directeur général de Gustave Roussy, Fabrice Barlési "
+        
     },
     {
         id: 23,
@@ -158,7 +159,15 @@ const medecinsCards = [
         description: "Médecin et homme politique français, ancien directeur général de l'AP-HP",
         coverImg: "martin-hirsch.jpg",
         style:"style du Président de l'Agence du service civique, d'Emmaüs France et de l'Agence nouvelle des solidarités actives"
+    },
+    {
+        id:25,
+        name: "Jean-Charles Soria",
+        description: "Professeur oncologue, directeur de Amgen Monde",
+        coverImg: "jean-charles-soria.jpeg",
+        style:` style du professeur oncologue, directeur de Amgen Monde, Jean-Charles Soria `
     }
+
 ]
 
 const data = [

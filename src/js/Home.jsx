@@ -68,8 +68,8 @@ export default function Home(){
             <main className="home-main-about">
                 <h1 className="home-h1">Deux modes à disposition :</h1>
                 <div className="home-div-about">
-                    <p className="home-analysis"><strong className="home-h2">Le mode Analyse</strong><br/>A partir du fichier audio de votre prise de parole et éventuellement votre support, une IA vous produit une analyse détaillée, personnalisée sur votre prise de parole. En effet grace aux multiples précisions, le résultat sera au plus proche de vos attentes</p>
-                    <p className="home-lab"><strong className="home-h2">The Lab</strong><br/>Vous avez sans doute un orateur favoris, que vous tentez d'imiter mais le jour-j vous ne parvenez pas a égaler son talent. Grace à the Lab c'est possible, sélectionner votre orateur parmi ceux disponible au soummetez le votre, et l'IA vous guidera pas à pas pour qu'un jour peut-être, l'élève dépasse le maître</p>
+                    <p className="home-analysis"><strong className="home-h2">Le mode Analyse</strong><br/>A partir du fichier audio de votre prise de parole et éventuellement votre support, une IA vous produit une analyse détaillée, personnalisée sur votre prise de parole. En effet grace aux multiples précisions, le résultat sera au plus proche de vos attentes.</p>
+                    <p className="home-lab"><strong className="home-h2">The Lab</strong><br/>Vous avez sans doute un orateur favoris, que vous tentez d'imiter mais le jour-j vous ne parvenez pas à égaler son talent. Grace à the Lab c'est possible, sélectionner votre orateur parmi ceux disponible au soummetez le votre, et l'IA vous guidera pas à pas pour qu'un jour peut-être, l'élève dépasse le maître.</p>
                 </div>
                 <button className="home-about-btn home-btn" id="home-about" onClick={handleClickAbout}>Revenir à l'accueil</button>
             </main>
