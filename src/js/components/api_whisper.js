@@ -11,13 +11,13 @@ const status = ['Waiting','in-progress','Terminated']
 
 const isExpensive=true
 
-export default async function whisperApi(audio_file) {
+export default async function whisperApi(audio_file,langue) {
   console.log(`WhisperApi status: ${status[1]} \n`)
    try{
      const completion = await openai.audio.transcriptions.create({
      file: audio_file,
      model: "whisper-1",
-     language: "fr"
+     language:{langue},
    });
      console.log(`WhisperApi status : ${status[2]} \n ` )
      console.log(`\nTranscritption vocale : \n ${completion.text}\n`);

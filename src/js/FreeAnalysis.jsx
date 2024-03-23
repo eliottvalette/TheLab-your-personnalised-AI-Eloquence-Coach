@@ -2,7 +2,7 @@
 // Le module FreeAnalysis est un des 2 modes a disposition. 
 // L'utilisateur peut ici soummetre le fichier audio de sa prise de parole ainsi que son support pdf. Il est ensuite invité à préciser le contexte de ceux-ci.
 // Le fichier audio est envoyé a l'api whisper pour un speech to text, le tout est ensuite envoyé a l'api mistral pour un compte rendu détaillé
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 import useLocalStorage from "use-local-storage"
 
@@ -77,6 +77,8 @@ export default function FreeAnalysis() {
   const [publicValue, setPublicValue] = useState('');
   const [aim, setAim] = useState('');
   const [audiofile, setAudiofile]= useState('');
+  const [langue, setLangue]= useState('fr');
+  const languageBtnRef = useRef(null);
   const [support, setSupport]= useState('');
   const [isLoading, setIsLoading] = useState(false)
   const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
@@ -88,14 +90,15 @@ export default function FreeAnalysis() {
   const launchAnalysis = async () => {
     setIsLoading(true)
     const MistResponse = await freeApi({
-      userPrompt: await whisperApi(audiofile),
+      userPrompt: await whisperApi(audiofile,langue),
       mistralModel: 2,
       maxTokens: 3000,
       who: who,
       context: context,
       audience: publicValue,
       aim: aim,
-      support: await extractText(support)
+      support: await extractText(support),
+      language: langue,
     });
     console.log("MistResponse : " + MistResponse)
     setIsLoading(false)
@@ -113,12 +116,41 @@ export default function FreeAnalysis() {
     document.body.style.backgroundColor = isDarkMode ? "var(--wall-background-color)" : "var(--light-box-background-color)"; // Use CSS variables for customization
   }, [isDarkMode]);
 
+  useEffect(() => {
+    const handleFocus = () => {
+      if (languageBtnRef.current) {
+        languageBtnRef.current.focus();
+      }
+    };
+    handleFocus();
+  }, []);
+
+  console.log("langue : " + langue)
+
   return (
     
     <main className='free-main' data-theme={isDarkMode ? "dark" : "light"}>
       
       <h1 className='free-h1'>Analyse Libre</h1>
       <form className="free-form" action="" method="post" encType="multipart/form-data" id="baseForm" onSubmit={handleSubmit}>
+        <div className='free-language'>
+          <button
+            ref={langue === 'fr' ? languageBtnRef : null}
+            className={`free-language-btn free-btn ${langue === 'fr' ? 'focus' : ''}`}
+            id='french'
+            onClick={() => setLangue('fr')}
+          >
+            Français
+          </button>
+          <button
+            ref={langue === 'en' ? languageBtnRef : null}
+            className={`free-language-btn free-btn ${langue === 'en' ? 'focus' : ''}`}
+            id='english'
+            onClick={() => setLangue('en')}
+          >
+            Anglais
+          </button>
+        </div>
         <div className="form-input-files">
           <label htmlFor="fichier-el" className="free-label file-label" id ='fichier-label-el'>
               <span className="custom-file-upload" id="custom-file-upload">Inserez votre fichier audio<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>

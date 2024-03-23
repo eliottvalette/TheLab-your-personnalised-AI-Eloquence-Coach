@@ -126,6 +126,12 @@ body {
   cursor: pointer;
 }
 
+.free-language{
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
 .form-input-files{
   display: flex;
@@ -169,4 +175,16 @@ body {
   display: flex;
   justify-content: center;
   padding : 10px 20px 10px 20px;
+}
+
+.free-language-btn {
+  opacity: 0.5;
+}
+
+.free-language-btn.focus {
+  opacity: 1;
+}
+
+.free-language-btn:focus {
+  opacity: 1;
 }

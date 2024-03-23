@@ -2,7 +2,7 @@
 // Le module TheLab est le deuxième mode a disposition. 
 // L'utilisateur peut ici aussi soummetre le fichier audio de sa prise de parole ainsi que son support pdf. 
 // Mais l'interet particulier de ce mode et le choix d'un orateur modèle (présent sur les cartes). Le fichier audio est envoyé a l'api whisper pour un speech to text, le tout est ensuite envoyé a l'api mistral pour aider l'utilisateur a perfectionner son discours en suivant les pas de l'orateur choisit.
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import PropTypes from "prop-types";
 import DOMPurify from 'dompurify';
@@ -105,9 +105,12 @@ async function saveResponse(response,modelChosen){
 export default function TheLab() {
     
   const [audiofile, setAudiofile]= useState('');
+  const [langue, setLangue]= useState('fr');
+  const languageBtnRef = useRef(null);
   const [category, setCategory] = useState("Politiques");
   const [modelChosen, setModelChosen] = useState(null);
   const [modelStyle, setModelStyle] = useState(null);
+  const [support, setSupport]= useState('');
   const [isLoading, setIsLoading] = useState(false)
   const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
 
@@ -120,7 +123,9 @@ export default function TheLab() {
       modelStyle: modelStyle,
       mistralModel: 2,
       maxTokens: 3000,
-      userPrompt: await whisperApi(audiofile),
+      userPrompt: await whisperApi(audiofile,langue),
+      language: langue,
+      support: support,
     });
       MistResponse = DOMPurify.sanitize(MistResponse);
       console.log(`MistralAi Response : \n ${MistResponse}`);
@@ -145,6 +150,17 @@ export default function TheLab() {
     document.getElementById(labelId).innerHTML = `<span class="custom-${id}-upload" id="custom-${id}-upload">${fileName}<ion-icon name=${icon}></ion-icon></span>`;
   };
 
+  useEffect(() => {
+    const handleFocus = () => {
+      if (languageBtnRef.current) {
+        languageBtnRef.current.focus();
+      }
+    };
+    handleFocus();
+  }, []);
+
+  console.log("langue : " + langue)
+
   return (
   <main id="lab-main" data-theme={isDarkMode ? "dark" : "light"} >
     <h1 className='lab-h1'>The Lab</h1>
@@ -165,14 +181,31 @@ export default function TheLab() {
       setModelChosen={setModelChosen}
       setModelStyle={setModelStyle}/>
     </div>
+    <h2 className='lab-h2'>Votre présentation</h2>
+    <div className='lab-language'>
+      <button
+        ref={langue === 'fr' ? languageBtnRef : null}
+        className={`lab-language-btn lab-btn ${langue === 'fr' ? 'focus' : ''}`}
+        id='french'
+        onClick={() => setLangue('fr')}
+      >
+        Français
+      </button>
+      <button
+        ref={langue === 'en' ? languageBtnRef : null}
+        className={`lab-language-btn lab-btn ${langue === 'en' ? 'focus' : ''}`}
+        id='english'
+        onClick={() => setLangue('en')}
+      >
+        Anglais
+      </button>
+    </div>
     <form className="formBase" action="" method="post" encType="multipart/form-data" id="baseForm">
-      <h2 className='lab-h2'>Votre présentation</h2>
-      
       <input type="file" className="lab-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} onChange={(e) => { setAudiofile(e.target.files[0]); aestheticFileChange(e, 'fichier-label-el',"file","mic") }}/>
       <label htmlFor="fichier-el" className="lab-label" id ='fichier-label-el'>
           <span className="custom-file-upload" id="custom-file-upload">Inserez votre fichier audio<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
       </label>
-      <input type="file" className="lab-input" name="fichier-model-el" id="fichier-model-el" style={{ display: 'none' }} onChange={(e) => {aestheticFileChange(e, 'fichier-model-label-el',"file-model","mic") }}/>
+      <input type="file" className="lab-input" name="fichier-model-el" id="fichier-model-el" style={{ display: 'none' }} onChange={(e) => {setSupport(e.target.files[0]);aestheticFileChange(e, 'fichier-model-label-el',"file-model","mic") }}/>
       <label htmlFor="fichier-model-el" className="lab-label" id ='fichier-model-label-el'>
           <span className="custom-file-model-upload" id="custom-file-model-upload">(Facultatif) Inserez l'extrait d'un discours de votre modèle<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
       </label>       
@@ -199,4 +232,3 @@ export default function TheLab() {
 
 
 )};
-
