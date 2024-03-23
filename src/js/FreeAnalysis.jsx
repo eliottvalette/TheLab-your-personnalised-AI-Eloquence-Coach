@@ -79,7 +79,7 @@ export default function FreeAnalysis() {
   const [audiofile, setAudiofile]= useState('');
   const [langue, setLangue]= useState('fr');
   const languageBtnRef = useRef(null);
-  const [support, setSupport]= useState('');
+  const [support, setSupport]= useState('support not submited');
   const [isLoading, setIsLoading] = useState(false)
   const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
 

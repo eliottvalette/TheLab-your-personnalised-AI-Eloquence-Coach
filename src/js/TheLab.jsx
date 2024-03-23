@@ -110,7 +110,7 @@ export default function TheLab() {
   const [category, setCategory] = useState("Politiques");
   const [modelChosen, setModelChosen] = useState(null);
   const [modelStyle, setModelStyle] = useState(null);
-  const [support, setSupport]= useState('');
+  const [support, setSupport]= useState('Support not submited');
   const [isLoading, setIsLoading] = useState(false)
   const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
 
