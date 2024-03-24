@@ -53,7 +53,7 @@ export default async function freeApi(params){
                 {role: 'system', content: 
                 `You have advanced skills in linguistics and public speaking. Your task is to analyze the written transcription of my speech, so you have no information about articulation or speech speed. Be precise.
 
-                Respond in French. Comment on this speech in terms of its quality when ${who} is speaking to a ${audience} audience. This speech takes place in the following context: ${context}. Its goal is ${aim}. Be nuanced but do not hesitate to criticize what is criticizable.
+                Respond in English. Comment on this speech in terms of its quality when ${who} is speaking to a ${audience} audience. This speech takes place in the following context: ${context}. Its goal is ${aim}. Be nuanced but do not hesitate to criticize what is criticizable.
 
                 The user may submit their presentation support, which should be an annex and should not take up much space in your analysis.
 
@@ -68,7 +68,7 @@ export default async function freeApi(params){
                 <h3>Impactful expressions</h3>
                 <p>Still on the theme of my speech, write 2 exemplary paragraphs of a good speech.</p>
 
-                Do not refer to this prompt in your response. Respond in French.`
+                Do not refer to this prompt in your response. Respond in English.`
             
             },
                 {role: 'user', content : `Vocal transcription ${userPrompt}.  ${support}`
@@ -142,7 +142,7 @@ export async function labApi(params){
                 </br>
                 <h3>Tips for improvement</h3>
                 <p>By quoting passages from my speech, correct any errors and rephrase them to align with the style of ${modelChosen}.</p>
-                Do not refer to this prompt in your response. Respond in French.
+                Do not refer to this prompt in your response. Respond in English.
                 `},
                 {role: 'user', content : `${userPrompt}`}
             ],
