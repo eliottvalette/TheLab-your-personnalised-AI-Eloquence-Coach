@@ -25,4 +25,4 @@ Contribution
 Les contributions à ce projet sont les bienvenues. Si vous souhaitez proposer des améliorations ou des correctifs, veuillez ouvrir une issue pour discuter des changements que vous souhaitez apporter.
 
 Auteurs
-Ce projet a été développé par [votre nom ici]. Pour toute question ou commentaire, n'hésitez pas à nous contacter.
+Ce projet a été développé par Eliott VALETTE. Pour toute question ou commentaire, n'hésitez pas à nous contacter.
