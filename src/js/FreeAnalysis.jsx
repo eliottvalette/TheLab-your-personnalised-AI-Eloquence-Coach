@@ -1,3 +1,11 @@
+// Laboratoire/src/FreeAnalysis.jsx 
+// Le module FreeAnalysis est un des 2 modes a disposition. 
+// L'utilisateur peut ici soummetre le fichier audio de sa prise de parole ainsi que son support pdf. Il est ensuite invité à préciser le contexte de ceux-ci.
+// Le fichier audio est envoyé a l'api whisper pour un speech to text, le tout est ensuite envoyé a l'api mistral pour un compte rendu détaillé
+import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from "prop-types";
+import useLocalStorage from "use-local-storage"
+
 import '../css/freeAnalysis.css';
 import whisperApi from './components/api_whisper.js';
 import freeApi from './components/api_mistral.js';
