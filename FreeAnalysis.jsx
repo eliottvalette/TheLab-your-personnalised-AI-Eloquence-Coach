@@ -38,40 +38,22 @@ export default function FreeAnalysis() {
   const [support, setSupport]= useState('');
 
   const launchAnalysis = async () => {
-      const audioTranscription = await whisperApi(audiofile);
-      
-      let supportText = '';
-      if (support) {
-          supportText = await extractText(support);
-      }
-
-      const mistResponse = await freeApi({
-          userPrompt: audioTranscription,
-          mistralModel: 0,
-          maxTokens: 5000,
-          who: who,
-          context: context,
-          audience: publicValue,
-          aim: aim,
-          support: supportText
-      });
-      
-      document.getElementById('response-container').innerHTML = 
-          `<strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>
-          <strong>Mistral Response:</strong> ${mistResponse}`;
-      document.getElementById('response-container').style.display = 'block';
+    const audioTranscription = await whisperApi(audiofile);
+    const mistResponse = await freeApi({
+        userPrompt: audioTranscription,
+        mistralModel: 0,
+        maxTokens: 5000,
+        who: who,
+        context: context,
+        audience: publicValue,
+        aim: aim,
+        support: await extractText(support)
+    });
+    document.getElementById('response-container').innerHTML = 
+        `<strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>
+         <strong>Mistral Response:</strong> ${mistResponse}`;
+    document.getElementById('response-container').style.display = 'block';
   };
-
-  const handleFileChange = (e, setFileState) => {
-    const file = e.target.files[0];
-    if (file instanceof Blob) {
-        setFileState(file);
-    } else {
-        console.error('Selected file is not of type Blob');
-    }
-};
-
-
 
   const aestheticFileChange = (e, labelId, id , icon) => {
     const fileName = e.target.value.split('\\').pop().split('.')[0];
@@ -88,24 +70,15 @@ export default function FreeAnalysis() {
           <label htmlFor="fichier-el" className="free-label" id ='fichier-label-el'>
               <span className="custom-file-upload" id="custom-file-upload">Inserez votre fichier audio<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
           </label>
-          <input type="file" className="free-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} 
-              onChange={(e) => {
-                  handleFileChange(e, setAudiofile);
-                  aestheticFileChange(e, 'fichier-label-el', "file", "mic");
-              }}
-          />          
+          <input type="file" className="free-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} onChange={(e) => {setAudiofile(e.target.files[0]); aestheticFileChange(e, 'fichier-label-el',"file","mic") }}/>
+          
           <label htmlFor="support-el" className="free-label" id='support-label-el'>
               <span className="custom-support-upload" id="custom-support-upload">
                   (Optional) Inserez votre support de présentation
                   <ion-icon name="document-outline" id="support-uploading-el"></ion-icon>
               </span>
           </label>
-          <input type="file" className="free-input" name="support-el" id="support-el" style={{ display: 'none' }} accept="application/pdf" 
-              onChange={(e) => {
-                  handleFileChange(e, setSupport);
-                  aestheticFileChange(e, 'support-label-el', "support", "document");
-              }}
-          />
+          <input type="file" className="free-input" name="support-el" id="support-el" style={{ display: 'none' }} accept = "application/pdf" onChange={(e) => {setSupport(e.target.files[0]); aestheticFileChange(e, 'support-label-el',"support","document") }}/>
         </div>
         <div className="form-input-context">
           <Inputs
