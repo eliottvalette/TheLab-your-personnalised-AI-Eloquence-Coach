@@ -47,7 +47,7 @@ export default function FreeAnalysis() {
         context: context,
         audience: publicValue,
         aim: aim,
-        support: await extractText(support)
+        // support: await extractText(support)
     });
     document.getElementById('response-container').innerHTML = 
         `<strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>
