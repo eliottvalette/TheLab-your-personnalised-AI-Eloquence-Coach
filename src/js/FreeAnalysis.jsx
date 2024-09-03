@@ -87,27 +87,40 @@ export default function FreeAnalysis() {
     e.preventDefault()
 }
 
-  const launchAnalysis = async () => {
-      setIsLoading(true)
-      const MistResponse = await freeApi({
-        userPrompt: await whisperApi(audiofile,langue),
+const launchAnalysis = async () => {
+    setIsLoading(true);
+    
+    // Get the transcription of the audio file using whisperApi
+    const audioTranscription = await whisperApi(audiofile, langue);
+
+    // Check if a support file is provided and extract text if available
+    let supportText = '';
+    if (support) {
+        supportText = await extractText(support);
+    }
+
+    // Make the API call with the extracted text (if available) or an empty string
+    const MistResponse = await freeApi({
+        userPrompt: audioTranscription,
         mistralModel: 2,
         maxTokens: 3000,
         who: who,
         context: context,
         audience: publicValue,
         aim: aim,
-        support: await extractText(support),
+        support: supportText,  // Use extracted text or empty string
         language: langue,
-      });
-      console.log("MistResponse : " + MistResponse)
-      setIsLoading(false)
-      saveResponse(MistResponse)
-      document.getElementById('response-container').innerHTML = 
-          `<strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>
-           <strong>Mistral Response:</strong> ${mistResponse}`;
-      document.getElementById('response-container').style.display = 'block';
-  };
+    });
+
+    console.log("MistResponse : " + MistResponse);
+    setIsLoading(false);
+    saveResponse(MistResponse);
+    document.getElementById('response-container').innerHTML = 
+        `<strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>
+         <strong>Mistral Response:</strong> ${MistResponse}`;
+    document.getElementById('response-container').style.display = 'block';
+};
+
 
   const aestheticFileChange = (e, labelId, id , icon) => {
     const fileName = e.target.value.split('\\').pop().split('.')[0];
