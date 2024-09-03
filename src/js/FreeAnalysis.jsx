@@ -38,43 +38,26 @@ export default function FreeAnalysis() {
   const [support, setSupport]= useState('');
 
   const launchAnalysis = async () => {
-    try {
-        // Get the transcription of the audio file using whisperApi
-        const audioTranscription = await whisperApi(audiofile);
-
-        // Check if a support file is provided and extract text if available
-        let supportText = '';
-        if (support) {
-            supportText = await extractText(support);
-        }
-
-        // Use the transcription and support text (if available) to get the detailed response from the Mistral API
-        const mistResponse = await freeApi({
-            userPrompt: audioTranscription,
-            mistralModel: 0,
-            maxTokens: 5000,
-            who: who,
-            context: context,
-            audience: publicValue,
-            aim: aim,
-            support: supportText // This will be an empty string if no support is provided
-        });
-
-        // Update the response container to show both the transcription and Mistral response
-        document.getElementById('response-container').innerHTML = 
-            `<strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>
-             <strong>Mistral Response:</strong> ${mistResponse}`;
-        document.getElementById('response-container').style.display = 'block';
-    } catch (error) {
-        console.error('Error in launchAnalysis:', error);
-        document.getElementById('response-container').innerHTML = "An error occurred during analysis. Please try again.";
-        document.getElementById('response-container').style.display = 'block';
-    }
+    const audioTranscription = await whisperApi(audiofile);
+    const mistResponse = await freeApi({
+        userPrompt: audioTranscription,
+        mistralModel: 0,
+        maxTokens: 5000,
+        who: who,
+        context: context,
+        audience: publicValue,
+        aim: aim,
+        support: await extractText(support)
+    });
+    document.getElementById('response-container').innerHTML = 
+        <strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>
+         <strong>Mistral Response:</strong> ${mistResponse};
+    document.getElementById('response-container').style.display = 'block';
   };
 
   const aestheticFileChange = (e, labelId, id , icon) => {
     const fileName = e.target.value.split('\\').pop().split('.')[0];
-    document.getElementById(labelId).innerHTML = `<span class="custom-${id}-upload" id="custom-${id}-upload">${fileName}<ion-icon name=${icon}></ion-icon></span>`;
+    document.getElementById(labelId).innerHTML = <span class="custom-${id}-upload" id="custom-${id}-upload">${fileName}<ion-icon name=${icon}></ion-icon></span>;
   };
 
   return (
