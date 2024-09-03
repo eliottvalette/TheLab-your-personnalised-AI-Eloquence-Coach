@@ -1,10 +1,6 @@
-// Laboratoire/src/FreeAnalysis.jsx 
-// Le module FreeAnalysis est un des 2 modes a disposition. 
-// L'utilisateur peut ici soummetre le fichier audio de sa prise de parole ainsi que son support pdf. Il est ensuite invité à préciser le contexte de ceux-ci.
-// Le fichier audio est envoyé a l'api whisper pour un speech to text, le tout est ensuite envoyé a l'api mistral pour un compte rendu détaillé
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import useLocalStorage from "use-local-storage"
+import useLocalStorage from "use-local-storage";
 
 import '../css/freeAnalysis.css';
 import whisperApi from './components/api_whisper.js';
@@ -12,8 +8,8 @@ import freeApi from './components/api_mistral.js';
 import { extractText } from './components/pdf_reader.js';
 
 import { initializeApp, getApp } from "firebase/app";
-import { getAuth } from "firebase/auth"
-import { getFirestore, collection, addDoc } from "firebase/firestore"
+import { getAuth } from "firebase/auth";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 import CircleLoader from "react-spinners/CircleLoader";
 
@@ -28,106 +24,99 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const firebaseApp = getApp();
 const auth = getAuth(app);
-const db = getFirestore(app)
+const db = getFirestore(app);
 
 Inputs.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  onChange : PropTypes.func
+  onChange: PropTypes.func
 };
 
-export function Inputs({id, name, label, onChange}) {
+export function Inputs({ id, name, label, onChange }) {
   return (
-    <input 
-      type="text" 
-      className ={name} 
-      name={name} 
-      id={id} 
+    <input
+      type="text"
+      className={name}
+      name={name}
+      id={id}
       placeholder={label}
       onChange={onChange}
     />
-  )
+  );
 }
 
-async function saveResponse(response){
+async function saveResponse(response) {
   try {
-    let mail
-    if (auth.currentUser){
-      mail = auth.currentUser.email
-    }else{
-      mail = "Unknown user"
-    }
+    let mail = auth.currentUser ? auth.currentUser.email : "Unknown user";
     const userData = {
       email: mail,
-      Mode : "freeAnalysis",
-      MistResponse: response,  
+      Mode: "freeAnalysis",
+      MistResponse: response,
     };
     await addDoc(collection(db, "responses"), userData);
   } catch (error) {
-      console.error("Error creating account:", error);
-  } 
+    console.error("Error saving response:", error);
+  }
 }
 
 export default function FreeAnalysis() {
-  
   const [who, setWho] = useState('');
   const [context, setContext] = useState('');
   const [publicValue, setPublicValue] = useState('');
   const [aim, setAim] = useState('');
-  const [audiofile, setAudiofile]= useState('');
-  const [langue, setLangue]= useState('fr');
+  const [audiofile, setAudiofile] = useState(null);  // Initialize as null
+  const [langue, setLangue] = useState('fr');
   const languageBtnRef = useRef(null);
-  const [support, setSupport]= useState('support not submited');
-  const [isLoading, setIsLoading] = useState(false)
-  const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
+  const [support, setSupport] = useState(null);  // Initialize as null
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode", true);
 
-  const handleSubmit = async (e)=>{
-    e.preventDefault()
-}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
 
-const launchAnalysis = async () => {
+  const launchAnalysis = async () => {
     setIsLoading(true);
-    
+
     // Get the transcription of the audio file using whisperApi
     const audioTranscription = await whisperApi(audiofile, langue);
 
     // Check if a support file is provided and extract text if available
     let supportText = '';
     if (support && support instanceof Blob) {
-        supportText = await extractText(support);
+      supportText = await extractText(support);
     }
 
     // Make the API call with the extracted text (if available) or an empty string
     const MistResponse = await freeApi({
-        userPrompt: audioTranscription,
-        mistralModel: 2,
-        maxTokens: 3000,
-        who: who,
-        context: context,
-        audience: publicValue,
-        aim: aim,
-        support: supportText,  // Use extracted text or empty string
-        language: langue,
+      userPrompt: audioTranscription,
+      mistralModel: 2,
+      maxTokens: 3000,
+      who: who,
+      context: context,
+      audience: publicValue,
+      aim: aim,
+      support: supportText,  // Use extracted text or empty string
+      language: langue,
     });
 
-    console.log("MistResponse : " + MistResponse);
+    console.log("MistResponse:", MistResponse);
     setIsLoading(false);
     saveResponse(MistResponse);
-    document.getElementById('response-container').innerHTML = 
-        <strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>
-         <strong>Mistral Response:</strong> ${MistResponse};
+    document.getElementById('response-container').innerHTML =
+      `<strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>
+       <strong>Mistral Response:</strong> ${MistResponse}`;
     document.getElementById('response-container').style.display = 'block';
-};
+  };
 
-
-  const aestheticFileChange = (e, labelId, id , icon) => {
+  const aestheticFileChange = (e, labelId, id, icon) => {
     const fileName = e.target.value.split('\\').pop().split('.')[0];
-    document.getElementById(labelId).innerHTML = <span class="custom-${id}-upload" id="custom-${id}-upload">${fileName}<ion-icon name=${icon}></ion-icon></span>;
+    document.getElementById(labelId).innerHTML = `<span class="custom-${id}-upload" id="custom-${id}-upload">${fileName}<ion-icon name="${icon}"></ion-icon></span>`;
   };
 
   useEffect(() => {
-    document.body.style.backgroundColor = isDarkMode ? "var(--wall-background-color)" : "var(--light-box-background-color)"; // Use CSS variables for customization
+    document.body.style.backgroundColor = isDarkMode ? "var(--wall-background-color)" : "var(--light-box-background-color)";
   }, [isDarkMode]);
 
   useEffect(() => {
@@ -139,18 +128,16 @@ const launchAnalysis = async () => {
     handleFocus();
   }, []);
 
-  console.log("langue : " + langue)
+  console.log("langue:", langue);
 
   return (
-    
     <main className='free-main' data-theme={isDarkMode ? "dark" : "light"}>
-      
       <h1 className='free-h1'>Analyse Libre</h1>
       <form className="free-form" action="" method="post" encType="multipart/form-data" id="baseForm" onSubmit={handleSubmit}>
         <div className='free-language'>
           <button
             ref={langue === 'fr' ? languageBtnRef : null}
-            className={free-language-btn free-btn ${langue === 'fr' ? 'focus' : ''}}
+            className={`free-language-btn free-btn ${langue === 'fr' ? 'focus' : ''}`}
             id='french'
             onClick={() => setLangue('fr')}
           >
@@ -158,7 +145,7 @@ const launchAnalysis = async () => {
           </button>
           <button
             ref={langue === 'en' ? languageBtnRef : null}
-            className={free-language-btn free-btn ${langue === 'en' ? 'focus' : ''}}
+            className={`free-language-btn free-btn ${langue === 'en' ? 'focus' : ''}`}
             id='english'
             onClick={() => setLangue('en')}
           >
@@ -166,20 +153,19 @@ const launchAnalysis = async () => {
           </button>
         </div>
         <div className="form-input-files">
-          <label htmlFor="fichier-el" className="free-label file-label" id ='fichier-label-el'>
-              <span className="custom-file-upload" id="custom-file-upload">Inserez votre fichier audio<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
+          <label htmlFor="fichier-el" className="free-label file-label" id='fichier-label-el'>
+            <span className="custom-file-upload" id="custom-file-upload">Inserez votre fichier audio<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
           </label>
-          <input type="file" className="free-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} onChange={(e) => {setAudiofile(e.target.files[0]); aestheticFileChange(e, 'fichier-label-el',"file","mic") }}/>
-          
-          <label htmlFor="support-el" className="free-label file-label" id ='support-label-el'>
-              <span className="custom-support-upload" id="custom-support-upload">(Recommandé) Inserez votre support de présentation<ion-icon name="document-outline" id="support-uploading-el"></ion-icon></span>
+          <input type="file" className="free-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} onChange={(e) => { setAudiofile(e.target.files[0]); aestheticFileChange(e, 'fichier-label-el', "file", "mic"); }} />
+
+          <label htmlFor="support-el" className="free-label file-label" id='support-label-el'>
+            <span className="custom-support-upload" id="custom-support-upload">(Recommandé) Inserez votre support de présentation<ion-icon name="document-outline" id="support-uploading-el"></ion-icon></span>
           </label>
-          <input type="file" className="free-input" name="support-el" id="support-el" style={{ display: 'none' }} accept = "application/pdf" onChange={(e) => {setSupport(e.target.files[0]); aestheticFileChange(e, 'support-label-el',"support","document") }}/>
+          <input type="file" className="free-input" name="support-el" id="support-el" style={{ display: 'none' }} accept="application/pdf" onChange={(e) => { setSupport(e.target.files[0]); aestheticFileChange(e, 'support-label-el', "support", "document"); }} />
         </div>
         <div className="form-input-context">
-
-          <label id="who-label" htmlFor="who-el free-input" className="free-label" >
-            Qui êtes vous ? 
+          <label id="who-label" htmlFor="who-el free-input" className="free-label">
+            Qui êtes vous ?
           </label>
           <Inputs
             id="who"
@@ -188,18 +174,18 @@ const launchAnalysis = async () => {
             onChange={(e) => setWho(e.target.value)}
           />
 
-          <label id="context-label" htmlFor="context-el free-input" className="free-label" >
-            Contexte 
+          <label id="context-label" htmlFor="context-el free-input" className="free-label">
+            Contexte
           </label>
           <Inputs
             id="context"
             name="context-el free-input"
-            label="Congrès francais de ... "
+            label="Congrès francais de ..."
             onChange={(e) => setContext(e.target.value)}
           />
-          
-          <label id="public-label" htmlFor="public-el free-input" className="free-label" >
-            Public 
+
+          <label id="public-label" htmlFor="public-el free-input" className="free-label">
+            Public
           </label>
           <Inputs
             id="public"
@@ -207,9 +193,9 @@ const launchAnalysis = async () => {
             label="Un public de chercheurs ..."
             onChange={(e) => setPublicValue(e.target.value)}
           />
-          
-          <label id="aim-label" htmlFor="aim-el free-input" className="free-label" >
-            Objectif 
+
+          <label id="aim-label" htmlFor="aim-el free-input" className="free-label">
+            Objectif
           </label>
           <Inputs
             id="aim"
@@ -217,22 +203,23 @@ const launchAnalysis = async () => {
             label="Vulgariser et transmettre les dernières avancées en ..."
             onChange={(e) => setAim(e.target.value)}
           />
-        </div>        
+        </div>
         <button type="button" className="launchbtn free-btn" id="launchbtn" onClick={launchAnalysis}>Analyse mon discours</button>
       </form>
       {isLoading ? (
         <div className='free-loading-div'>
           <h3 className='free-h3'>Chargement en cours... Veuillez ne pas quitter la page</h3>
           <div className='free-loader-div'>
-          <CircleLoader
-            color={isDarkMode ? 'rgb(249, 249, 200)' : 'rgb(29, 29, 29)'}
-            loading={isLoading}
-            size={200}
-            data-testid="loader"
-          />
+            <CircleLoader
+              color={isDarkMode ? 'rgb(249, 249, 200)' : 'rgb(29, 29, 29)'}
+              loading={isLoading}
+              size={200}
+              data-testid="loader"
+            />
+          </div>
         </div>
-        </div>):(<></>)}
-        <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
+      ) : null}
+      <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
     </main>
-  )
+  );
 }
