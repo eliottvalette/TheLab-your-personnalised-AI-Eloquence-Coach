@@ -88,23 +88,25 @@ export default function FreeAnalysis() {
 }
 
   const launchAnalysis = async () => {
-    setIsLoading(true)
-    const MistResponse = await freeApi({
-      userPrompt: await whisperApi(audiofile,langue),
-      mistralModel: 2,
-      maxTokens: 3000,
-      who: who,
-      context: context,
-      audience: publicValue,
-      aim: aim,
-      support: await extractText(support),
-      language: langue,
-    });
-    console.log("MistResponse : " + MistResponse)
-    setIsLoading(false)
-    saveResponse(MistResponse)
-    document.getElementById('response-container').innerHTML = MistResponse;
-    document.getElementById('response-container').style.display = 'block'
+      setIsLoading(true)
+      const MistResponse = await freeApi({
+        userPrompt: await whisperApi(audiofile,langue),
+        mistralModel: 2,
+        maxTokens: 3000,
+        who: who,
+        context: context,
+        audience: publicValue,
+        aim: aim,
+        support: await extractText(support),
+        language: langue,
+      });
+      console.log("MistResponse : " + MistResponse)
+      setIsLoading(false)
+      saveResponse(MistResponse)
+      document.getElementById('response-container').innerHTML = 
+          `<strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>
+           <strong>Mistral Response:</strong> ${mistResponse}`;
+      document.getElementById('response-container').style.display = 'block';
   };
 
   const aestheticFileChange = (e, labelId, id , icon) => {
