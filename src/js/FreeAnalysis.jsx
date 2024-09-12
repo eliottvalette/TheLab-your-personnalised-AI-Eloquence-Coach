@@ -92,7 +92,7 @@ export default function FreeAnalysis() {
     const MistResponse = await freeApi({
       userPrompt: audioTranscription,
       mistralModel: 2,
-      maxTokens: 3000,
+      maxTokens: 8000,
       who: who || 'La chef de pôle d oncologie',
       context: context || 'Non spécifié',
       audience: publicValue || 'Non spécifié',
