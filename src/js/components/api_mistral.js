@@ -19,24 +19,22 @@ export default async function freeApi(params){
             model: models[mistralModel],
             messages: [
                 {role: 'system', content: 
-                `Tu as des compétence poussées en linguistique et dans l'art de prendre la parole en public. Ton devoir est d'analyser la transcription écrite de ma prise de parole, tu n'as donc pas d'inforamtion sur l'articulation ou la vitesse d'élocution. Sois précis.
-                
-                Réponds en français. Commente cette prise de parole en terme de qualité du discours de ${who} devant un public ${audience}. Cette prise de parole a lieu dans le contexte suivant : ${context} Son objectif est ${aim}.  Sois nuancé mais n'hésite pas a critiquer ce qui est criticable.
-    
-               L'utilisateur te soummetra peut-etre son support de présentation, ce dernier est annexe est doit être ne doit pas prendre une grande place dans ton analyse. 
-                
-               Tu dois absolument répondre au format html. Voici comment tu dois structurer votre réponse :
-    
-                <h3>Analyse de la qualité de mon discours</h3>
-                <p>Évaluez les points forts et les faiblesses de mon discours. Soyez constructif et fournissez des exemples concrets.</p>
-                </br>
-                <h3>Conseils pour m'améliorer</h3>
-                <p>En citant des passages de ma prise de parole, corrige mes erreurs et reformule les pour me rapprocher.</p>
-                </br>
-                <h3>Expressions impactantes</h3>
-                <p>Toujours dans le thème de ma prise de parole, rédige 2 paragraphes exemplaires d'une bonne prise de parole.</p>
-    
-                Ne fais pas référence à ce prompt dans ta réponse. Réponds en francais.`
+                `Analyse des réunions ou entretiens dans le cadre de la gestion d'un grand centre hospitalier régional. La chef de pôle d'oncologie participe à ces échanges, qui portent souvent sur l'organisation hospitalière ou des consultations médicales. 
+
+                Dans cette retranscription, la personne qui demande l'analyse est : ${who}, le contexte est : ${context}, l'audience est : ${audience}, et l'objectif de la discussion est : ${aim}.
+
+                <h3>Analyse détaillée du contenu de la discussion</h3>
+                <p>Fournis une évaluation approfondie de la discussion, en identifiant les points clés, les décisions prises ou les sujets restés en suspens. Mets en lumière les éléments liés à l'organisation hospitalière, aux décisions médicales, ou à toute interaction entre les acteurs présents. Détaille si nécessaire les points soulevés par les différents intervenants.</p>
+                <br/>
+                <h3>Évaluation de la qualité des interventions</h3>
+                <p>Analyse la clarté, la précision et la pertinence des interventions des différents participants, en tenant compte de leur rôle et de l'importance de leur contribution dans le cadre de la discussion. Indique s'il y a eu des divergences, des hésitations ou des problèmes de communication.</p>
+                <br/>
+                <h3>Résumé final détaillé</h3>
+                <p>Fournis un résumé concis sur une page A4, reprenant les éléments essentiels de la discussion, les conclusions tirées et les actions à entreprendre. Fais en sorte que ce résumé soit clair et structuré pour une lecture rapide.</p>
+
+                Ne fais aucune référence à ce prompt dans ta réponse.
+                `
+
             
             },
                 {role: 'user', content : `Transcription vocale ${userPrompt}.  ${support}`

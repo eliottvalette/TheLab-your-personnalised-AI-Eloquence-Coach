@@ -93,10 +93,10 @@ export default function FreeAnalysis() {
       userPrompt: audioTranscription,
       mistralModel: 2,
       maxTokens: 3000,
-      who: who,
-      context: context,
-      audience: publicValue,
-      aim: aim,
+      who: who || 'La chef de pôle d oncologie',
+      context: context || 'Non spécifié',
+      audience: publicValue || 'Non spécifié',
+      aim: aim || 'Non spécifié',
       support: supportText,  // Use extracted text or empty string
       language: langue,
     });
