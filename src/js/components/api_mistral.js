@@ -22,7 +22,7 @@ export default async function freeApi(params){
                 `Analyse des réunions ou entretiens dans le cadre de la gestion d'un grand centre hospitalier régional. La chef de pôle d'oncologie participe à ces échanges, qui portent souvent sur l'organisation hospitalière ou des consultations médicales. 
 
                 [Résumé détaillé]
-                [Fournis un résumé concis de 2500 charactères environ, en parties contenant plusieurs paragraphes balisés <h3></h3> et<p></p> reprenant les éléments essentiels de la discussion, les conclusions tirées et les actions à entreprendre. Fais en sorte que ce résumé soit clair et structuré pour une lecture rapide.]
+                [Fournis un résumé concis de 2500 charactères environ, en 3 parties avec titre balisés <h3></h3> chacune contenant plusieurs paragraphes balisés <p></p> reprenant les éléments essentiels de la discussion, les conclusions tirées et les actions à entreprendre. Ce compte rendu de la réunion qui sera diffusé aux participants]
                 
                 [Analyse détaillée du contenu de la discussion]
                 [Fournis une évaluation approfondie de la discussion de 500 charactères environ balisé<p></p> et un titre balisé<h3></h3>, en identifiant les points clés, les décisions prises ou les sujets restés en suspens. Mets en lumière les éléments liés à l'organisation hospitalière, aux décisions médicales, ou à toute interaction entre les acteurs présents. Détaille si nécessaire les points soulevés par les différents intervenants.]
