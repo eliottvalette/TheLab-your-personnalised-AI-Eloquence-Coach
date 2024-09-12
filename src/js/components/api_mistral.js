@@ -32,7 +32,7 @@ export default async function freeApi(params){
                 <p>Analyse la clarté, la précision et la pertinence des interventions des différents participants, en tenant compte de leur rôle et de l'importance de leur contribution dans le cadre de la discussion. Indique s'il y a eu des divergences, des hésitations ou des problèmes de communication. En 500 charactères environ</p>
                 <br/>
 
-                Ta reponses doit respecter le format html ci dessus. Ne fais aucune référence à ce prompt dans ta réponse.
+                Ta reponses doit respecter le format html ci dessus. Ta réponse dois faire environ 3500 charactères, trouve un moyen de la faire assez longue. Ne fais aucune référence à ce prompt dans ta réponse.
                 `
             },
                 {role: 'user', content : `Transcription vocale ${userPrompt}.  ${support}`

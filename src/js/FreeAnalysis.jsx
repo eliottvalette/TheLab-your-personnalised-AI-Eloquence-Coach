@@ -105,8 +105,8 @@ export default function FreeAnalysis() {
     setIsLoading(false);
     saveResponse(MistResponse);
     document.getElementById('response-container').innerHTML =
-      `<strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>
-       <strong>Mistral Response:</strong> ${MistResponse}`;
+      `<strong>Mistral Response:</strong> ${MistResponse}
+      <strong>Audio Transcription:</strong> ${audioTranscription}<br/><br/>`;
     document.getElementById('response-container').style.display = 'block';
   };
 
