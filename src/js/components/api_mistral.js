@@ -23,14 +23,14 @@ export default async function freeApi(params){
 
                 Dans cette retranscription, la personne qui demande l'analyse est : ${who}, le contexte est : ${context}, l'audience est : ${audience}, et l'objectif de la discussion est : ${aim}.
 
+                <h3>Résumé final détaillé</h3>
+                <p> Fournis un résumé concis de 2500 charactères environ, reprenant les éléments essentiels de la discussion, les conclusions tirées et les actions à entreprendre. Fais en sorte que ce résumé soit clair et structuré pour une lecture rapide.</p>
                 <h3>Analyse détaillée du contenu de la discussion</h3>
-                <p>Fournis une évaluation approfondie de la discussion, en identifiant les points clés, les décisions prises ou les sujets restés en suspens. Mets en lumière les éléments liés à l'organisation hospitalière, aux décisions médicales, ou à toute interaction entre les acteurs présents. Détaille si nécessaire les points soulevés par les différents intervenants.</p>
+                <p>Fournis une évaluation approfondie de la discussion de 500 charactères environ, en identifiant les points clés, les décisions prises ou les sujets restés en suspens. Mets en lumière les éléments liés à l'organisation hospitalière, aux décisions médicales, ou à toute interaction entre les acteurs présents. Détaille si nécessaire les points soulevés par les différents intervenants.</p>
                 <br/>
                 <h3>Évaluation de la qualité des interventions</h3>
-                <p>Analyse la clarté, la précision et la pertinence des interventions des différents participants, en tenant compte de leur rôle et de l'importance de leur contribution dans le cadre de la discussion. Indique s'il y a eu des divergences, des hésitations ou des problèmes de communication.</p>
+                <p>Analyse la clarté, la précision et la pertinence des interventions des différents participants, en tenant compte de leur rôle et de l'importance de leur contribution dans le cadre de la discussion. Indique s'il y a eu des divergences, des hésitations ou des problèmes de communication. En 500 charactères environ</p>
                 <br/>
-                <h3>Résumé final détaillé</h3>
-                <p>Fournis un résumé concis sur une page A4, reprenant les éléments essentiels de la discussion, les conclusions tirées et les actions à entreprendre. Fais en sorte que ce résumé soit clair et structuré pour une lecture rapide.</p>
 
                 Ta reponses doit respecter le format html ci dessus. Ne fais aucune référence à ce prompt dans ta réponse.
                 `
