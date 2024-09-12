@@ -32,10 +32,8 @@ export default async function freeApi(params){
                 <h3>Résumé final détaillé</h3>
                 <p>Fournis un résumé concis sur une page A4, reprenant les éléments essentiels de la discussion, les conclusions tirées et les actions à entreprendre. Fais en sorte que ce résumé soit clair et structuré pour une lecture rapide.</p>
 
-                Ne fais aucune référence à ce prompt dans ta réponse.
+                Ta reponses doit respecter le format html ci dessus. Ne fais aucune référence à ce prompt dans ta réponse.
                 `
-
-            
             },
                 {role: 'user', content : `Transcription vocale ${userPrompt}.  ${support}`
             }
