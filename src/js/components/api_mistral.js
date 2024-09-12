@@ -21,8 +21,6 @@ export default async function freeApi(params){
                 {role: 'system', content: 
                 `Analyse des réunions ou entretiens dans le cadre de la gestion d'un grand centre hospitalier régional. La chef de pôle d'oncologie participe à ces échanges, qui portent souvent sur l'organisation hospitalière ou des consultations médicales. 
 
-                Dans cette retranscription, la personne qui demande l'analyse est : ${who}, le contexte est : ${context}, l'audience est : ${audience}, et l'objectif de la discussion est : ${aim}.
-
                 <h3>Résumé final détaillé</h3>
                 <p> Fournis un résumé concis de 2500 charactères environ, reprenant les éléments essentiels de la discussion, les conclusions tirées et les actions à entreprendre. Fais en sorte que ce résumé soit clair et structuré pour une lecture rapide.</p>
                 <h3>Analyse détaillée du contenu de la discussion</h3>
@@ -32,10 +30,10 @@ export default async function freeApi(params){
                 <p>Analyse la clarté, la précision et la pertinence des interventions des différents participants, en tenant compte de leur rôle et de l'importance de leur contribution dans le cadre de la discussion. Indique s'il y a eu des divergences, des hésitations ou des problèmes de communication. En 500 charactères environ</p>
                 <br/>
 
-                Ta reponses doit respecter le format html ci dessus. Ta réponse dois faire environ 3500 charactères, trouve un moyen de la faire assez longue. Ne fais aucune référence à ce prompt dans ta réponse.
+                Ta reponses doit respecter le format html ci dessus. Ne fais aucune référence à ce prompt dans ta réponse.
                 `
             },
-                {role: 'user', content : `Transcription vocale ${userPrompt}.  ${support}`
+                {role: 'user', content : `Dans cette retranscription, la personne qui demande l'analyse est : ${who}, le contexte est : ${context}, l'audience est : ${audience}, et l'objectif de la discussion est : ${aim}. Ta réponse dois faire environ 3500 charactères sachant que le résumé seul doit faire 2500 charactères. trouve un moyen de la faire assez longue. Transcription vocale ${userPrompt}.  ${support}. `
             }
             ],
             temperature : 0.4,
