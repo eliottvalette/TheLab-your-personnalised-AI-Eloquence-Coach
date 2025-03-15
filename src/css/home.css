@@ -130,11 +130,17 @@ body {
 }
 
 .home-form {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   margin-top: 1rem;
   width: 100%;
   gap: 1rem;
+}
+
+.home-form a {
+  grid-column: 3 / 5;
+  width: 100%;
+  text-decoration: none;
 }
 
 .home-btn {
@@ -149,7 +155,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  min-width: 180px;
+  width: 100%;
   position: relative;
   overflow: hidden;
   border: none;
@@ -166,6 +172,7 @@ body {
 }
 
 .primary-btn {
+  grid-column: 1 / 3;
   background: linear-gradient(135deg, var(--box-background-color), var(--light-box-background-color));
   color: var(--wall-background-color);
 }
