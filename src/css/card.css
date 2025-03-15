@@ -34,7 +34,22 @@
     scrollbar-width: thin;
     scrollbar-color: var(--border-color) transparent;
     padding-bottom: 1rem;
+    position: relative;
+    width: 100%;
 }
+
+/* Ajout des éléments de fondu sur les côtés */
+.cards-list::before,
+.cards-list::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3rem;
+    pointer-events: none;
+    z-index: 1;
+}
+
 
 .cards-list::-webkit-scrollbar {
     height: 6px;
@@ -152,5 +167,24 @@
 
     .card-description {
         font-size: 0.85rem;
+    }
+}
+
+.model-select-el {
+    overflow: hidden;
+    padding: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+}
+
+@media (hover: none) {
+    .cards-list {
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+    }
+
+    .card {
+        scroll-snap-align: center;
     }
 }

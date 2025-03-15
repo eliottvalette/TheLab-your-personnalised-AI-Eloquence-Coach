@@ -161,6 +161,11 @@ export default function TheLab() {
 
   console.log("langue : " + langue)
 
+  // Ajout d'un useEffect pour scroller en haut de la page au montage du composant
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); // Le tableau vide signifie que cet effet ne s'exécute qu'au montage du composant
+
   return (
   <main id="lab-main" data-theme={isDarkMode ? "dark" : "light"} >
     <h1 className='lab-h1'>The Lab</h1>
