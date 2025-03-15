@@ -19,8 +19,8 @@ Pages.propTypes = {
 export function Pages({ path, active, id, icon, title, setActiveId }) { 
   return (
     <li className={active} id={id} onClick={() => setActiveId(id)}>
-      <Link to={path}>
-      <span className="icon">
+      <Link to={path} style={{ textDecoration: 'none' }}>
+        <span className="icon">
           <ion-icon name={icon}></ion-icon>
         </span>
         <span className="text">{title}</span>

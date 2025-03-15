@@ -1,59 +1,190 @@
 /* Laboratoire/src/components/card.css */
-:root{
+:root {
     --box-background-color: rgb(249, 249, 200);
     --light-box-background-color: rgb(249, 249, 229);
     --wall-background-color: rgb(29, 29, 29);
     --font-color: #000;
     --border-color: rgb(76, 76, 62);
-    --card-selected-color: white;
-  }
+    --card-selected-color: rgba(249, 249, 200, 0.2);
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --gradient-start: rgba(249, 249, 200, 0.15);
+    --gradient-end: rgba(249, 249, 229, 0.05);
+}
 
-[data-theme="light"]{
+[data-theme="light"] {
     --box-background-color: rgb(29, 29, 29);
     --light-box-background-color: rgb(39, 39, 39);
     --wall-background-color: rgb(249, 249, 200);
     --font-color: rgb(249, 249, 200);
     --border-color: rgb(76, 76, 62);
-    --card-selected-color: rgb(64, 64, 64);
+    --card-selected-color: rgba(29, 29, 29, 0.2);
+    --card-shadow: rgba(249, 249, 200, 0.1);
+    --gradient-start: rgba(29, 29, 29, 0.15);
+    --gradient-end: rgba(39, 39, 39, 0.05);
 }
 
 .cards-list {
-    margin-top: 25px;
-    justify-content: center;
+    margin: 2rem auto;
+    padding: 0.5rem;
     display: flex;
-    flex-wrap: nowrap;
-    gap: 20px;
-    overflow-x:auto;
-    height: 290px;
+    gap: 2rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+    padding-bottom: 1rem;
+    position: relative;
+    width: 100%;
+}
+
+/* Ajout des éléments de fondu sur les côtés */
+.cards-list::before,
+.cards-list::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3rem;
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+.cards-list::-webkit-scrollbar {
+    height: 6px;
+}
+
+.cards-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.cards-list::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 3px;
 }
 
 .card {
-    width: 175px;
-    color: var(--font-color);
-    background-color: var(--light-box-background-color);
-    border-radius: 9px;
-    padding: 10px;
-    font-size: 12px;
+    width: 280px;
     flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
+    background: var(--form-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    overflow: hidden;
     cursor: pointer;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    opacity: 0;
     transition: opacity 0.3s ease;
 }
 
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 24px var(--card-shadow);
+    border-color: var(--box-background-color);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
 .card.selected {
-    background-color: var(--card-selected-color);
-    scale: 0.97;
+    background: var(--card-selected-color);
+    transform: scale(0.98);
+    border: 2px solid var(--box-background-color);
+    box-shadow: 0 4px 12px var(--card-shadow);
 }
 
 .card-image {
     width: 100%;
-    border-radius: 9px;
-    margin-bottom: 9px;
+    height: 140px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px var(--card-shadow);
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-image {
+    transform: scale(1.05);
 }
 
 .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--box-background-color);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--box-background-color);
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+    .cards-list {
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    .card {
+        width: 240px;
+        padding: 1rem;
+    }
+
+    .card-image {
+        height: 120px;
+        margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .card-description {
+        font-size: 0.85rem;
+    }
+}
+
+.model-select-el {
+    overflow: hidden;
+    padding: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+}
+
+@media (hover: none) {
+    .cards-list {
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+    }
+
+    .card {
+        scroll-snap-align: center;
+    }
 }
