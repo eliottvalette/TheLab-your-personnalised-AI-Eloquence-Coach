@@ -230,6 +230,8 @@ body {
 .home-lab {
   background-color: var(--light-box-background-color);
   border-radius: 20px;
+  border: 2px solid var(--box-background-color);
+  color: var(--inverted-font-color);
   padding: 2.5rem;
   box-shadow: 0 8px 32px var(--card-shadow);
   transition: all 0.3s ease;
@@ -264,7 +266,7 @@ body {
   font-size: 1.75rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: var(--font-color);
+  color: var(--inverted-font-color);
   position: relative;
 }
 
@@ -277,6 +279,10 @@ body {
   bottom: -0.5rem;
   left: 0;
   border-radius: 2px;
+}
+
+.home-about-btn {
+  background: linear-gradient(135deg, var(--box-background-color), var(--light-box-background-color));
 }
 
 @keyframes gradient {

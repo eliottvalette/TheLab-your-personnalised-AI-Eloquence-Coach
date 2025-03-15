@@ -248,3 +248,37 @@ body {
     padding: 1.5rem;
   }
 }
+
+.free-main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-out;
+  position: relative;
+}
+
+.free-main::before {
+  content: '';
+  position: absolute;
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(circle, var(--gradient-start) 0%, var(--gradient-end) 50%, transparent 70%);
+  top: -40vw;
+  right: -40vw;
+  border-radius: 50%;
+  z-index: -1;
+  animation: float 20s ease-in-out infinite;
+}
+
+.free-main::after {
+  content: '';
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, var(--gradient-start) 0%, var(--gradient-end) 50%, transparent 70%);
+  bottom: -30vw;
+  left: -30vw;
+  border-radius: 50%;
+  z-index: -1;
+  animation: float 15s ease-in-out infinite reverse;
+}
