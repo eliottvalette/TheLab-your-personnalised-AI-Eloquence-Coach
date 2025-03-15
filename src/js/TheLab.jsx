@@ -166,20 +166,19 @@ export default function TheLab() {
     <h1 className='lab-h1'>The Lab</h1>
     <h2 className='lab-h2'>Choisissez votre modèle</h2>
     <div className='model-select-el'>
-      <aside>
-        <select className="select-box" id="categories-el" name="categories-el" size="1" onChange={(e) => {setCategory(e.target.value)}}>
-          <option className ="lab-option" value = "Politiques">Personnalités Politiques</option>
-          <option className ="lab-option" value = "Economistes">Economistes</option>
-          <option className ="lab-option" value = "Avocats">Avocats</option>
-          <option className ="lab-option" value = "Celebrites">Célébrités</option>
-          <option className ="lab-option" value = "Medecins">Médecins</option>
-        </select>
-      </aside>
+      <select className="select-box" id="categories-el" name="categories-el" size="1" onChange={(e) => {setCategory(e.target.value)}}>
+        <option className ="lab-option" value = "Politiques">Personnalités Politiques</option>
+        <option className ="lab-option" value = "Economistes">Economistes</option>
+        <option className ="lab-option" value = "Avocats">Avocats</option>
+        <option className ="lab-option" value = "Celebrites">Célébrités</option>
+        <option className ="lab-option" value = "Medecins">Médecins</option>
+      </select>
       <Models
-      category={category}
-      modelChosen={modelChosen} 
-      setModelChosen={setModelChosen}
-      setModelStyle={setModelStyle}/>
+        category={category}
+        modelChosen={modelChosen} 
+        setModelChosen={setModelChosen}
+        setModelStyle={setModelStyle}
+      />
     </div>
     <h2 className='lab-h2'>Votre présentation</h2>
     <div className='lab-language'>
