@@ -134,6 +134,7 @@ body {
   justify-content: space-between;
   margin-top: 1rem;
   width: 100%;
+  gap: 1rem;
 }
 
 .home-btn {
