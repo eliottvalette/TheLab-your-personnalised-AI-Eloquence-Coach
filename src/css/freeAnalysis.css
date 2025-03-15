@@ -98,6 +98,10 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
+  display: block;
+  margin: 0 auto;
+  width: fit-content;
+  min-width: 200px;
 }
 
 .free-btn:hover {
@@ -112,6 +116,7 @@ body {
   gap: 1rem;
   justify-content: center;
   margin-bottom: 2rem;
+  align-items: center;
 }
 
 .free-language-btn {
@@ -281,4 +286,10 @@ body {
   border-radius: 50%;
   z-index: -1;
   animation: float 15s ease-in-out infinite reverse;
+}
+
+.launchbtn {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 400px;
 }
