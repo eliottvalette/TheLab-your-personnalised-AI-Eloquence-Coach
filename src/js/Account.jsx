@@ -141,33 +141,33 @@ export default function Account(){
 
     return(
         <main className="account-main-login" data-theme={isDarkMode ? "dark" : "light"}>
-            <h1 className="account-h1">Mon compte</h1>
+            <h1 className="account-h1">My Account</h1>
             {!isLoggedIn ? 
                 // Not logged in view
                 (<section className="logged-out-view" id="logged-out-view">
                     <form className="account-form-login" id="account-form-login" onSubmit={handleSubmit}>
                         <label id="name-label" htmlFor="name" className="account-label" >
-                            Nom
+                            Last Name
                         </label>
                         <input 
                             type="name" 
                             className="account-input" 
                             id="name" 
                             name="name" 
-                            placeholder="Votre nom" 
+                            placeholder="Your last name" 
                             onChange={(e)=>setName(e.target.value)} 
                             autoComplete="family-name"
                         />
                     
                         <label id="firstname-label" htmlFor="firstname" className="account-label" >
-                                Prénom
+                            First Name
                         </label>
                         <input 
                             type="firstname" 
                             className="account-input" 
                             id="firstname" 
                             name="firstname" 
-                            placeholder="Votre prénom" 
+                            placeholder="Your first name" 
                             onChange={(e)=>setFirstName(e.target.value)} 
                             autoComplete="given-name"
                         />
@@ -180,37 +180,36 @@ export default function Account(){
                             className="account-input" 
                             id="email" 
                             name="email" 
-                            placeholder="Votre email" 
+                            placeholder="Your email" 
                             onChange={(e)=>setEmail(e.target.value)} 
                             autoComplete="username"
                         />
                         
                         <label id="password-label" htmlFor="password" className="account-label">
-                            Mot de passe
+                            Password
                         </label>
                         <input 
                             type="password" 
                             className="account-input" 
                             id="password" 
                             name="password" 
-                            placeholder="Votre mot de passe" 
+                            placeholder="Your password" 
                             autoComplete="current-password" 
                             onChange={(e)=>setPassword(e.target.value)}
                         />
-                        <button className="account-btn" id="account-connect" onClick={handleSignIn}>Se connecter</button>
-                        <button className="account-btn" id="account-create" onClick={handleCreateAccount}>Créer un compte</button>
-                        <button className="account-btn" id="account-google" onClick={authSignInWithGoogle}>Se connecter avec Google</button>
+                        <button className="account-btn" id="account-connect" onClick={handleSignIn}>Sign in</button>
+                        <button className="account-btn" id="account-create" onClick={handleCreateAccount}>Create account</button>
+                        <button className="account-btn" id="account-google" onClick={authSignInWithGoogle}>Sign in with Google</button>
 
                     </form>
                 </section>
              ) : (
                 // Logged in view
                 <section className="logged-in-view" id="logged-in-view">
-
-                    <p className="account-p">Nom : {userData.name}</p>
-                    <p className="account-p">Prénom : {userData.firstName}</p>
-                    <p className="account-p">Email : {auth.currentUser.email}</p>
-                    <button className="account-btn" id="account-disconnect" onClick={authSignOut}>Se déconnecter</button>
+                    <p className="account-p">Last Name: {userData.name}</p>
+                    <p className="account-p">First Name: {userData.firstName}</p>
+                    <p className="account-p">Email: {auth.currentUser.email}</p>
+                    <button className="account-btn" id="account-disconnect" onClick={authSignOut}>Sign out</button>
                 </section>
              )}
             

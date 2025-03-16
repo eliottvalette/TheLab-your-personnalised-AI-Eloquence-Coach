@@ -26,18 +26,18 @@ const homeImg = ref(homeStorage, 'home-image/home.jpg');
 const features = [
     {
         icon: "mic-outline",
-        title: "Analyse Vocale",
-        description: "Analysez votre voix et votre diction pour une meilleure communication"
+        title: "Voice Analysis",
+        description: "Analyze your voice and diction for better communication"
     },
     {
         icon: "school-outline",
-        title: "Apprentissage IA",
-        description: "Apprenez des meilleurs orateurs grâce à l'intelligence artificielle"
+        title: "AI Learning",
+        description: "Learn from the best speakers through artificial intelligence"
     },
     {
         icon: "trending-up-outline",
-        title: "Progression Continue",
-        description: "Suivez votre progression et améliorez-vous constamment"
+        title: "Continuous Progress",
+        description: "Track your progress and improve constantly"
     }
 ];
 
@@ -69,19 +69,19 @@ export default function Home() {
             <main className="home-main" data-theme={isDarkMode ? "dark" : "light"}>
                 <section className="home-text-section">
                     <div className="home-header">
-                        <h1 className="home-h1">Libérez votre potentiel d'orateur</h1>
+                        <h1 className="home-h1">Unleash your speaking potential</h1>
                         <p className="home-p">
-                            Devenez un orateur persuasif et influent en suivant les pas de vos orateurs favoris grâce à la puissance de l'intelligence artificielle à moindre coût
+                            Become a persuasive and influential speaker by following in the footsteps of your favorite speakers through the power of artificial intelligence at minimal cost
                         </p>
                         <div className="home-form" id="home-form">
                             <button className="home-about home-btn primary-btn" id="home-about" onClick={handleClickAbout}>
                                 <ion-icon name="information-circle-outline"></ion-icon>
-                                <span>En savoir plus</span>
+                                <span>Learn more</span>
                             </button>
                             <Link to={"/account"}>
                                 <button className="home-sign-up home-btn secondary-btn" id="home-sign-up">
                                     <ion-icon name="log-in-outline"></ion-icon>
-                                    <span>Se connecter</span>
+                                    <span>Sign in</span>
                                 </button>
                             </Link>
                         </div>
@@ -106,49 +106,49 @@ export default function Home() {
     } else {
         return (
             <main className="home-main-about" data-theme={isDarkMode ? "dark" : "light"}>
-                <h1 className="home-h1">Deux modes à disposition :</h1>
+                <h1 className="home-h1">Two modes available:</h1>
                 <div className="home-div-about">
                     <div className="home-analysis">
                         <ion-icon name="analytics-outline" class="feature-icon"></ion-icon>
-                        <h2 className="home-h2">Le mode Analyse</h2>
-                        <p>À partir du fichier audio de votre prise de parole et éventuellement votre support, une IA vous produit une analyse détaillée, personnalisée sur votre prise de parole. En effet grâce aux multiples précisions, le résultat sera au plus proche de vos attentes.</p>
+                        <h2 className="home-h2">Analysis Mode</h2>
+                        <p>Using the audio file of your speech and optionally your support material, an AI produces a detailed, personalized analysis of your speech. Thanks to multiple specifications, the result will be as close as possible to your expectations.</p>
                         <div className="feature-benefits">
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>Analyse détaillée</span>
+                                <span>Detailed analysis</span>
                             </div>
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>Feedback personnalisé</span>
+                                <span>Personalized feedback</span>
                             </div>
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>Résultats rapides</span>
+                                <span>Quick results</span>
                             </div>
                         </div>
                     </div>
                     <div className="home-lab">
                         <ion-icon name="flask-outline" class="feature-icon"></ion-icon>
                         <h2 className="home-h2">The Lab</h2>
-                        <p>Vous avez sans doute un orateur favori, que vous tentez d'imiter mais le jour-j vous ne parvenez pas à égaler son talent. Grâce à The Lab c'est possible, sélectionnez votre orateur parmi ceux disponibles ou soumettez le vôtre, et l'IA vous guidera pas à pas pour qu'un jour peut-être, l'élève dépasse le maître.</p>
+                        <p>You probably have a favorite speaker that you try to imitate but when the time comes, you can't match their talent. Thanks to The Lab it's possible, select your speaker from those available or submit your own, and AI will guide you step by step so that one day perhaps, the student surpasses the master.</p>
                         <div className="feature-benefits">
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>Modèles d'orateurs</span>
+                                <span>Speaker models</span>
                             </div>
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>Guidage IA</span>
+                                <span>AI guidance</span>
                             </div>
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>Progression guidée</span>
+                                <span>Guided progression</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <button className="home-about-btn home-btn" id="home-about" onClick={handleClickAbout}>
-                    <span>Revenir à l'accueil</span>
+                    <span>Back to home</span>
                 </button>
             </main>
         )

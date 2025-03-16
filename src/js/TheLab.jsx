@@ -169,14 +169,14 @@ export default function TheLab() {
   return (
   <main id="lab-main" data-theme={isDarkMode ? "dark" : "light"} >
     <h1 className='lab-h1'>The Lab</h1>
-    <h2 className='lab-h2'>Choisissez votre modèle</h2>
+    <h2 className='lab-h2'>Choose your model</h2>
     <div className='model-select-el'>
       <select className="select-box" id="categories-el" name="categories-el" size="1" onChange={(e) => {setCategory(e.target.value)}}>
-        <option className ="lab-option" value = "Politiques">Personnalités Politiques</option>
-        <option className ="lab-option" value = "Economistes">Economistes</option>
-        <option className ="lab-option" value = "Avocats">Avocats</option>
-        <option className ="lab-option" value = "Celebrites">Célébrités</option>
-        <option className ="lab-option" value = "Medecins">Médecins</option>
+        <option className ="lab-option" value = "Politiques">Political Figures</option>
+        <option className ="lab-option" value = "Economistes">Economists</option>
+        <option className ="lab-option" value = "Avocats">Lawyers</option>
+        <option className ="lab-option" value = "Celebrites">Celebrities</option>
+        <option className ="lab-option" value = "Medecins">Doctors</option>
       </select>
       <Models
         category={category}
@@ -185,7 +185,7 @@ export default function TheLab() {
         setModelStyle={setModelStyle}
       />
     </div>
-    <h2 className='lab-h2'>Votre présentation</h2>
+    <h2 className='lab-h2'>Your presentation</h2>
     <div className='lab-language'>
       <button
         ref={langue === 'fr' ? languageBtnRef : null}
@@ -193,7 +193,7 @@ export default function TheLab() {
         id='french'
         onClick={() => setLangue('fr')}
       >
-        Français
+        French
       </button>
       <button
         ref={langue === 'en' ? languageBtnRef : null}
@@ -201,24 +201,24 @@ export default function TheLab() {
         id='english'
         onClick={() => setLangue('en')}
       >
-        Anglais
+        English
       </button>
     </div>
     <form className="formBase" action="" method="post" encType="multipart/form-data" id="baseForm">
       <input type="file" className="lab-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} onChange={(e) => { setAudiofile(e.target.files[0]); aestheticFileChange(e, 'fichier-label-el',"file","mic") }}/>
       <label htmlFor="fichier-el" className="lab-label" id ='fichier-label-el'>
-          <span className="custom-file-upload" id="custom-file-upload">Inserez votre fichier audio<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
+          <span className="custom-file-upload" id="custom-file-upload">Insert your audio file<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
       </label>
       <input type="file" className="lab-input" name="fichier-model-el" id="fichier-model-el" style={{ display: 'none' }} onChange={(e) => {setSupport(e.target.files[0]);aestheticFileChange(e, 'fichier-model-label-el',"file-model","mic") }}/>
       <label htmlFor="fichier-model-el" className="lab-label" id ='fichier-model-label-el'>
-          <span className="custom-file-model-upload" id="custom-file-model-upload">(Facultatif) Inserez l'extrait d'un discours de votre modèle<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
+          <span className="custom-file-model-upload" id="custom-file-model-upload">(Optional) Insert an excerpt of your model's speech<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
       </label>       
 
-      <button type="button" className="launchbtn lab-btn" id="launchbtn" onClick={launchAnalysis}>Analyse mon discours en comparant avec mon modèle</button>
+      <button type="button" className="launchbtn lab-btn" id="launchbtn" onClick={launchAnalysis}>Analyze my speech by comparing with my model</button>
     </form>
     {isLoading ? (
       <div className='lab-loading-div'>
-        <h3 className='lab-h3'>Chargement en cours... Veuillez ne pas quitter la page</h3>
+        <h3 className='lab-h3'>Loading... Please do not leave the page</h3>
         <div className='lab-loader-div'>
         <CircleLoader
           color={isDarkMode ? 'rgb(249, 249, 200)' : 'rgb(29, 29, 29)'}
@@ -227,8 +227,6 @@ export default function TheLab() {
           data-testid="loader"
         />
         </div>
-          
-          
       </div>
     ) : (<></>)}
       <div className='response-container' id='response-container' style={{ display: 'none' }}></div>

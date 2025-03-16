@@ -132,7 +132,7 @@ export default function FreeAnalysis() {
 
   return (
     <main className='free-main' data-theme={isDarkMode ? "dark" : "light"}>
-      <h1 className='free-h1'>Analyse Libre</h1>
+      <h1 className='free-h1'>Free Analysis</h1>
       <form className="free-form" action="" method="post" encType="multipart/form-data" id="baseForm" onSubmit={handleSubmit}>
         <div className='free-language'>
           <button
@@ -141,7 +141,7 @@ export default function FreeAnalysis() {
             id='french'
             onClick={() => setLangue('fr')}
           >
-            Français
+            French
           </button>
           <button
             ref={langue === 'en' ? languageBtnRef : null}
@@ -149,66 +149,66 @@ export default function FreeAnalysis() {
             id='english'
             onClick={() => setLangue('en')}
           >
-            Anglais
+            English
           </button>
         </div>
         <div className="form-input-files">
           <label htmlFor="fichier-el" className="free-label file-label" id='fichier-label-el'>
-            <span className="custom-file-upload" id="custom-file-upload">Inserez votre fichier audio<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
+            <span className="custom-file-upload" id="custom-file-upload">Insert your audio file<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
           </label>
           <input type="file" className="free-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} onChange={(e) => { setAudiofile(e.target.files[0]); aestheticFileChange(e, 'fichier-label-el', "file", "mic"); }} />
 
           <label htmlFor="support-el" className="free-label file-label" id='support-label-el'>
-            <span className="custom-support-upload" id="custom-support-upload">(Recommandé) Inserez votre support de présentation<ion-icon name="document-outline" id="support-uploading-el"></ion-icon></span>
+            <span className="custom-support-upload" id="custom-support-upload">(Recommended) Insert your presentation support<ion-icon name="document-outline" id="support-uploading-el"></ion-icon></span>
           </label>
           <input type="file" className="free-input" name="support-el" id="support-el" style={{ display: 'none' }} accept="application/pdf" onChange={(e) => { setSupport(e.target.files[0]); aestheticFileChange(e, 'support-label-el', "support", "document"); }} />
         </div>
         <div className="form-input-context">
           <label id="who-label" htmlFor="who-el free-input" className="free-label">
-            Qui êtes vous ?
+            Who are you?
           </label>
           <Inputs
             id="who"
             name="who-el free-input"
-            label="Une professeur de médecine experte en ..."
+            label="A medical professor expert in ..."
             onChange={(e) => setWho(e.target.value)}
           />
 
           <label id="context-label" htmlFor="context-el free-input" className="free-label">
-            Contexte
+            Context
           </label>
           <Inputs
             id="context"
             name="context-el free-input"
-            label="Congrès francais de ..."
+            label="French congress of ..."
             onChange={(e) => setContext(e.target.value)}
           />
 
           <label id="public-label" htmlFor="public-el free-input" className="free-label">
-            Public
+            Audience
           </label>
           <Inputs
             id="public"
             name="public-el free-input"
-            label="Un public de chercheurs ..."
+            label="An audience of researchers ..."
             onChange={(e) => setPublicValue(e.target.value)}
           />
 
           <label id="aim-label" htmlFor="aim-el free-input" className="free-label">
-            Objectif
+            Objective
           </label>
           <Inputs
             id="aim"
             name="aim-el free-input"
-            label="Vulgariser et transmettre les dernières avancées en ..."
+            label="Popularize and transmit the latest advances in ..."
             onChange={(e) => setAim(e.target.value)}
           />
         </div>
-        <button type="button" className="launchbtn free-btn" id="launchbtn" onClick={launchAnalysis}>Analyse mon discours</button>
+        <button type="button" className="launchbtn free-btn" id="launchbtn" onClick={launchAnalysis}>Analyze my speech</button>
       </form>
       {isLoading ? (
         <div className='free-loading-div'>
-          <h3 className='free-h3'>Chargement en cours... Veuillez ne pas quitter la page</h3>
+          <h3 className='free-h3'>Loading... Please do not leave the page</h3>
           <div className='free-loader-div'>
             <CircleLoader
               color={isDarkMode ? 'rgb(249, 249, 200)' : 'rgb(29, 29, 29)'}
