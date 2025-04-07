@@ -117,6 +117,8 @@ body {
   justify-content: center;
   margin-bottom: 2rem;
   align-items: center;
+  width: 30%;
+  margin: 0 auto;
 }
 
 .free-language-btn {
