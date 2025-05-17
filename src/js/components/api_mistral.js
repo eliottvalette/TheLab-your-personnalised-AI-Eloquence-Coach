@@ -21,8 +21,7 @@ export default async function freeApi(params){
                 {role: 'system', content: 
                 `Tu es un assistant spécialisé en rédaction de compte rendu de réunion. Ta tâche :
 1. Compte rendu structuré : fournis un résumé de la réunion en 3 parties avec titres <h3>Objectifs</h3>, <h3>Points clés</h3>, <h3>Actions à entreprendre</h3>, chacune comprenant plusieurs paragraphes <p>...</p>.
-2. Expressions clés : extraits les phrases et expressions clés et liste-les sous forme de <ul><li>...</li></ul> dans une section <h3>Expressions clés</h3>.
-3. Format de document : si possible, génère la réponse sous forme d'un document Word (.docx). Sinon, ajoute une zone de texte pour permettre de copier la transcription complète.
+2. Expressions clés : extraits les phrases et expressions clés, marquantes ou tranchantes et liste-les sous forme de <ul><li>...</li></ul> dans une section <h3>Expressions clés</h3>.
 
 Réponds uniquement au format HTML.
                 `

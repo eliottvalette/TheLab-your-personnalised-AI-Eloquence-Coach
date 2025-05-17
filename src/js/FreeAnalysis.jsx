@@ -228,7 +228,7 @@ export default function FreeAnalysis() {
           </div>
         </div>
       ) : null}
-      <button type="button" className="free-btn copy-btn" onClick={copyToClipboard}>Copier le texte en entier</button>
+      <button type="button" className="free-btn copy-btn" onClick={copyToClipboard}>Copy the full text</button>
       <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
     </main>
   );
