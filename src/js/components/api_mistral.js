@@ -19,20 +19,19 @@ export default async function freeApi(params){
             model: models[mistralModel],
             messages: [
                 {role: 'system', content: 
-                `Analyse des réunions ou entretiens dans le cadre de la gestion d'un grand centre hospitalier régional. La chef de pôle d'oncologie participe à ces échanges, qui portent souvent sur l'organisation hospitalière ou des consultations médicales. 
+                `Tu es un assistant spécialisé en rédaction de compte rendu de réunion. Ta tâche :
+1. Compte rendu structuré : fournis un résumé de la réunion en 3 parties avec titres <h3>Objectifs</h3>, <h3>Points clés</h3>, <h3>Actions à entreprendre</h3>, chacune comprenant plusieurs paragraphes <p>...</p>.
+2. Expressions clés : extraits les phrases et expressions clés et liste-les sous forme de <ul><li>...</li></ul> dans une section <h3>Expressions clés</h3>.
+3. Format de document : si possible, génère la réponse sous forme d'un document Word (.docx). Sinon, ajoute une zone de texte pour permettre de copier la transcription complète.
 
-                [Reponse publique]
-                [Fournis un résumé concis de 2500 charactères environ, en 3 parties avec titre balisés <h3></h3> chacune contenant plusieurs paragraphes balisés <p></p> reprenant les éléments essentiels de la discussion, les conclusions tirées et les actions à entreprendre. Ce compte rendu de la réunion sera diffusé aux participants]
-                
-                [Reponse privée]
-                [1. Fournis une évaluation approfondie de la discussion de 500 charactères environ balisé<p></p> et un titre balisé<h3></h3>, en identifiant les points clés, les décisions prises ou les sujets restés en suspens. Mets en lumière les éléments liés à l'organisation hospitalière, aux décisions médicales, ou à toute interaction entre les acteurs présents. Détaille si nécessaire les points soulevés par les différents intervenants.]
-                [2. Analyse la clarté, la précision et la pertinence des interventions des différents participants, en tenant compte de leur rôle et de l'importance de leur contribution dans le cadre de la discussion. N'hésite pas a critiquer ce qui est mauvais. En 500 charactères environ balisé<p></p> et un titre balisé<h3></h3>]
-
-                Ta reponses doit être au format html.
+Réponds uniquement au format HTML.
                 `
             },
-                {role: 'user', content : `Dans cette retranscription, la personne qui demande l'analyse est : ${who}, le contexte est : ${context}, l'audience est : ${audience}, et l'objectif de la discussion est : ${aim}. Ta réponse dois faire environ 3500 charactères sachant que le résumé seul doit faire 2500 charactères. trouve un moyen de la faire assez longue. Transcription vocale ${userPrompt}.  ${support}. `
-            }
+                {role: 'user', content: `Transcription audio : ${userPrompt}
+
+Contexte : la personne qui demande l'analyse est ${who}, le contexte est ${context}, l'audience est ${audience}, et l'objectif de la discussion est ${aim}.
+
+Support : ${support}.`}
             ],
             temperature : 0.4,
             maxTokens : maxTokens,
@@ -43,28 +42,19 @@ export default async function freeApi(params){
             model: models[mistralModel],
             messages: [
                 {role: 'system', content: 
-                `You have advanced skills in linguistics and public speaking. Your task is to analyze the written transcription of my speech, so you have no information about articulation or speech speed. Be precise.
+                `You are an assistant specialized in meeting report writing. Your tasks:
+                1. Structured meeting report: provide a summary in 3 parts with titles <h3>Objectives</h3>, <h3>Key points</h3>, <h3>Actions to take</h3>, each including multiple <p>...</p> paragraphs.
+                2. Key expressions: extract key phrases and sentences and list them in a <h3>Key expressions</h3><ul><li>...</li></ul> section.
+                3. Document format: if possible, generate a Word document (.docx). Otherwise, include a text box to copy the full transcription.
 
-                Respond in English. Comment on this speech in terms of its quality when ${who} is speaking to a ${audience} audience. This speech takes place in the following context: ${context}. Its goal is ${aim}. Be nuanced but do not hesitate to criticize what is criticizable.
+                Respond only in HTML format.
+                `
+                },
+                {role: 'user', content: `Audio transcription: ${userPrompt}
 
-                The user may submit their presentation support, which should be an annex and should not take up much space in your analysis.
+Context: The requester is ${who}, the context is ${context}, the audience is ${audience}, and the meeting goal is ${aim}.
 
-                You must absolutely respond in HTML format. Here's how you should structure your response:
-
-                <h3>Analysis of the quality of my speech</h3>
-                <p>Evaluate the strengths and weaknesses of my speech. Be constructive and provide concrete examples.</p>
-                </br>
-                <h3>Tips for improvement</h3>
-                <p>By quoting passages from my speech, correct my errors and rephrase them to bring me closer to the style of ${who}.</p>
-                </br>
-                <h3>Impactful expressions</h3>
-                <p>Still on the theme of my speech, write 2 exemplary paragraphs of a good speech.</p>
-
-                Do not refer to this prompt in your response. Respond in English.`
-            
-            },
-                {role: 'user', content : `Vocal transcription ${userPrompt}.  ${support}`
-            }
+Support: ${support}.`}
             ],
             temperature : 0.4,
             maxTokens : maxTokens,

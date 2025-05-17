@@ -11,7 +11,7 @@ import { initializeApp, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
-import CircleLoader from "react-spinners/CircleLoader";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
@@ -102,11 +102,13 @@ export default function FreeAnalysis() {
     });
 
     console.log("MistResponse:", MistResponse);
+    // Remove code fences from the response
+    const cleanedResponse = MistResponse.replace(/```html\n?/g, '').replace(/```/g, '');
     setIsLoading(false);
     saveResponse(MistResponse);
     document.getElementById('response-container').innerHTML =
-      `<strong>Mistral Response:</strong> ${MistResponse}<br/><br/>
-       <strong>Audio Transcription:</strong> ${audioTranscription}`;
+      `<strong>Audio Transcription:</strong><br/>${audioTranscription}<br/><br/>
+      <strong>Mistral Response:</strong><br/>${cleanedResponse}<br/><br/>`;
     document.getElementById('response-container').style.display = 'block';
   };
 
@@ -129,6 +131,14 @@ export default function FreeAnalysis() {
   }, []);
 
   console.log("langue:", langue);
+
+  const copyToClipboard = () => {
+    const container = document.getElementById('response-container');
+    if (container) {
+      navigator.clipboard.writeText(container.innerText);
+      alert('Texte copié !');
+    }
+  };
 
   return (
     <main className='free-main' data-theme={isDarkMode ? "dark" : "light"}>
@@ -159,7 +169,7 @@ export default function FreeAnalysis() {
           <input type="file" className="free-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} onChange={(e) => { setAudiofile(e.target.files[0]); aestheticFileChange(e, 'fichier-label-el', "file", "mic"); }} />
 
           <label htmlFor="support-el" className="free-label file-label" id='support-label-el'>
-            <span className="custom-support-upload" id="custom-support-upload">(Recommended) Insert your presentation support<ion-icon name="document-outline" id="support-uploading-el"></ion-icon></span>
+            <span className="custom-support-upload" id="custom-support-upload">(Optionnal) Insert your presentation support<ion-icon name="document-outline" id="support-uploading-el"></ion-icon></span>
           </label>
           <input type="file" className="free-input" name="support-el" id="support-el" style={{ display: 'none' }} accept="application/pdf" onChange={(e) => { setSupport(e.target.files[0]); aestheticFileChange(e, 'support-label-el', "support", "document"); }} />
         </div>
@@ -210,15 +220,15 @@ export default function FreeAnalysis() {
         <div className='free-loading-div'>
           <h3 className='free-h3'>Loading... Please do not leave the page</h3>
           <div className='free-loader-div'>
-            <CircleLoader
+            <PulseLoader
               color={isDarkMode ? 'rgb(249, 249, 200)' : 'rgb(29, 29, 29)'}
               loading={isLoading}
-              size={200}
-              data-testid="loader"
+              size={20}
             />
           </div>
         </div>
       ) : null}
+      <button type="button" className="free-btn copy-btn" onClick={copyToClipboard}>Copier le texte en entier</button>
       <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
     </main>
   );
