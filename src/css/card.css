@@ -1,26 +1,26 @@
 /* Laboratoire/src/components/card.css */
 :root {
-    --box-background-color: rgb(249, 249, 200);
-    --light-box-background-color: rgb(249, 249, 229);
-    --wall-background-color: rgb(29, 29, 29);
-    --font-color: #000;
-    --border-color: rgb(76, 76, 62);
-    --card-selected-color: rgba(249, 249, 200, 0.2);
-    --card-shadow: rgba(0, 0, 0, 0.1);
-    --gradient-start: rgba(249, 249, 200, 0.15);
-    --gradient-end: rgba(249, 249, 229, 0.05);
+    --box-background-color: #e0e1dd;
+    --light-box-background-color: #778da9;
+    --wall-background-color: #0d1b2a;
+    --font-color: #e0e1dd;
+    --border-color: #415a77;
+    --card-selected-color: rgba(224, 225, 221, 0.2);
+    --card-shadow: rgba(65, 90, 119, 0.1);
+    --gradient-start: rgba(65, 90, 119, 0.15);
+    --gradient-end: rgba(119, 141, 169, 0.05);
 }
 
 [data-theme="light"] {
-    --box-background-color: rgb(29, 29, 29);
-    --light-box-background-color: rgb(39, 39, 39);
-    --wall-background-color: rgb(249, 249, 200);
-    --font-color: rgb(249, 249, 200);
-    --border-color: rgb(76, 76, 62);
-    --card-selected-color: rgba(29, 29, 29, 0.2);
-    --card-shadow: rgba(249, 249, 200, 0.1);
-    --gradient-start: rgba(29, 29, 29, 0.15);
-    --gradient-end: rgba(39, 39, 39, 0.05);
+    --box-background-color: #0d1b2a;
+    --light-box-background-color: #1b263b;
+    --wall-background-color: #e0e1dd;
+    --font-color: #0d1b2a;
+    --border-color: #415a77;
+    --card-selected-color: rgba(13, 27, 42, 0.2);
+    --card-shadow: rgba(119, 141, 169, 0.1);
+    --gradient-start: rgba(13, 27, 42, 0.15);
+    --gradient-end: rgba(27, 38, 59, 0.05);
 }
 
 .cards-list {

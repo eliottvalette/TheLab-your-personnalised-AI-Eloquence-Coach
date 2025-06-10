@@ -2,23 +2,23 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
 
 :root {
-  --box-background-color: rgb(249, 249, 200);
-  --light-box-background-color: rgb(249, 249, 229);
-  --wall-background-color: rgb(29, 29, 29);
-  --font-color: #000;
-  --border-color: rgb(76, 76, 62);
-  --card-shadow: rgba(0, 0, 0, 0.1);
-  --form-bg: rgba(249, 249, 229, 0.05);
+  --box-background-color: #e0e1dd;
+  --light-box-background-color: #778da9;
+  --wall-background-color: #0d1b2a;
+  --font-color: #e0e1dd;
+  --border-color: #415a77;
+  --card-shadow: rgba(65, 90, 119, 0.1);
+  --form-bg: rgba(224, 225, 221, 0.05);
 }
 
 [data-theme="light"] {
-  --box-background-color: rgb(29, 29, 29);
-  --light-box-background-color: rgb(39, 39, 39);
-  --wall-background-color: rgb(249, 249, 200);
-  --font-color: rgb(249, 249, 200);
-  --border-color: rgb(76, 76, 62);
-  --card-shadow: rgba(249, 249, 200, 0.1);
-  --form-bg: rgba(29, 29, 29, 0.05);
+  --box-background-color: #0d1b2a;
+  --light-box-background-color: #1b263b;
+  --wall-background-color: #e0e1dd;
+  --font-color: #0d1b2a;
+  --border-color: #415a77;
+  --card-shadow: rgba(119, 141, 169, 0.1);
+  --form-bg: rgba(13, 27, 42, 0.05);
 }
 
 body {
@@ -87,6 +87,11 @@ body {
   outline: none;
   border-color: var(--box-background-color);
   box-shadow: 0 0 0 3px var(--card-shadow);
+}
+
+.free-input::placeholder {
+  color: white;
+  opacity: 1;
 }
 
 .free-btn {

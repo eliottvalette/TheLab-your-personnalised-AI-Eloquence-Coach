@@ -2,37 +2,37 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
 
 :root {
-  --box-background-color: rgb(249, 249, 200);
-  --light-box-background-color: rgb(249, 249, 229);
-  --wall-background-color: rgb(29, 29, 29);
-  --font-color: #000;
-  --inverted-font-color: rgb(249, 249, 200);
-  --border-color: rgb(76, 76, 62);
-  --card-shadow: rgba(0, 0, 0, 0.1);
-  --gradient-start: rgba(249, 249, 200, 0.15);
-  --gradient-end: rgba(249, 249, 229, 0.05);
-  --text-color: rgb(249, 249, 200);
-  --text-secondary: rgb(229, 229, 180);
-  --accent-color: rgb(249, 249, 200);
-  --gradient-bg: rgba(29, 29, 29, 0.7);
-  --gradient-accent: linear-gradient(135deg, rgb(249, 249, 200), rgb(229, 229, 180));
+  --box-background-color: #e0e1dd;
+  --light-box-background-color: #778da9;
+  --wall-background-color: #0d1b2a;
+  --font-color: #e0e1dd;
+  --inverted-font-color: #0d1b2a;
+  --border-color: #415a77;
+  --card-shadow: rgba(65, 90, 119, 0.1);
+  --gradient-start: rgba(65, 90, 119, 0.15);
+  --gradient-end: rgba(119, 141, 169, 0.05);
+  --text-color: #e0e1dd;
+  --text-secondary: #778da9;
+  --accent-color: #415a77;
+  --gradient-bg: rgba(27, 38, 59, 0.7);
+  --gradient-accent: linear-gradient(135deg, #e0e1dd, #778da9);
 }
 
 [data-theme="light"] {
-  --box-background-color: rgb(29, 29, 29);
-  --light-box-background-color: rgb(39, 39, 39);
-  --wall-background-color: rgb(249, 249, 200);
-  --font-color: rgb(249, 249, 200);
-  --inverted-font-color: #000;
-  --border-color: rgb(76, 76, 62);
-  --card-shadow: rgba(249, 249, 200, 0.1);
-  --gradient-start: rgba(29, 29, 29, 0.15);
-  --gradient-end: rgba(39, 39, 39, 0.05);
-  --text-color: rgb(29, 29, 29);
-  --text-secondary: rgb(39, 39, 39);
-  --accent-color: rgb(29, 29, 29);
-  --gradient-bg: rgba(249, 249, 200, 0.7);
-  --gradient-accent: linear-gradient(135deg, rgb(29, 29, 29), rgb(39, 39, 39));
+  --box-background-color: #0d1b2a;
+  --light-box-background-color: #1b263b;
+  --wall-background-color: #e0e1dd;
+  --font-color: #0d1b2a;
+  --inverted-font-color: #e0e1dd;
+  --border-color: #415a77;
+  --card-shadow: rgba(119, 141, 169, 0.1);
+  --gradient-start: rgba(13, 27, 42, 0.15);
+  --gradient-end: rgba(27, 38, 59, 0.05);
+  --text-color: #0d1b2a;
+  --text-secondary: #415a77;
+  --accent-color: #415a77;
+  --gradient-bg: rgba(224, 225, 221, 0.7);
+  --gradient-accent: linear-gradient(135deg, #0d1b2a, #1b263b);
 }
 
 body {

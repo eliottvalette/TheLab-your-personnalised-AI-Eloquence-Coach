@@ -9,19 +9,21 @@
 }
 
 :root{
-  --box-background-color: rgb(249, 249, 200);
-  --light-box-background-color: rgb(249, 249, 229);
-  --wall-background-color: rgb(29, 29, 29);
-  --font-color: #000;
-  --border-color: rgb(76, 76, 62)
+  --box-background-color: #e0e1dd;
+  --light-box-background-color: #778da9;
+  --wall-background-color: #0d1b2a;
+  --font-color: #e0e1dd;
+  --border-color: #415a77;
+  --indicator-color: #0d1b2a;
 }
 
 [data-theme="light"]{
-  --box-background-color: rgb(29, 29, 29);
-  --light-box-background-color: rgb(39, 39, 39);
-  --wall-background-color: rgb(249, 249, 200);
-  --font-color: rgb(249, 249, 200);
-  --border-color: rgb(76, 76, 62);
+  --box-background-color: #0d1b2a;
+  --light-box-background-color: #1b263b;
+  --wall-background-color: #e0e1dd;
+  --font-color: #0d1b2a;
+  --border-color: #415a77;
+  --indicator-color: #778da9;
 }
 
 .nav-header{
@@ -103,7 +105,7 @@
   height: 70px;
   background: var(--box-background-color);
   border-radius: 50%;
-  border: 6px solid var(--wall-background-color);
+  border: 6px solid var(--indicator-color);
   transition: 0.4s;
 }
 
@@ -116,7 +118,7 @@
   height: 20px;
   background: transparent;
   border-top-right-radius: 20px;
-  box-shadow: 1px -10px 0 0 var(--wall-background-color);
+  box-shadow: 1px -10px 0 0 var(--indicator-color);
 }
 
 .indicator::after {
@@ -128,7 +130,7 @@
   height: 20px;
   background: transparent;
   border-top-left-radius: 20px;
-  box-shadow: -1px -10px 0 0 var(--wall-background-color);
+  box-shadow: -1px -10px 0 0 var(--indicator-color);
 }
 
 /* Indicator Transitions */
