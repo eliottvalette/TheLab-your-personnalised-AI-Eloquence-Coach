@@ -6,8 +6,10 @@ import { Link } from "react-router-dom"
 import useLocalStorage from "use-local-storage"
 
 import '../css/home.css'
-import { initializeApp, getApp } from "firebase/app"
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { initializeApp } from "firebase/app"
+
+// Import home image from assets
+import homeImage from '../assets/home.jpg'
 
 const firebaseConfig = {
     apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
@@ -19,9 +21,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const firebaseApp = getApp();
-const homeStorage = getStorage(firebaseApp, "gs://thelab-d1229.appspot.com");
-const homeImg = ref(homeStorage, 'home-image/home.jpg');
 
 const features = [
     {
@@ -43,18 +42,7 @@ const features = [
 
 export default function Home() {
     const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode", true);
-    const [imageUrl, setImageUrl] = useState('');
     const [isAbout, setIsAbout] = useState(false);
-
-    useEffect(() => {
-        getDownloadURL(homeImg)
-            .then((url) => {
-                setImageUrl(url);
-            })
-            .catch((error) => {
-                console.error("Error downloading image: ", error);
-            });
-    }, []);
 
     useEffect(() => {
         document.body.style.backgroundColor = isDarkMode ? "var(--wall-background-color)" : "var(--light-box-background-color)";
@@ -98,7 +86,7 @@ export default function Home() {
                 </section>
                 <section className="home-img-section">
                     <div className="home-img-wrapper">
-                        <img src={imageUrl} alt="" className="home-img" id="home-img"/>
+                        <img src={homeImage} alt="" className="home-img" id="home-img"/>
                     </div>
                 </section>
             </main>

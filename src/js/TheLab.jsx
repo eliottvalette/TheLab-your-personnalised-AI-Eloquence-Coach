@@ -16,12 +16,61 @@ import { labApi } from './components/api_mistral.js'
 import data from './components/models_data.js'
 import Card from './components/Cards.jsx'
 
+// Import model images
+import obamaImg from '../assets/obama.jpeg'
+import macronImg from '../assets/macron.jpg'
+import merkelImg from '../assets/merkel.jpg'
+import trudeauImg from '../assets/trudeau.jpg'
+import pikettyImg from '../assets/piketty.jpg'
+import dufloImg from '../assets/esther-duflo.jpg'
+import stiglitzImg from '../assets/stiglitz.jpg'
+import krugmanImg from '../assets/krugman.jpg'
+import senImg from '../assets/sen.jpg'
+import badinterImg from '../assets/badinter.jpg'
+import clooneyImg from '../assets/amal-clooney.jpeg'
+import morettiImg from '../assets/dupont-moretti.jpg'
+import taubiraImg from '../assets/taubira.jpg'
+import watsonImg from '../assets/emma-watson.jpg'
+import mandelaImg from '../assets/mandela.jpg'
+import malalaImg from '../assets/malala-yousafzai.jpg'
+import dicaprioImg from '../assets/dicaprio.jpeg'
+import besseImg from '../assets/benjamin-besse.jpeg'
+import barlesiImg from '../assets/fabrice-barlesi.jpg'
+import mokImg from '../assets/tony-mok.jpeg'
+import hirschImg from '../assets/martin-hirsch.jpg'
+import soriaImg from '../assets/jean-charles-soria.jpeg'
+
 import { initializeApp, getApp }  from "firebase/app"
 import { getAuth } from "firebase/auth"
 import { getFirestore, collection, addDoc } from "firebase/firestore"
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 import CircleLoader from "react-spinners/CircleLoader";
+
+// Create a mapping of image filenames to their imported values
+const imageMap = {
+  'obama.jpeg': obamaImg,
+  'macron.jpg': macronImg,
+  'merkel.jpg': merkelImg,
+  'trudeau.jpg': trudeauImg,
+  'piketty.jpg': pikettyImg,
+  'esther-duflo.jpg': dufloImg,
+  'stiglitz.jpg': stiglitzImg,
+  'krugman.jpg': krugmanImg,
+  'sen.jpg': senImg,
+  'badinter.jpg': badinterImg,
+  'amal-clooney.jpeg': clooneyImg,
+  'dupont-moretti.jpg': morettiImg,
+  'taubira.jpg': taubiraImg,
+  'emma-watson.jpg': watsonImg,
+  'mandela.jpg': mandelaImg,
+  'malala-yousafzai.jpg': malalaImg,
+  'dicaprio.jpeg': dicaprioImg,
+  'benjamin-besse.jpeg': besseImg,
+  'fabrice-barlesi.jpg': barlesiImg,
+  'tony-mok.jpeg': mokImg,
+  'martin-hirsch.jpg': hirschImg,
+  'jean-charles-soria.jpeg': soriaImg
+};
 
 const firebaseConfig = {
     apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
@@ -35,9 +84,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app)
-const firebaseApp = getApp();
-const modelStorage = getStorage(firebaseApp, "gs://thelab-d1229.appspot.com");
-const modelImgRef = ref(modelStorage, 'model-images/');
 
 Models.propTypes = {
   category: PropTypes.string.isRequired,
@@ -47,27 +93,16 @@ Models.propTypes = {
 };
 
 export function Models({category, modelChosen, setModelChosen , setModelStyle}) {
-  const [modelImages, setModelImages] = useState([]);
   
-
-  useEffect(() => {
-    const imagePromises = [];
-    data[0][category].forEach(item => {
-      const imageRef = ref(modelImgRef, item.coverImg);
-      imagePromises.push(getDownloadURL(imageRef));
-    });
-
-    Promise.all(imagePromises)
-      .then(urls => setModelImages(urls))
-      .catch(error => console.error("Error fetching image URLs:", error));
-  }, [category]);
-
-  const cards = data[0][category].map((item,index) => {
+  const cards = data[0][category].map((item) => {
+    // Get the imported image from our map
+    const imagePath = imageMap[item.coverImg];
+    
     return (
         <Card
             key={item.id}
             id={item.id}
-            coverImg={modelImages[index]}
+            coverImg={imagePath}
             name={item.name}
             description={item.description}
             onClick={() => {setModelChosen(item.name);setModelStyle(item.style)}}
