@@ -51,7 +51,7 @@ export default function Navbar() {
             active={activeId === "page_1" ? "list active" : "list"}
             id="page_1"
             icon="home-outline"
-            title="Home"
+            title="Accueil"
             setActiveId={setActiveId}
           />
           <Pages
@@ -59,7 +59,7 @@ export default function Navbar() {
             active={activeId === "page_2" ? "list active" : "list"}
             id="page_2"
             icon="flask-outline"
-            title="The Lab"
+            title="Le Lab'Oratoire"
             setActiveId={setActiveId}
           />
           <Pages
@@ -67,7 +67,7 @@ export default function Navbar() {
             active={activeId === "page_3" ? "list active" : "list"}
             id="page_3"
             icon="megaphone-outline"
-            title="Analysis"
+            title="Analyse"
             setActiveId={setActiveId}
           />
           <Pages
@@ -75,7 +75,7 @@ export default function Navbar() {
             active={activeId === "page_4" ? "list active" : "list"}
             id="page_4"
             icon="person-outline"
-            title="Account"
+            title="Compte"
             setActiveId={setActiveId}
           />
           <Pages
@@ -83,7 +83,7 @@ export default function Navbar() {
             active={activeId === "page_5" ? "list active" : "list"}
             id="page_5"
             icon="settings-outline"
-            title="Settings"
+            title="Paramètres"
             setActiveId={setActiveId}
           />
           <div className="indicator"></div>

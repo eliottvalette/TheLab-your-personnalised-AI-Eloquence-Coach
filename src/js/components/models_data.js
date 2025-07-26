@@ -3,30 +3,30 @@ const politiquesCards = [
     {
         id: 1,
         name: "Barack Obama",
-        description: "44th President of the United States",
+        description: "44ème Président des États-Unis",
         coverImg: "obama.jpeg",
-        style: `style of the 44th President of the United States, Barack Obama`
+        style: `style du 44ème Président des États-Unis, Barack Obama`
     },
     {
         id: 2,
         name: "Emmanuel Macron",
-        description: "President of the French Republic",
+        description: "Président de la République française",
         coverImg: "macron.jpg",
-        style: `style of the President of the French Republic, Emmanuel Macron`
+        style: `style du Président de la République française, Emmanuel Macron`
     },
     {
         id: 3,
         name: "Angela Merkel",
-        description: "German Chancellor from 2005 to 2021",
+        description: "Chancelière allemande de 2005 à 2021",
         coverImg: "merkel.jpg",
-        style: `style of the German Chancellor from 2005 to 2021, Angela Merkel`
+        style: `style de la Chancelière allemande de 2005 à 2021, Angela Merkel`
     },
     {
         id: 5,
         name: "Justin Trudeau",
-        description: "Prime Minister of Canada since 2015",
+        description: "Premier ministre du Canada depuis 2015",
         coverImg: "trudeau.jpg",
-        style: `style of the Prime Minister of Canada since 2015, Justin Trudeau`
+        style: `style du Premier ministre du Canada depuis 2015, Justin Trudeau`
     },
 ]
 
@@ -34,37 +34,37 @@ const economistesCards = [
     {
         id: 6,
         name: "Thomas Piketty",
-        description: `French economist, author of the bestseller "Capital in the Twenty-First Century"`,
+        description: `Économiste français, auteur du best-seller "Le Capital au XXIe siècle"`,
         coverImg: "piketty.jpg",
-        style: `style of Thomas Piketty, French economist`
+        style: `style de Thomas Piketty, économiste français`
     },
     {
         id: 7,
         name: "Esther Duflo",
-        description: "French economist, Nobel Prize in Economics 2019",
+        description: "Économiste française, Prix Nobel d'Économie 2019",
         coverImg: "esther-duflo.jpg",
-        style: `style of Esther Duflo, French economist`
+        style: `style d'Esther Duflo, économiste française`
     },
     {
         id: 8,
         name: "Joseph Stiglitz",
-        description: "American economist, Nobel Prize in Economics 2001",
+        description: "Économiste américain, Prix Nobel d'Économie 2001",
         coverImg: "stiglitz.jpg",
-        style: `style of Joseph Stiglitz, American economist`
+        style: `style de Joseph Stiglitz, économiste américain`
     },
     {
         id: 9,
         name: "Paul Krugman",
-        description: "American economist, Nobel Prize in Economics 2008",
+        description: "Économiste américain, Prix Nobel d'Économie 2008",
         coverImg: "krugman.jpg",
-        style: `style of Paul Krugman, American economist`
+        style: `style de Paul Krugman, économiste américain`
     },
     {
         id: 10,
         name: "Amartya Sen",
-        description: "Indian economist, Nobel Prize in Economics 1998",
+        description: "Économiste indien, Prix Nobel d'Économie 1998",
         coverImg: "sen.jpg",
-        style: `style of Amartya Sen, Indian economist`
+        style: `style d'Amartya Sen, économiste indien`
     },
 ];
 
@@ -72,30 +72,30 @@ const avocatsCards = [
     {
         id: 11,
         name: "Robert Badinter",
-        description: "French lawyer and politician, known for his fight to abolish the death penalty",
+        description: "Avocat et homme politique français, connu pour son combat pour l'abolition de la peine de mort",
         coverImg: "badinter.jpg",
-        style: `style of Robert Badinter, French lawyer and politician`
+        style: `style de Robert Badinter, avocat et homme politique français`
     },
     {
         id: 12,
         name: "Amal Clooney",
-        description: "British lawyer, specialized in human rights",
+        description: "Avocate britannique, spécialisée dans les droits de l'homme",
         coverImg: "amal-clooney.jpeg",
-        style: `style of Amal Clooney, British lawyer`
+        style: `style d'Amal Clooney, avocate britannique`
     },
     {
         id: 13,
         name: "Eric Dupond-Moretti",
-        description: "French lawyer, known for his flamboyant pleadings",
+        description: "Avocat français, connu pour ses plaidoiries flamboyantes",
         coverImg: "dupont-moretti.jpg",
-        style: `style of Eric Dupond-Moretti, French lawyer`
+        style: `style d'Eric Dupond-Moretti, avocat français`
     },
     {
         id: 14,
         name: "Christiane Taubira",
-        description: "French lawyer and politician, former Minister of Justice",
+        description: "Avocate et femme politique française, ancienne ministre de la Justice",
         coverImg: "taubira.jpg",
-        style: `style of Christiane Taubira, French lawyer and politician`
+        style: `style de Christiane Taubira, avocate et femme politique française`
     },
 ];
 
@@ -103,30 +103,30 @@ const celebritesCards = [
     {
         id: 16,
         name: "Emma Watson",
-        description: "British actress, committed to women's rights",
+        description: "Actrice britannique, engagée pour les droits des femmes",
         coverImg: "emma-watson.jpg",
-        style: `style of Emma Watson, British actress`
+        style: `style d'Emma Watson, actrice britannique`
     },
     {
         id: 17,
         name: "Nelson Mandela",
-        description: "South African statesman, major figure in the fight against apartheid",
+        description: "Homme d'État sud-africain, figure majeure de la lutte contre l'apartheid",
         coverImg: "mandela.jpg",
-        style: `style of Nelson Mandela, South African statesman`
+        style: `style de Nelson Mandela, homme d'État sud-africain`
     },
     {
         id: 18,
         name: "Malala Yousafzai",
-        description: "Pakistani activist for women's rights and girls' education",
+        description: "Militante pakistanaise pour les droits des femmes et l'éducation des filles",
         coverImg: "malala-yousafzai.jpg",
-        style: `style of Malala Yousafzai, Pakistani activist`
+        style: `style de Malala Yousafzai, militante pakistanaise`
     },
     {
         id: 20,
         name: "Leonardo DiCaprio",
-        description: "American actor, committed to fighting climate change",
+        description: "Acteur américain, engagé dans la lutte contre le changement climatique",
         coverImg: "dicaprio.jpeg",
-        style: `style of Leonardo DiCaprio, American actor`
+        style: `style de Leonardo DiCaprio, acteur américain`
     },
 ];
 
@@ -134,37 +134,37 @@ const medecinsCards = [
     {
         id: 21,
         name: "Benjamin Besse",
-        description: "Director of Clinical Research at Gustave Roussy",
+        description: "Directeur de la Recherche Clinique à Gustave Roussy",
         coverImg: "benjamin-besse.jpeg",
-        style: `style of the Director of Clinical Research at Gustave Roussy, Benjamin Besse`
+        style: `style du Directeur de la Recherche Clinique à Gustave Roussy, Benjamin Besse`
     },
     {
         id: 22,
         name: "Fabrice Barlési",
-        description: "Oncology Professor, General Director of Gustave Roussy",
+        description: "Professeur d'Oncologie, Directeur Général de Gustave Roussy",
         coverImg: "fabrice-barlesi.jpg",
-        style: "style of the Oncology Professor, General Director of Gustave Roussy, Fabrice Barlési"
+        style: "style du Professeur d'Oncologie, Directeur Général de Gustave Roussy, Fabrice Barlési"
     },
     {
         id: 23,
         name: "Tony Mok",
-        description: "Chairman of the Department of Oncology in Hong Kong",
+        description: "Président du Département d'Oncologie à Hong Kong",
         coverImg: "tony-mok.jpeg",
-        style: `style of the Chairman of the Department of Oncology in Hong Kong, Tony Mok`
+        style: `style du Président du Département d'Oncologie à Hong Kong, Tony Mok`
     },
     {
         id: 24,
         name: "Martin Hirsch",
-        description: "French physician and politician, former General Director of AP-HP",
+        description: "Médecin et homme politique français, ancien Directeur Général de l'AP-HP",
         coverImg: "martin-hirsch.jpg",
-        style: "style of the President of the Civic Service Agency, Emmaüs France, and the New Active Solidarity Agency"
+        style: "style du Président de l'Agence du Service Civique, Emmaüs France, et de l'Agence Nouvelle des Solidarités Actives"
     },
     {
         id: 25,
         name: "Jean-Charles Soria",
-        description: "Oncology Professor, Director of Amgen Global",
+        description: "Professeur d'Oncologie, Directeur d'Amgen Global",
         coverImg: "jean-charles-soria.jpeg",
-        style: `style of the Oncology Professor, Director of Amgen Global, Jean-Charles Soria`
+        style: `style du Professeur d'Oncologie, Directeur d'Amgen Global, Jean-Charles Soria`
     }
 ]
 

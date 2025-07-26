@@ -25,18 +25,18 @@ const app = initializeApp(firebaseConfig);
 const features = [
     {
         icon: "mic-outline",
-        title: "Voice Analysis",
-        description: "Analyze your voice and diction for better communication"
+        title: "Analyse Vocale",
+        description: "Analysez votre voix et votre diction pour une meilleure communication"
     },
     {
         icon: "school-outline",
-        title: "AI Learning",
-        description: "Learn from the best speakers through artificial intelligence"
+        title: "Apprentissage IA",
+        description: "Apprenez des meilleurs orateurs grâce à l'intelligence artificielle"
     },
     {
         icon: "trending-up-outline",
-        title: "Continuous Progress",
-        description: "Track your progress and improve constantly"
+        title: "Progrès Continu",
+        description: "Suivez vos progrès et améliorez-vous constamment"
     }
 ];
 
@@ -45,8 +45,9 @@ export default function Home() {
     const [isAbout, setIsAbout] = useState(false);
 
     useEffect(() => {
-        document.body.style.backgroundColor = isDarkMode ? "var(--wall-background-color)" : "var(--light-box-background-color)";
+        document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
     }, [isDarkMode]);
+
 
     const handleClickAbout = () => {
         setIsAbout(!isAbout);
@@ -57,19 +58,19 @@ export default function Home() {
             <main className="home-main" data-theme={isDarkMode ? "dark" : "light"}>
                 <section className="home-text-section">
                     <div className="home-header">
-                        <h1 className="home-h1">Unleash your speaking potential</h1>
+                        <h1 className="home-h1">Libérez votre potentiel oratoire</h1>
                         <p className="home-p">
-                            Become a persuasive and influential speaker by following in the footsteps of your favorite speakers through the power of artificial intelligence at minimal cost
+                            Devenez un orateur persuasif et influent en suivant les traces de vos orateurs préférés grâce à la puissance de l'intelligence artificielle à moindre coût
                         </p>
                         <div className="home-form" id="home-form">
                             <button className="home-about home-btn primary-btn" id="home-about" onClick={handleClickAbout}>
                                 <ion-icon name="information-circle-outline"></ion-icon>
-                                <span>Learn more</span>
+                                <span>En savoir plus</span>
                             </button>
                             <Link to={"/account"}>
                                 <button className="home-sign-up home-btn secondary-btn" id="home-sign-up">
                                     <ion-icon name="log-in-outline"></ion-icon>
-                                    <span>Sign in</span>
+                                    <span>Se connecter</span>
                                 </button>
                             </Link>
                         </div>
@@ -94,49 +95,49 @@ export default function Home() {
     } else {
         return (
             <main className="home-main-about" data-theme={isDarkMode ? "dark" : "light"}>
-                <h1 className="home-h1">Two modes available:</h1>
+                <h1 className="home-h1">Deux modes disponibles :</h1>
                 <div className="home-div-about">
                     <div className="home-analysis">
                         <ion-icon name="analytics-outline" class="feature-icon"></ion-icon>
-                        <h2 className="home-h2">Analysis Mode</h2>
-                        <p>Using the audio file of your speech and optionally your support material, an AI produces a detailed, personalized analysis of your speech. Thanks to multiple specifications, the result will be as close as possible to your expectations.</p>
+                        <h2 className="home-h2">Mode Analyse</h2>
+                        <p>En utilisant le fichier audio de votre discours et optionnellement votre support de présentation, une IA produit une analyse détaillée et personnalisée de votre discours. Grâce à de multiples spécifications, le résultat sera au plus proche de vos attentes.</p>
                         <div className="feature-benefits">
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>Detailed analysis</span>
+                                <span>Analyse détaillée</span>
                             </div>
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>Personalized feedback</span>
+                                <span>Retour personnalisé</span>
                             </div>
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>Quick results</span>
+                                <span>Résultats rapides</span>
                             </div>
                         </div>
                     </div>
                     <div className="home-lab">
                         <ion-icon name="flask-outline" class="feature-icon"></ion-icon>
-                        <h2 className="home-h2">The Lab</h2>
-                        <p>You probably have a favorite speaker that you try to imitate but when the time comes, you can't match their talent. Thanks to The Lab it's possible, select your speaker from those available or submit your own, and AI will guide you step by step so that one day perhaps, the student surpasses the master.</p>
+                        <h2 className="home-h2">Le Lab'Oratoire</h2>
+                        <p>Vous avez probablement un orateur favori que vous essayez d'imiter mais quand le moment vient, vous ne pouvez pas égaler son talent. Grâce au Lab'Oratoire c'est possible, sélectionnez votre orateur parmi ceux disponibles ou soumettez le vôtre, et l'IA vous guidera étape par étape pour qu'un jour peut-être, l'élève dépasse le maître.</p>
                         <div className="feature-benefits">
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>Speaker models</span>
+                                <span>Modèles d'orateurs</span>
                             </div>
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>AI guidance</span>
+                                <span>Guidage IA</span>
                             </div>
                             <div className="benefit-item">
                                 <ion-icon name="checkmark-circle-outline"></ion-icon>
-                                <span>Guided progression</span>
+                                <span>Progression guidée</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <button className="home-about-btn home-btn" id="home-about" onClick={handleClickAbout}>
-                    <span>Back to home</span>
+                    <span>Retour à l'accueil</span>
                 </button>
             </main>
         )

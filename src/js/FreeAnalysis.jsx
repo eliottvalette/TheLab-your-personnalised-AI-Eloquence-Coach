@@ -48,7 +48,7 @@ export function Inputs({ id, name, label, onChange }) {
 
 async function saveResponse(response) {
   try {
-    let mail = auth.currentUser ? auth.currentUser.email : "Unknown user";
+    let mail = auth.currentUser ? auth.currentUser.email : "Utilisateur inconnu";
     const userData = {
       email: mail,
       Mode: "freeAnalysis",
@@ -71,6 +71,10 @@ export default function FreeAnalysis() {
   const [support, setSupport] = useState(null);  // Initialize as null
   const [isLoading, setIsLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode", true);
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -107,8 +111,8 @@ export default function FreeAnalysis() {
     setIsLoading(false);
     saveResponse(MistResponse);
     document.getElementById('response-container').innerHTML =
-      `<strong>Audio Transcription:</strong><br/>${audioTranscription}<br/><br/>
-      <strong>Mistral Response:</strong><br/>${cleanedResponse}<br/><br/>`;
+      `<strong>Transcription Audio :</strong><br/>${audioTranscription}<br/><br/>
+      <strong>Réponse Mistral :</strong><br/>${cleanedResponse}<br/><br/>`;
     document.getElementById('response-container').style.display = 'block';
   };
 
@@ -116,10 +120,6 @@ export default function FreeAnalysis() {
     const fileName = e.target.value.split('\\').pop().split('.')[0];
     document.getElementById(labelId).innerHTML = `<span class="custom-${id}-upload" id="custom-${id}-upload">${fileName}<ion-icon name="${icon}"></ion-icon></span>`;
   };
-
-  useEffect(() => {
-    document.body.style.backgroundColor = isDarkMode ? "var(--wall-background-color)" : "var(--light-box-background-color)";
-  }, [isDarkMode]);
 
   useEffect(() => {
     const handleFocus = () => {
@@ -142,7 +142,7 @@ export default function FreeAnalysis() {
 
   return (
     <main className='free-main' data-theme={isDarkMode ? "dark" : "light"}>
-      <h1 className='free-h1'>Free Analysis</h1>
+      <h1 className='free-h1'>Analyse Libre</h1>
       <form className="free-form" action="" method="post" encType="multipart/form-data" id="baseForm" onSubmit={handleSubmit}>
         <div className='free-language'>
           <button
@@ -151,7 +151,7 @@ export default function FreeAnalysis() {
             id='french'
             onClick={() => setLangue('fr')}
           >
-            French
+            Français
           </button>
           <button
             ref={langue === 'en' ? languageBtnRef : null}
@@ -159,76 +159,76 @@ export default function FreeAnalysis() {
             id='english'
             onClick={() => setLangue('en')}
           >
-            English
+            Anglais
           </button>
         </div>
         <div className="form-input-files">
           <label htmlFor="fichier-el" className="free-label file-label" id='fichier-label-el'>
-            <span className="custom-file-upload" id="custom-file-upload">Insert your audio file<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
+            <span className="custom-file-upload" id="custom-file-upload">Insérez votre fichier audio<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
           </label>
           <input type="file" className="free-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} onChange={(e) => { setAudiofile(e.target.files[0]); aestheticFileChange(e, 'fichier-label-el', "file", "mic"); }} />
 
           <label htmlFor="support-el" className="free-label file-label" id='support-label-el'>
-            <span className="custom-support-upload" id="custom-support-upload">(Optionnal) Insert your presentation support<ion-icon name="document-outline" id="support-uploading-el"></ion-icon></span>
+            <span className="custom-support-upload" id="custom-support-upload">(Optionnel) Insérez votre support de présentation<ion-icon name="document-outline" id="support-uploading-el"></ion-icon></span>
           </label>
           <input type="file" className="free-input" name="support-el" id="support-el" style={{ display: 'none' }} accept="application/pdf" onChange={(e) => { setSupport(e.target.files[0]); aestheticFileChange(e, 'support-label-el', "support", "document"); }} />
         </div>
         <div className="form-input-context">
           <label id="who-label" htmlFor="who-el free-input" className="free-label">
-            Who are you?
+            Qui êtes-vous ?
           </label>
           <Inputs
             id="who"
             name="who-el free-input"
-            label="A medical professor expert in ..."
+            label="Un professeur de médecine expert en ..."
             onChange={(e) => setWho(e.target.value)}
           />
 
           <label id="context-label" htmlFor="context-el free-input" className="free-label">
-            Context
+            Contexte
           </label>
           <Inputs
             id="context"
             name="context-el free-input"
-            label="French congress of ..."
+            label="Congrès français de ..."
             onChange={(e) => setContext(e.target.value)}
           />
 
           <label id="public-label" htmlFor="public-el free-input" className="free-label">
-            Audience
+            Public
           </label>
           <Inputs
             id="public"
             name="public-el free-input"
-            label="An audience of researchers ..."
+            label="Un public de chercheurs ..."
             onChange={(e) => setPublicValue(e.target.value)}
           />
 
           <label id="aim-label" htmlFor="aim-el free-input" className="free-label">
-            Objective
+            Objectif
           </label>
           <Inputs
             id="aim"
             name="aim-el free-input"
-            label="Popularize and transmit the latest advances in ..."
+            label="Vulgariser et transmettre les dernières avancées en ..."
             onChange={(e) => setAim(e.target.value)}
           />
         </div>
-        <button type="button" className="launchbtn free-btn" id="launchbtn" onClick={launchAnalysis}>Analyze my speech</button>
+        <button type="button" className="launchbtn free-btn" id="launchbtn" onClick={launchAnalysis}>Analysez mon discours</button>
       </form>
       {isLoading ? (
         <div className='free-loading-div'>
-          <h3 className='free-h3'>Loading... Please do not leave the page</h3>
+          <h3 className='free-h3'>Chargement... Veuillez ne pas quitter la page</h3>
           <div className='free-loader-div'>
             <PulseLoader
-              color={isDarkMode ? 'rgb(249, 249, 200)' : 'rgb(29, 29, 29)'}
+              color={isDarkMode ? 'hsl(var(--primary))' : 'hsl(var(--foreground))'}
               loading={isLoading}
               size={20}
             />
           </div>
         </div>
       ) : null}
-      <button type="button" className="free-btn copy-btn" onClick={copyToClipboard}>Copy the full text</button>
+      <button type="button" className="free-btn copy-btn" onClick={copyToClipboard}>Copier le texte complet</button>
       <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
     </main>
   );

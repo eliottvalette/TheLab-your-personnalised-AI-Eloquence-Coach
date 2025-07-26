@@ -123,7 +123,7 @@ async function saveResponse(response,modelChosen){
     if (auth.currentUser){
       mail = auth.currentUser.email
     }else{
-      mail = "Unknown user"
+      mail = "Utilisateur inconnu"
     }
     const userData = {
       email: mail,
@@ -145,9 +145,13 @@ export default function TheLab() {
   const [category, setCategory] = useState("Politiques");
   const [modelChosen, setModelChosen] = useState(null);
   const [modelStyle, setModelStyle] = useState(null);
-  const [support, setSupport]= useState('Support not submited');
+  const [support, setSupport]= useState('Support non soumis');
   const [isLoading, setIsLoading] = useState(false)
-  const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode",true);
+  const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode", true);
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   const launchAnalysis = async () => {
     if(modelChosen){
@@ -169,16 +173,13 @@ export default function TheLab() {
       document.getElementById('response-container').innerHTML = MistResponse;
       document.getElementById('response-container').style.display = 'block';
     }else{
-      const MistResponse = 'Veuillez selectionner un modèle'
+      const MistResponse = 'Veuillez sélectionner un modèle'
       document.getElementById('response-container').innerHTML = MistResponse;
       document.getElementById('response-container').style.display = 'block'
     }
     
   };
 
-  useEffect(() => {
-    document.body.style.backgroundColor = isDarkMode ? "var(--wall-background-color)" : "var(--light-box-background-color)"; // Use CSS variables for customization
-  }, [isDarkMode]);
 
   const aestheticFileChange = (e, labelId, id , icon) => {
     const fileName = e.target.value.split('\\').pop().split('.')[0];
@@ -203,15 +204,15 @@ export default function TheLab() {
 
   return (
   <main id="lab-main" data-theme={isDarkMode ? "dark" : "light"} >
-    <h1 className='lab-h1'>The Lab</h1>
-    <h2 className='lab-h2'>Choose your model</h2>
+    <h1 className='lab-h1'>Le Lab'Oratoire</h1>
+    <h2 className='lab-h2'>Choisissez votre modèle</h2>
     <div className='model-select-el'>
       <select className="select-box" id="categories-el" name="categories-el" size="1" onChange={(e) => {setCategory(e.target.value)}}>
-        <option className ="lab-option" value = "Politiques">Political Figures</option>
-        <option className ="lab-option" value = "Economistes">Economists</option>
-        <option className ="lab-option" value = "Avocats">Lawyers</option>
-        <option className ="lab-option" value = "Celebrites">Celebrities</option>
-        <option className ="lab-option" value = "Medecins">Doctors</option>
+        <option className ="lab-option" value = "Politiques">Personnalités Politiques</option>
+        <option className ="lab-option" value = "Economistes">Économistes</option>
+        <option className ="lab-option" value = "Avocats">Avocats</option>
+        <option className ="lab-option" value = "Celebrites">Célébrités</option>
+        <option className ="lab-option" value = "Medecins">Médecins</option>
       </select>
       <Models
         category={category}
@@ -220,7 +221,7 @@ export default function TheLab() {
         setModelStyle={setModelStyle}
       />
     </div>
-    <h2 className='lab-h2'>Your presentation</h2>
+    <h2 className='lab-h2'>Votre présentation</h2>
     <div className='lab-language'>
       <button
         ref={langue === 'fr' ? languageBtnRef : null}
@@ -228,7 +229,7 @@ export default function TheLab() {
         id='french'
         onClick={() => setLangue('fr')}
       >
-        French
+        Français
       </button>
       <button
         ref={langue === 'en' ? languageBtnRef : null}
@@ -236,27 +237,27 @@ export default function TheLab() {
         id='english'
         onClick={() => setLangue('en')}
       >
-        English
+        Anglais
       </button>
     </div>
     <form className="formBase" action="" method="post" encType="multipart/form-data" id="baseForm">
       <input type="file" className="lab-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} onChange={(e) => { setAudiofile(e.target.files[0]); aestheticFileChange(e, 'fichier-label-el',"file","mic") }}/>
       <label htmlFor="fichier-el" className="lab-label" id ='fichier-label-el'>
-          <span className="custom-file-upload" id="custom-file-upload">Insert your audio file<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
+          <span className="custom-file-upload" id="custom-file-upload">Insérez votre fichier audio<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
       </label>
       <input type="file" className="lab-input" name="fichier-model-el" id="fichier-model-el" style={{ display: 'none' }} onChange={(e) => {setSupport(e.target.files[0]);aestheticFileChange(e, 'fichier-model-label-el',"file-model","mic") }}/>
       <label htmlFor="fichier-model-el" className="lab-label" id ='fichier-model-label-el'>
-          <span className="custom-file-model-upload" id="custom-file-model-upload">(Optional) Insert an excerpt of your model's speech<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
+          <span className="custom-file-model-upload" id="custom-file-model-upload">(Optionnel) Insérez un extrait du discours de votre modèle<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
       </label>       
 
-      <button type="button" className="launchbtn lab-btn" id="launchbtn" onClick={launchAnalysis}>Analyze my speech by comparing with my model</button>
+      <button type="button" className="launchbtn lab-btn" id="launchbtn" onClick={launchAnalysis}>Analysez mon discours en le comparant avec mon modèle</button>
     </form>
     {isLoading ? (
       <div className='lab-loading-div'>
-        <h3 className='lab-h3'>Loading... Please do not leave the page</h3>
+        <h3 className='lab-h3'>Chargement... Veuillez ne pas quitter la page</h3>
         <div className='lab-loader-div'>
         <CircleLoader
-          color={isDarkMode ? 'rgb(249, 249, 200)' : 'rgb(29, 29, 29)'}
+          color={isDarkMode ? 'hsl(var(--primary))' : 'hsl(var(--foreground))'}
           loading={isLoading}
           size={200}
           data-testid="loader"
