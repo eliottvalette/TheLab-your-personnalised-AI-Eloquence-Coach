@@ -9,7 +9,7 @@ import '../css/home.css'
 import { initializeApp } from "firebase/app"
 
 // Import home image from assets
-import homeImage from '../assets/home.jpg'
+import homeImage from '../assets/home-black.jpg'
 
 const firebaseConfig = {
     apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",

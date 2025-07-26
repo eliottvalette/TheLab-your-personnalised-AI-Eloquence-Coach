@@ -77,6 +77,7 @@ body {
   height: calc(100vh - 90px);
   align-items: center;
   position: relative;
+  animation: slideUp 0.5s ease-out;
 }
 
 .home-main::before {
@@ -206,7 +207,6 @@ body {
 
 .home-img-section {
   position: relative;
-  animation: slideInRight 1s ease-out;
 }
 
 .home-img {
@@ -214,12 +214,6 @@ body {
   height: auto;
   border-radius: 24px;
   box-shadow: 0 8px 32px hsl(var(--foreground) / 0.1);
-  transition: transform 0.3s ease;
-  animation: float 6s ease-in-out infinite;
-}
-
-.home-img:hover {
-  transform: scale(1.02) rotate(-1deg);
 }
 
 /* About Section Styles */
