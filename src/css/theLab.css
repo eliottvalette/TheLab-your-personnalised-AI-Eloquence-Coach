@@ -4,7 +4,7 @@
 :root {
   --background: 0 0% 100%;
   --foreground: 20 14.3% 4.1%;
-  --card: 0 0% 100%;
+  --card: 0 0% 20%;
   --card-foreground: 20 14.3% 4.1%;
   --popover: 0 0% 100%;
   --popover-foreground: 20 14.3% 4.1%;
@@ -32,7 +32,7 @@
 [data-theme="dark"] {
   --background: 20 14.3% 4.1%;
   --foreground: 60 9.1% 97.8%;
-  --card: 20 14.3% 4.1%;
+  --card: 0 0% 20%;
   --card-foreground: 60 9.1% 97.8%;
   --popover: 20 14.3% 4.1%;
   --popover-foreground: 60 9.1% 97.8%;
@@ -116,12 +116,12 @@ body {
 }
 
 .model-select-el {
-  background: hsl(var(--card-foreground) / 0.05);
+  background: hsl(var(--card));
   backdrop-filter: blur(10px);
   border-radius: 24px;
   padding: 2rem;
   margin: 2rem 0;
-  box-shadow: 0 8px 32px hsl(var(--foreground) / 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border: 1px solid hsl(var(--border));
   animation: slideUp 0.5s ease-out;
   display: flex;
@@ -146,17 +146,17 @@ body {
 
 .select-box:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px hsl(var(--foreground) / 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .formBase {
-  background: hsl(var(--card-foreground) / 0.05);
+  background: hsl(var(--card));
   backdrop-filter: blur(10px);
   border-radius: 24px;
   padding: 2rem;
   margin: 2rem auto;
   max-width: 800px;
-  box-shadow: 0 8px 32px hsl(var(--foreground) / 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border: 1px solid hsl(var(--border));
   display: flex;
   flex-direction: column;
@@ -184,7 +184,7 @@ body {
 
 .lab-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px hsl(var(--foreground) / 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .lab-label {
@@ -202,7 +202,7 @@ body {
 
 .lab-label:hover {
   border-color: hsl(var(--primary));
-  background-color: hsl(var(--card-foreground) / 0.05);
+  background-color: hsl(var(--card));
 }
 
 .lab-label ion-icon {
@@ -236,7 +236,7 @@ body {
   padding: 2rem;
   text-align: justify;
   max-width: 800px;
-  box-shadow: 0 8px 32px hsl(var(--foreground) / 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   animation: slideUp 0.5s ease-out;
 }
 

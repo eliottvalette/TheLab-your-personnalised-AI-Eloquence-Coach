@@ -59,7 +59,7 @@ export default function Navbar() {
             active={activeId === "page_2" ? "list active" : "list"}
             id="page_2"
             icon="flask-outline"
-            title="Le Lab'Oratoire"
+            title="Le Lab"
             setActiveId={setActiveId}
           />
           <Pages

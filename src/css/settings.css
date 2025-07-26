@@ -3,13 +3,13 @@
 :root {
   --background: 0 0% 100%;
   --foreground: 20 14.3% 4.1%;
-  --card: 0 0% 100%;
+  --card: 0 0% 68%;
   --card-foreground: 20 14.3% 4.1%;
   --popover: 0 0% 100%;
   --popover-foreground: 20 14.3% 4.1%;
   --primary: 47.9 95.8% 53.1%;
   --primary-foreground: 26 83.3% 14.1%;
-  --secondary: 60 4.8% 95.9%;
+  --secondary: 0 0% 78%;
   --secondary-foreground: 24 9.8% 10%;
   --muted: 60 4.8% 95.9%;
   --muted-foreground: 25 5.3% 44.7%;
@@ -140,7 +140,7 @@ body {
 
 .settings-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px hsl(var(--foreground) / 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .settings-btn:hover::before {

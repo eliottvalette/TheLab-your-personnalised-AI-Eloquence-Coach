@@ -75,13 +75,13 @@ body {
 }
 
 .free-form {
-  background: hsl(var(--card-foreground) / 0.05);
+  background: hsl(var(--card));
   backdrop-filter: blur(10px);
   border-radius: 24px;
   padding: 2rem;
   margin: 2rem auto;
   max-width: 800px;
-  box-shadow: 0 8px 32px hsl(var(--foreground) / 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border: 1px solid hsl(var(--border));
   display: flex;
   flex-direction: column;
@@ -117,7 +117,7 @@ body {
 .free-input:focus {
   outline: none;
   border-color: hsl(var(--primary));
-  box-shadow: 0 0 0 3px hsl(var(--foreground) / 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
 .free-input::placeholder {
@@ -140,7 +140,7 @@ body {
 
 .free-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px hsl(var(--foreground) / 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .free-language {
@@ -184,7 +184,7 @@ body {
 
 .file-label:hover {
   border-color: hsl(var(--primary));
-  background-color: hsl(var(--card-foreground) / 0.05);
+  background-color: hsl(var(--card));
 }
 
 .file-label ion-icon {
@@ -199,7 +199,7 @@ body {
   padding: 2rem;
   text-align: justify;
   max-width: 800px;
-  box-shadow: 0 8px 32px hsl(var(--foreground) / 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   animation: slideUp 0.5s ease-out;
 }
 
