@@ -58,9 +58,9 @@ export default function Home() {
             <main className="home-main" data-theme={isDarkMode ? "dark" : "light"}>
                 <section className="home-text-section">
                     <div className="home-header">
-                        <h1 className="home-h1">Libérez votre potentiel oratoire</h1>
+                        <h1 className="home-h1">The Lab</h1>
                         <p className="home-p">
-                            Devenez un orateur persuasif et influent en suivant les traces de vos orateurs préférés grâce à la puissance de l'intelligence artificielle à moindre coût
+                            Analysez vos prises de paroles et devenez plus persuasif grâce à la puissance de l'intelligence artificielle à moindre coût
                         </p>
                         <div className="home-form" id="home-form">
                             <button className="home-about home-btn primary-btn" id="home-about" onClick={handleClickAbout}>
