@@ -1,219 +1,77 @@
-/* Laboratoire/src/components/card.css */
-:root {
-  --background: 0 0% 100%;
-  --foreground: 20 14.3% 4.1%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 3.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 20 14.3% 4.1%;
-  --primary: 47.9 95.8% 53.1%;
-  --primary-foreground: 26 83.3% 14.1%;
-  --secondary: 60 4.8% 95.9%;
-  --secondary-foreground: 24 9.8% 10%;
-  --muted: 60 4.8% 95.9%;
-  --muted-foreground: 25 5.3% 44.7%;
-  --accent: 60 4.8% 95.9%;
-  --accent-foreground: 24 9.8% 10%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 60 9.1% 97.8%;
-  --border: 20 5.9% 90%;
-  --input: 20 5.9% 90%;
-  --ring: 20 14.3% 4.1%;
-  --radius: 0.5rem;
-  --chart-1: 12 76% 61%;
-  --chart-2: 173 58% 39%;
-  --chart-3: 197 37% 24%;
-  --chart-4: 43 74% 66%;
-  --chart-5: 27 87% 67%;
-}
-
-[data-theme="dark"] {
-  --background: 20 14.3% 4.1%;
-  --foreground: 60 9.1% 97.8%;
-  --card: 20 14.3% 4.1%;
-  --card-foreground: 0 0% 98%;
-  --popover: 20 14.3% 4.1%;
-  --popover-foreground: 60 9.1% 97.8%;
-  --primary: 47.9 95.8% 53.1%;
-  --primary-foreground: 26 83.3% 14.1%;
-  --secondary: 12 6.5% 15.1%;
-  --secondary-foreground: 60 9.1% 97.8%;
-  --muted: 12 6.5% 15.1%;
-  --muted-foreground: 24 5.4% 63.9%;
-  --accent: 12 6.5% 15.1%;
-  --accent-foreground: 60 9.1% 97.8%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 60 9.1% 97.8%;
-  --border: 12 6.5% 15.1%;
-  --input: 12 6.5% 15.1%;
-  --ring: 35.5 91.7% 32.9%;
-  --chart-1: 220 70% 50%;
-  --chart-2: 160 60% 45%;
-  --chart-3: 30 80% 55%;
-  --chart-4: 280 65% 60%;
-  --chart-5: 340 75% 55%;
-}
-
 .cards-list {
-    margin: 2rem auto;
-    padding: 1.5rem;
-    display: flex;
-    gap: 2rem;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: hsl(var(--border)) transparent;
-    padding-bottom: 1rem;
-    position: relative;
-    width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 4px 2px 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
-
-/* Ajout des éléments de fondu sur les côtés */
-.cards-list::before,
-.cards-list::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 3rem;
-    pointer-events: none;
-    z-index: 1;
-}
-
 
 .cards-list::-webkit-scrollbar {
-    height: 6px;
-}
-
-.cards-list::-webkit-scrollbar-track {
-    background: transparent;
+  height: 8px;
 }
 
 .cards-list::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--border));
-    border-radius: 3px;
+  background: var(--accent-soft);
+  border-radius: 999px;
 }
 
 .card {
-    width: 280px;
-    flex: 0 0 auto;
-    background: hsl(var(--card));
-    backdrop-filter: blur(10px);
-    border-radius: 24px;
-    padding: 1.5rem;
-    border: 1px solid hsl(var(--border));
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: hsl(var(--card));
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  display: grid;
+  grid-template-rows: 16vh auto 1fr;
+  gap: 10px;
+  min-height: 0;
+  height: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-}
-
-.card:hover::before {
-    opacity: 1;
+  border-color: var(--accent);
+  box-shadow: 0 12px 26px rgba(31, 41, 43, 0.1);
 }
 
 .card.selected {
-    background: hsl(var(--primary));
-    transform: scale(0.98);
-    border: 2px solid hsl(var(--primary));
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .card-image {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;
-    object-position: top center;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-}
-
-.card:hover .card-image {
-    transform: scale(1.05);
+  display: block;
+  width: 100%;
+  height: 132px;
+  height: 16vh;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 6px;
 }
 
 .card-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: hsl(var(--primary));
-    margin-bottom: 1rem;
-    position: relative;
-    z-index: 1;
+  margin: 0;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.2;
+  text-align: center;
 }
 
 .card-description {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: hsl(var(--primary));
-    opacity: 0.9;
-    position: relative;
-    z-index: 1;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  text-align: center;
 }
 
-@media (max-width: 768px) {
-    .cards-list {
-        gap: 1rem;
-        padding: 0.5rem;
-    }
-
-    .card {
-        width: 240px;
-        padding: 1rem;
-    }
-
-    .card-image {
-        height: 120px;
-        margin-bottom: 0.75rem;
-    }
-
-    .card-title {
-        font-size: 1.1rem;
-        margin-bottom: 0.75rem;
-    }
-
-    .card-description {
-        font-size: 0.85rem;
-    }
-}
-
-.model-select-el {
-    overflow: hidden;
-    padding: 2rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    width: 100%;
-}
-
-@media (hover: none) {
-    .cards-list {
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-    }
-
-    .card {
-        scroll-snap-align: center;
-    }
+@media (max-width: 720px) {
+  .cards-list {
+    grid-template-columns: 1fr;
+  }
 }

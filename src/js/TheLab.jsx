@@ -6,13 +6,13 @@ import React, { useState, useEffect, useRef } from 'react'
 
 import PropTypes from "prop-types";
 import DOMPurify from 'dompurify';
-import useLocalStorage from "use-local-storage"
 
 import '../css/theLab.css'
 import '../css/card.css'
 
 import whisperApi from './components/api_whisper.js';
 import { labApi } from './components/api_mistral.js'
+import { buildAnalysisHtml, stripCodeFences } from './components/html_response.js';
 import data from './components/models_data.js'
 import Card from './components/Cards.jsx'
 
@@ -40,9 +40,8 @@ import mokImg from '../assets/tony-mok.jpeg'
 import hirschImg from '../assets/martin-hirsch.jpg'
 import soriaImg from '../assets/jean-charles-soria.jpeg'
 
-import { initializeApp, getApp }  from "firebase/app"
-import { getAuth } from "firebase/auth"
-import { getFirestore, collection, addDoc } from "firebase/firestore"
+import { collection, addDoc } from "firebase/firestore"
+import { auth, db } from "./utils/firebase.js";
 
 import CircleLoader from "react-spinners/CircleLoader";
 
@@ -71,19 +70,6 @@ const imageMap = {
   'martin-hirsch.jpg': hirschImg,
   'jean-charles-soria.jpeg': soriaImg
 };
-
-const firebaseConfig = {
-    apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
-    authDomain: "thelab-d1229.firebaseapp.com",
-    projectId: "thelab-d1229",
-    storageBucket: "thelab-d1229.appspot.com",
-    appId: "1:334167578954:web:a87c19aee3a4d8f31ac9b3",
-  };
-  
-  // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app)
 
 Models.propTypes = {
   category: PropTypes.string.isRequired,
@@ -147,30 +133,33 @@ export default function TheLab() {
   const [modelStyle, setModelStyle] = useState(null);
   const [support, setSupport]= useState('Support non soumis');
   const [isLoading, setIsLoading] = useState(false)
-  const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode", true);
-
-  useEffect(() => {
-    document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-  }, [isDarkMode]);
 
   const launchAnalysis = async () => {
     if(modelChosen){
       console.log(`Lancement de l'analyse avec pour modèle : ${modelChosen}`)
       setIsLoading(true)
+      const audioTranscription = await whisperApi(audiofile, langue);
+      const modelTranscription = support instanceof Blob ? await whisperApi(support, langue) : "";
       let MistResponse = await labApi({
       modelChosen: modelChosen,
       modelStyle: modelStyle,
       mistralModel: 2,
       maxTokens: 3000,
-      userPrompt: await whisperApi(audiofile,langue),
+      userPrompt: audioTranscription,
       language: langue,
-      support: support,
+      support: modelTranscription,
     });
-      MistResponse = DOMPurify.sanitize(MistResponse);
+      MistResponse = DOMPurify.sanitize(stripCodeFences(MistResponse));
+      const displayedResponse = buildAnalysisHtml({
+        transcript: audioTranscription,
+        modelTranscript: modelTranscription,
+        analysis: MistResponse,
+        language: langue,
+      });
       console.log(`MistralAi Response : \n ${MistResponse}`);
       setIsLoading(false);
-      saveResponse(MistResponse,modelChosen);
-      document.getElementById('response-container').innerHTML = MistResponse;
+      saveResponse(displayedResponse,modelChosen);
+      document.getElementById('response-container').innerHTML = displayedResponse;
       document.getElementById('response-container').style.display = 'block';
     }else{
       const MistResponse = 'Veuillez sélectionner un modèle'
@@ -197,16 +186,19 @@ export default function TheLab() {
 
   console.log("langue : " + langue)
 
-  // Ajout d'un useEffect pour scroller en haut de la page au montage du composant
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []); // Le tableau vide signifie que cet effet ne s'exécute qu'au montage du composant
+  }, []);
 
   return (
-  <main id="lab-main" data-theme={isDarkMode ? "dark" : "light"} >
-    <h1 className='lab-h1'>Le Lab'Oratoire</h1>
+  <main id="lab-main">
+    <section className="page-heading">
+      <p className="page-eyebrow">Coaching par modèle</p>
+      <h1 className='lab-h1'>Le Lab'Oratoire</h1>
+      <p className="page-intro">Sélectionnez un orateur, ajoutez votre audio, puis obtenez un retour structuré sur votre prise de parole.</p>
+    </section>
+    <section className='model-select-el'>
     <h2 className='lab-h2'>Choisissez votre modèle</h2>
-    <div className='model-select-el'>
       <select className="select-box" id="categories-el" name="categories-el" size="1" onChange={(e) => {setCategory(e.target.value)}}>
         <option className ="lab-option" value = "Politiques">Personnalités Politiques</option>
         <option className ="lab-option" value = "Economistes">Économistes</option>
@@ -220,10 +212,10 @@ export default function TheLab() {
         setModelChosen={setModelChosen}
         setModelStyle={setModelStyle}
       />
-    </div>
-    <h2 className='lab-h2'>Votre présentation</h2>
+    </section>
     <div className='lab-language'>
       <button
+        type="button"
         ref={langue === 'fr' ? languageBtnRef : null}
         className={`lab-language-btn lab-btn ${langue === 'fr' ? 'focus' : ''}`}
         id='french'
@@ -232,6 +224,7 @@ export default function TheLab() {
         Français
       </button>
       <button
+        type="button"
         ref={langue === 'en' ? languageBtnRef : null}
         className={`lab-language-btn lab-btn ${langue === 'en' ? 'focus' : ''}`}
         id='english'
@@ -241,6 +234,7 @@ export default function TheLab() {
       </button>
     </div>
     <form className="formBase" action="" method="post" encType="multipart/form-data" id="baseForm">
+      <h2 className='lab-h2'>Votre présentation</h2>
       <input type="file" className="lab-input" name="fichier-el" id="fichier-el" style={{ display: 'none' }} onChange={(e) => { setAudiofile(e.target.files[0]); aestheticFileChange(e, 'fichier-label-el',"file","mic") }}/>
       <label htmlFor="fichier-el" className="lab-label" id ='fichier-label-el'>
           <span className="custom-file-upload" id="custom-file-upload">Insérez votre fichier audio<ion-icon name="mic-outline" id="file-uploading-el"></ion-icon></span>
@@ -257,7 +251,7 @@ export default function TheLab() {
         <h3 className='lab-h3'>Chargement... Veuillez ne pas quitter la page</h3>
         <div className='lab-loader-div'>
         <CircleLoader
-          color={isDarkMode ? 'hsl(var(--primary))' : 'hsl(var(--foreground))'}
+          color={'#315f72'}
           loading={isLoading}
           size={200}
           data-testid="loader"
@@ -268,5 +262,4 @@ export default function TheLab() {
       <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
   </main>
 
-
-)};
+) }

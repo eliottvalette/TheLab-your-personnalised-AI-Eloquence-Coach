@@ -1,36 +1,18 @@
 // Laboratoire/src/Account.jsx 
 import React, { useState , useEffect} from "react";
 import '../css/Account.css'
-import useLocalStorage from "use-local-storage"
 
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore"
-import { getAnalytics } from "firebase/analytics";
-import { getAuth,
+import { collection, addDoc } from "firebase/firestore"
+import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword, 
     signOut,
     onAuthStateChanged,
-    GoogleAuthProvider,
     signInWithPopup,
     updateProfile } from "firebase/auth"
+import { auth, db, googleProvider as provider } from "./utils/firebase.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
-  authDomain: "thelab-d1229.firebaseapp.com",
-  projectId: "thelab-d1229",
-  storageBucket: "thelab-d1229.appspot.com",
-  appId: "1:334167578954:web:a87c19aee3a4d8f31ac9b3",
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider()
-const db = getFirestore(app)
-
-async function authSignInWithGoogle(name,firstName) {
+async function authSignInWithGoogle() {
     signInWithPopup(auth, provider)
         .then(() => {
             console.log("Signed in with Google")
@@ -82,8 +64,7 @@ function authUpdateProfile(username) {
         }).then(() => {
             console.log("Profile updated")
             console.log("current user : " + auth.currentUser.displayName)
-        }).catch((error) => {
-        })
+        }).catch(() => {})
 }
 
 
@@ -97,19 +78,13 @@ export default function Account(){
         name: "",
         firstName: "",
       });
-    const [isDarkMode] = useLocalStorage("isDarkMode", true);
-
-    useEffect(() => {
-        document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-    }, [isDarkMode]);
 
     const handleSignIn = () => {
         authSignInWithEmail(email, password)
         .then(()=>{
             authUpdateProfile(`${name} ${firstName}`);
         })
-        .catch((error) => {
-        });
+        .catch(() => {});
     }
 
     const handleCreateAccount = async () => {
@@ -139,7 +114,7 @@ export default function Account(){
     }, [isLoggedIn]);
 
     return(
-        <main className="account-main-login" data-theme={isDarkMode ? "dark" : "light"}>
+        <main className="account-main-login">
             <h1 className="account-h1">Mon Compte</h1>
             {!isLoggedIn ? 
                 // Not logged in view

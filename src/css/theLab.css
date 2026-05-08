@@ -1,324 +1,115 @@
-/* Laboratoire/src/TheLab.css */
-@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
-
-:root {
-  --background: 0 0% 100%;
-  --foreground: 20 14.3% 4.1%;
-  --card: 0 0% 20%;
-  --card-foreground: 20 14.3% 4.1%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 20 14.3% 4.1%;
-  --primary: 47.9 95.8% 53.1%;
-  --primary-foreground: 26 83.3% 14.1%;
-  --secondary: 60 4.8% 95.9%;
-  --secondary-foreground: 24 9.8% 10%;
-  --muted: 60 4.8% 95.9%;
-  --muted-foreground: 25 5.3% 44.7%;
-  --accent: 60 4.8% 95.9%;
-  --accent-foreground: 24 9.8% 10%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 60 9.1% 97.8%;
-  --border: 20 5.9% 90%;
-  --input: 20 5.9% 90%;
-  --ring: 20 14.3% 4.1%;
-  --radius: 0.5rem;
-  --chart-1: 12 76% 61%;
-  --chart-2: 173 58% 39%;
-  --chart-3: 197 37% 24%;
-  --chart-4: 43 74% 66%;
-  --chart-5: 27 87% 67%;
-}
-
-[data-theme="dark"] {
-  --background: 20 14.3% 4.1%;
-  --foreground: 60 9.1% 97.8%;
-  --card: 0 0% 20%;
-  --card-foreground: 60 9.1% 97.8%;
-  --popover: 20 14.3% 4.1%;
-  --popover-foreground: 60 9.1% 97.8%;
-  --primary: 47.9 95.8% 53.1%;
-  --primary-foreground: 26 83.3% 14.1%;
-  --secondary: 12 6.5% 15.1%;
-  --secondary-foreground: 60 9.1% 97.8%;
-  --muted: 12 6.5% 15.1%;
-  --muted-foreground: 24 5.4% 63.9%;
-  --accent: 12 6.5% 15.1%;
-  --accent-foreground: 60 9.1% 97.8%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 60 9.1% 97.8%;
-  --border: 12 6.5% 15.1%;
-  --input: 12 6.5% 15.1%;
-  --ring: 35.5 91.7% 32.9%;
-  --chart-1: 220 70% 50%;
-  --chart-2: 160 60% 45%;
-  --chart-3: 30 80% 55%;
-  --chart-4: 280 65% 60%;
-  --chart-5: 340 75% 55%;
-}
-
-body {
-  font-size: 16px;
-  line-height: 1.6;
-  color: hsl(var(--foreground));
-  background: hsl(var(--background));
-  font-family: "Poppins", sans-serif;
-  margin: 0;
-  min-height: 100vh;
-}
-
 #lab-main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  animation: fadeIn 0.5s ease-out;
-  position: relative;
-}
-
-#lab-main::before {
-  content: '';
-  position: absolute;
-  width: 80vw;
-  height: 80vw;
-  top: -40vw;
-  right: -40vw;
-  border-radius: 50%;
-  z-index: -1;
-  animation: float 20s ease-in-out infinite;
-}
-
-#lab-main::after {
-  content: '';
-  position: absolute;
-  width: 60vw;
-  height: 60vw;
-  bottom: -30vw;
-  left: -30vw;
-  border-radius: 50%;
-  z-index: -1;
-  animation: float 15s ease-in-out infinite reverse;
-}
-
-.lab-h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin: 0 0 2rem;
-  color: hsl(var(--primary));
-  text-align: center;
-}
-
-.lab-h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: hsl(var(--primary));
-  margin: 2rem 0 1rem;
-  text-align: center;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 2vh;
+  min-height: calc(100vh - 69px);
 }
 
 .model-select-el {
-  background: hsl(var(--card));
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  padding: 2rem;
-  margin: 2rem 0;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid hsl(var(--border));
-  animation: slideUp 0.5s ease-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  justify-items: center;
+  gap: 1.4vh;
+  min-height: 40vh;
+  max-height: 48vh;
+  padding: 2.6vh 24px;
+  overflow: hidden;
 }
 
 .select-box {
-  font-size: 1rem;
-  padding: 0.75rem 1.5rem;
-  background-color: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-  border: 2px solid hsl(var(--border));
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin: 0 auto 2rem;
-  text-align: center;
-  width: auto;
-  min-width: 200px;
+  max-width: 320px;
+  width: min(320px, 100%);
+  justify-self: center;
+  padding: 11px 14px;
 }
 
-.select-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+.lab-language {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  justify-self: center;
+  width: min(360px, 100%);
+  gap: 10px;
+}
+
+.lab-language-btn {
+  width: 100%;
+  min-width: 0;
+  background: var(--surface);
+  color: var(--accent);
+  border: 1px solid var(--line);
+}
+
+.lab-language-btn.focus {
+  background: var(--accent);
+  color: #fff;
 }
 
 .formBase {
-  background: hsl(var(--card));
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  padding: 2rem;
-  margin: 2rem auto;
-  max-width: 800px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid hsl(var(--border));
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.lab-btn {
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  font-weight: 500;
-  background-color: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-  border: 2px solid hsl(var(--border));
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  gap: 0.8rem;
+  display: grid;
+  gap: 2vh;
+  width: min(820px, 100%);
+  min-height: 36vh;
+  max-height: 44vh;
   margin: 0 auto;
-  width: fit-content;
-}
-
-.lab-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 3vh 28px;
+  text-align: center;
 }
 
 .lab-label {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  border: 2px dashed hsl(var(--border));
-  border-radius: 12px;
+  min-height: 9vh;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+  color: var(--accent-strong);
+  text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-  color: hsl(var(--primary));
 }
 
-.lab-label:hover {
-  border-color: hsl(var(--primary));
-  background-color: hsl(var(--card));
-}
-
-.lab-label ion-icon {
-  margin-left: 0.5rem;
-  font-size: 1.25rem;
-}
-
-.lab-language {
-  display: flex;
+.lab-label span {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin: 2rem 0;
-  width: 30%;
-  margin: 0 auto;
+  gap: 8px;
 }
 
-.lab-language-btn {
-  min-width: 120px;
-  opacity: 0.5;
-}
-
-.lab-language-btn.focus {
-  opacity: 1;
-  transform: scale(1.05);
-}
-
-.response-container {
-  background: hsl(var(--secondary));
-  border-radius: 24px;
-  margin: 2rem auto;
-  padding: 2rem;
-  text-align: justify;
-  max-width: 800px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.5s ease-out;
+.launchbtn {
+  justify-self: center;
+  min-width: min(520px, 100%);
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
 }
 
 .lab-loading-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  margin: 2rem 0;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  margin-top: 8px;
 }
 
 .lab-h3 {
+  margin: 0;
+  color: var(--muted);
   font-size: 1rem;
-  font-weight: 400;
-  color: hsl(var(--primary));
   text-align: center;
-  opacity: 0.9;
 }
 
-.lab-loader-div {
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 720px) {
   #lab-main {
-    padding: 1rem;
+    min-height: calc(100vh - 64px);
   }
 
-  .lab-h1 {
-    font-size: 2rem;
-  }
-
-  .model-select-el {
-    padding: 1rem;
-  }
-
+  .model-select-el,
   .formBase {
-    padding: 1.5rem;
-    margin: 1rem;
+    padding: 18px;
+    max-height: none;
   }
 
   .lab-language {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .lab-btn {
     width: 100%;
   }
-}
-
-input::placeholder {
-  color: white;
-  opacity: 1;
 }

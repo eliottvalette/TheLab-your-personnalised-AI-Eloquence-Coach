@@ -1,26 +1,13 @@
 //Laboratoire/src/Home.jsx
 //Le fichier Home constitue la page d'accueil du site, l'utilisateur peut comprendre son fonctionnement ou etre redirigé vers la page de connection
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom"
-import useLocalStorage from "use-local-storage"
 
 import '../css/home.css'
-import { initializeApp } from "firebase/app"
 
 // Import home image from assets
 import homeImage from '../assets/home-black.jpg'
-
-const firebaseConfig = {
-    apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
-    authDomain: "thelab-d1229.firebaseapp.com",
-    projectId: "thelab-d1229",
-    storageBucket: "thelab-d1229.appspot.com",
-    appId: "1:334167578954:web:a87c19aee3a4d8f31ac9b3",
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
 const features = [
     {
@@ -41,12 +28,7 @@ const features = [
 ];
 
 export default function Home() {
-    const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode", true);
     const [isAbout, setIsAbout] = useState(false);
-
-    useEffect(() => {
-        document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-    }, [isDarkMode]);
 
 
     const handleClickAbout = () => {
@@ -55,7 +37,7 @@ export default function Home() {
 
     if (!isAbout) {
         return (
-            <main className="home-main" data-theme={isDarkMode ? "dark" : "light"}>
+            <main className="home-main">
                 <section className="home-text-section">
                     <div className="home-header">
                         <h1 className="home-h1">The Lab</h1>
@@ -94,11 +76,11 @@ export default function Home() {
         )
     } else {
         return (
-            <main className="home-main-about" data-theme={isDarkMode ? "dark" : "light"}>
+            <main className="home-main-about">
                 <h1 className="home-h1">Deux modes disponibles :</h1>
                 <div className="home-div-about">
                     <div className="home-analysis">
-                        <ion-icon name="analytics-outline" class="feature-icon"></ion-icon>
+                        <ion-icon name="analytics-outline" className="feature-icon"></ion-icon>
                         <h2 className="home-h2">Mode Analyse</h2>
                         <p>En utilisant le fichier audio de votre discours et optionnellement votre support de présentation, une IA produit une analyse détaillée et personnalisée de votre discours. Grâce à de multiples spécifications, le résultat sera au plus proche de vos attentes.</p>
                         <div className="feature-benefits">
@@ -117,7 +99,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="home-lab">
-                        <ion-icon name="flask-outline" class="feature-icon"></ion-icon>
+                        <ion-icon name="flask-outline" className="feature-icon"></ion-icon>
                         <h2 className="home-h2">Le Lab'Oratoire</h2>
                         <p>Vous avez probablement un orateur favori que vous essayez d'imiter mais quand le moment vient, vous ne pouvez pas égaler son talent. Grâce au Lab'Oratoire c'est possible, sélectionnez votre orateur parmi ceux disponibles ou soumettez le vôtre, et l'IA vous guidera étape par étape pour qu'un jour peut-être, l'élève dépasse le maître.</p>
                         <div className="feature-benefits">

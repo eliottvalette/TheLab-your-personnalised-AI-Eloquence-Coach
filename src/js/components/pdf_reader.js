@@ -24,7 +24,7 @@ async function extractTextFromPDF(pdf) {
 }
 
 async function extractText(pdfInput) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         if (!pdfInput) {
             fulltext = "Erreur : absence de fichier";
             reject(fulltext);

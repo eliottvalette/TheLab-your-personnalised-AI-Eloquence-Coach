@@ -1,261 +1,80 @@
-@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
-
-:root {
-  --background: 0 0% 100%;
-  --foreground: 20 14.3% 4.1%;
-  --card: 0 0% 100%;
-  --card-foreground: 20 14.3% 4.1%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 20 14.3% 4.1%;
-  --primary: 47.9 95.8% 53.1%;
-  --primary-foreground: 26 83.3% 14.1%;
-  --secondary: 60 4.8% 95.9%;
-  --secondary-foreground: 24 9.8% 10%;
-  --muted: 60 4.8% 95.9%;
-  --muted-foreground: 25 5.3% 44.7%;
-  --accent: 60 4.8% 95.9%;
-  --accent-foreground: 24 9.8% 10%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 60 9.1% 97.8%;
-  --border: 20 5.9% 90%;
-  --input: 20 5.9% 90%;
-  --ring: 20 14.3% 4.1%;
-  --radius: 0.5rem;
-  --chart-1: 12 76% 61%;
-  --chart-2: 173 58% 39%;
-  --chart-3: 197 37% 24%;
-  --chart-4: 43 74% 66%;
-  --chart-5: 27 87% 67%;
-}
-
-[data-theme="dark"] {
-  --background: 20 14.3% 4.1%;
-  --foreground: 60 9.1% 97.8%;
-  --card: 20 14.3% 4.1%;
-  --card-foreground: 60 9.1% 97.8%;
-  --popover: 20 14.3% 4.1%;
-  --popover-foreground: 60 9.1% 97.8%;
-  --primary: 47.9 95.8% 53.1%;
-  --primary-foreground: 26 83.3% 14.1%;
-  --secondary: 12 6.5% 15.1%;
-  --secondary-foreground: 60 9.1% 97.8%;
-  --muted: 12 6.5% 15.1%;
-  --muted-foreground: 24 5.4% 63.9%;
-  --accent: 12 6.5% 15.1%;
-  --accent-foreground: 60 9.1% 97.8%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 60 9.1% 97.8%;
-  --border: 12 6.5% 15.1%;
-  --input: 12 6.5% 15.1%;
-  --ring: 35.5 91.7% 32.9%;
-  --chart-1: 220 70% 50%;
-  --chart-2: 160 60% 45%;
-  --chart-3: 30 80% 55%;
-  --chart-4: 280 65% 60%;
-  --chart-5: 340 75% 55%;
-}
-
-body {
-  font-size: 16px;
-  line-height: 1.6;
-  color: hsl(var(--foreground));
-  background: hsl(var(--background));
-  font-family: "Poppins", sans-serif;
-  margin: 0;
-  min-height: 100vh;
-}
-
 .account-main-login {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  animation: fadeIn 0.5s ease-out;
-  position: relative;
-}
-
-.account-main-login::before {
-  content: '';
-  position: absolute;
-  width: 80vw;
-  height: 80vw;
-  top: -40vw;
-  right: -40vw;
-  border-radius: 50%;
-  z-index: -1;
-  animation: float 20s ease-in-out infinite;
-}
-
-.account-main-login::after {
-  content: '';
-  position: absolute;
-  width: 60vw;
-  height: 60vw;
-  bottom: -30vw;
-  left: -30vw;
-  border-radius: 50%;
-  z-index: -1;
-  animation: float 15s ease-in-out infinite reverse;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 3vh;
+  min-height: calc(100vh - 69px);
+  padding-block: 4vh;
 }
 
 .account-h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: hsl(var(--primary));
-  margin: 0;
   text-align: center;
 }
 
+.logged-out-view,
+.logged-in-view {
+  align-self: start;
+}
+
 .account-form-login {
-  background: hsl(var(--card));
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  padding: 2rem;
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 1.5rem;
-  align-items: center;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid hsl(var(--border));
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 2.2vh 20px;
+  width: min(780px, 100%);
+  max-height: 72vh;
+  margin: 0 auto;
+  padding: 4vh 32px;
 }
 
 .account-label {
-  font-size: 1rem;
-  font-weight: 500;
-  color: hsl(var(--primary));
+  align-self: center;
+  padding: 0;
+  color: var(--text);
+  font-size: 0.95rem;
   text-align: right;
-  padding-right: 1rem;
 }
 
 .account-input {
-  font-size: 1rem;
-  padding: 0.75rem 1rem;
-  background-color: hsl(var(--secondary));
-  color: hsl(var(--foreground));
-  border: 2px solid hsl(var(--border));
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  width: 100%;
-}
-
-.account-input:focus {
-  outline: none;
-  border-color: hsl(var(--primary));
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+  min-height: 46px;
+  padding: 11px 14px;
 }
 
 .account-input::placeholder {
-  color: white;
-  opacity: 1;
+  color: #8a9495;
 }
 
 .account-btn {
   grid-column: 1 / -1;
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  font-weight: 500;
-  background-color: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-  border: 2px solid hsl(var(--border));
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-}
-
-.account-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-#account-google {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-  border-color: hsl(var(--primary));
-}
-
-#account-google:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: 100%;
 }
 
 .logged-in-view {
-  background: hsl(var(--card-foreground));
-  backdrop-filter: blur(10px);
-  border-radius: 24px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid hsl(var(--border));
-  animation: slideUp 0.5s ease-out;
+  display: grid;
+  gap: 14px;
+  width: min(620px, 100%);
+  margin: 0 auto;
+  padding: 28px;
+  text-align: center;
 }
 
 .account-p {
-  font-size: 1.125rem;
-  color: hsl(var(--primary));
   margin: 0;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid hsl(var(--border));
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 720px) {
   .account-main-login {
-    padding: 2rem 1rem;
-  }
-
-  .account-h1 {
-    font-size: 2rem;
+    min-height: calc(100vh - 64px);
   }
 
   .account-form-login {
     grid-template-columns: 1fr;
-    padding: 1.5rem;
+    max-height: none;
+    padding: 22px;
   }
 
   .account-label {
-    text-align: left;
-    padding-right: 0;
-  }
-
-  .account-btn {
-    width: 100%;
+    text-align: center;
   }
 }

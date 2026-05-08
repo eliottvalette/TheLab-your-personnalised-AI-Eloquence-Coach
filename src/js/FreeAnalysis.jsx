@@ -1,30 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import useLocalStorage from "use-local-storage";
+import DOMPurify from 'dompurify';
 
 import '../css/freeAnalysis.css';
 import whisperApi from './components/api_whisper.js';
 import freeApi from './components/api_mistral.js';
 import { extractText } from './components/pdf_reader.js';
+import { buildAnalysisHtml, stripCodeFences } from './components/html_response.js';
 
-import { initializeApp, getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
+import { auth, db } from "./utils/firebase.js";
 
 import PulseLoader from "react-spinners/PulseLoader";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBH4fHeMgD8yY7s6uF3OwWwBEXqlIrPwjQ",
-  authDomain: "thelab-d1229.firebaseapp.com",
-  projectId: "thelab-d1229",
-  storageBucket: "thelab-d1229.appspot.com",
-  appId: "1:334167578954:web:a87c19aee3a4d8f31ac9b3",
-};
-
-const app = initializeApp(firebaseConfig);
-const firebaseApp = getApp();
-const auth = getAuth(app);
-const db = getFirestore(app);
 
 Inputs.propTypes = {
   id: PropTypes.string.isRequired,
@@ -65,16 +52,11 @@ export default function FreeAnalysis() {
   const [context, setContext] = useState('');
   const [publicValue, setPublicValue] = useState('');
   const [aim, setAim] = useState('');
-  const [audiofile, setAudiofile] = useState(null);  // Initialize as null
+  const [audiofile, setAudiofile] = useState(null);
   const [langue, setLangue] = useState('fr');
   const languageBtnRef = useRef(null);
-  const [support, setSupport] = useState(null);  // Initialize as null
+  const [support, setSupport] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useLocalStorage("isDarkMode", true);
-
-  useEffect(() => {
-    document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-  }, [isDarkMode]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,16 +65,13 @@ export default function FreeAnalysis() {
   const launchAnalysis = async () => {
     setIsLoading(true);
 
-    // Get the transcription of the audio file using whisperApi
     const audioTranscription = await whisperApi(audiofile, langue);
 
-    // Check if a support file is provided and extract text if available
     let supportText = '';
     if (support && support instanceof Blob) {
       supportText = await extractText(support);
     }
 
-    // Make the API call with the extracted text (if available) or an empty string
     const MistResponse = await freeApi({
       userPrompt: audioTranscription,
       mistralModel: 2,
@@ -101,18 +80,20 @@ export default function FreeAnalysis() {
       context: context || 'Non spécifié',
       audience: publicValue || 'Non spécifié',
       aim: aim || 'Non spécifié',
-      support: supportText,  // Use extracted text or empty string
+      support: supportText,
       language: langue,
     });
 
     console.log("MistResponse:", MistResponse);
-    // Remove code fences from the response
-    const cleanedResponse = MistResponse.replace(/```html\n?/g, '').replace(/```/g, '');
+    const cleanedResponse = DOMPurify.sanitize(stripCodeFences(MistResponse));
+    const displayedResponse = buildAnalysisHtml({
+      transcript: audioTranscription,
+      analysis: cleanedResponse,
+      language: langue,
+    });
     setIsLoading(false);
-    saveResponse(MistResponse);
-    document.getElementById('response-container').innerHTML =
-      `<strong>Transcription Audio :</strong><br/>${audioTranscription}<br/><br/>
-      <strong>Réponse Mistral :</strong><br/>${cleanedResponse}<br/><br/>`;
+    saveResponse(displayedResponse);
+    document.getElementById('response-container').innerHTML = displayedResponse;
     document.getElementById('response-container').style.display = 'block';
   };
 
@@ -141,11 +122,16 @@ export default function FreeAnalysis() {
   };
 
   return (
-    <main className='free-main' data-theme={isDarkMode ? "dark" : "light"}>
-      <h1 className='free-h1'>Analyse Libre</h1>
+    <main className='free-main'>
+      <section className="page-heading">
+        <p className="page-eyebrow">Analyse de discours</p>
+        <h1 className='free-h1'>Analyse Libre</h1>
+        <p className="page-intro">Ajoutez votre audio, précisez le contexte, puis récupérez une synthèse exploitable et claire.</p>
+      </section>
       <form className="free-form" action="" method="post" encType="multipart/form-data" id="baseForm" onSubmit={handleSubmit}>
         <div className='free-language'>
           <button
+            type="button"
             ref={langue === 'fr' ? languageBtnRef : null}
             className={`free-language-btn free-btn ${langue === 'fr' ? 'focus' : ''}`}
             id='french'
@@ -154,6 +140,7 @@ export default function FreeAnalysis() {
             Français
           </button>
           <button
+            type="button"
             ref={langue === 'en' ? languageBtnRef : null}
             className={`free-language-btn free-btn ${langue === 'en' ? 'focus' : ''}`}
             id='english'
@@ -221,7 +208,7 @@ export default function FreeAnalysis() {
           <h3 className='free-h3'>Chargement... Veuillez ne pas quitter la page</h3>
           <div className='free-loader-div'>
             <PulseLoader
-              color={isDarkMode ? 'hsl(var(--primary))' : 'hsl(var(--foreground))'}
+              color={'#315f72'}
               loading={isLoading}
               size={20}
             />

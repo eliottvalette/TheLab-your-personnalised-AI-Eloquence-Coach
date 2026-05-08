@@ -1,3 +1,6 @@
 .env
+.env.*
 node_modules
+dist/
 tests
+.DS_Store
