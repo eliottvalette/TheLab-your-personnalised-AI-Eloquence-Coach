@@ -24,7 +24,7 @@ export function buildAnalysisHtml({ transcript, analysis, language = "fr", model
 
   return `
     <h3>${transcriptTitle}</h3>
-    <div class="transcription-block">${escapeHtml(transcript)}</div>
+    <div class="transcription-block" data-transcript-block="primary">${escapeHtml(transcript)}</div>
     ${modelTranscriptHtml}
     <h3>${analysisTitle}</h3>
     ${analysis}

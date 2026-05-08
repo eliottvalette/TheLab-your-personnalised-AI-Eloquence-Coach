@@ -104,6 +104,13 @@
   border: 1px solid var(--line);
 }
 
+.copy-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .copy-btn:hover {
   background: var(--surface-soft);
   color: var(--accent);

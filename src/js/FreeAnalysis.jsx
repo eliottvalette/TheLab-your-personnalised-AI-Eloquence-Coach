@@ -137,6 +137,14 @@ export default function FreeAnalysis() {
     }
   };
 
+  const copyTranscriptToClipboard = () => {
+    const transcriptBlock = document.querySelector('[data-transcript-block="primary"]');
+    if (transcriptBlock) {
+      navigator.clipboard.writeText(transcriptBlock.innerText);
+      alert('Transcription copiée !');
+    }
+  };
+
   return (
     <main className='free-main'>
       <section className="page-heading">
@@ -231,7 +239,10 @@ export default function FreeAnalysis() {
           </div>
         </div>
       ) : null}
-      <button type="button" className="free-btn copy-btn" onClick={copyToClipboard}>Copier le texte complet</button>
+      <div className="copy-actions">
+        <button type="button" className="free-btn copy-btn" onClick={copyTranscriptToClipboard}>Copier la transcription</button>
+        <button type="button" className="free-btn copy-btn" onClick={copyToClipboard}>Copier le texte complet</button>
+      </div>
       <div className='response-container' id='response-container' style={{ display: 'none' }}></div>
     </main>
   );
