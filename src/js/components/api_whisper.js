@@ -33,7 +33,7 @@ export default async function whisperApi(audioFile, langue) {
   formData.append("language", langue || "fr");
 
   try {
-    const response = await fetch("/api/transcribe", {
+    const response = await fetch("/.netlify/functions/transcribe", {
       method: "POST",
       body: formData,
     });

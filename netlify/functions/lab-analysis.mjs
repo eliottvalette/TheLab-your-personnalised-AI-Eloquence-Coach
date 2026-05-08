@@ -3,12 +3,18 @@ import { json, methodNotAllowed, readJson } from "./lib/http.mjs";
 import { resolveMistralModel } from "./lib/models.mjs";
 import { buildLabMessages } from "./lib/prompts.mjs";
 
+function getEnv(name) {
+  return globalThis.Netlify?.env?.get?.(name) ?? process.env[name];
+}
+
 export default async function handler(request) {
   if (request.method !== "POST") {
     return methodNotAllowed(["POST"]);
   }
 
-  if (!process.env.MISTRAL_API_KEY) {
+  const mistralApiKey = getEnv("MISTRAL_API_KEY");
+
+  if (!mistralApiKey) {
     return json({ error: "MISTRAL_API_KEY is not configured." }, { status: 500 });
   }
 
@@ -32,7 +38,7 @@ export default async function handler(request) {
       return json({ error: "Le modele oratoire selectionne est requis." }, { status: 400 });
     }
 
-    const client = new MistralClient(process.env.MISTRAL_API_KEY);
+    const client = new MistralClient(mistralApiKey);
     const chatResponse = await client.chat({
       model: resolveMistralModel(mistralModel),
       messages: buildLabMessages({
@@ -55,7 +61,3 @@ export default async function handler(request) {
     );
   }
 }
-
-export const config = {
-  path: "/api/lab-analysis",
-};

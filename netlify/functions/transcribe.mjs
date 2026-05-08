@@ -23,12 +23,18 @@ async function transcribeWithRetry(openai, input) {
   throw lastError;
 }
 
+function getEnv(name) {
+  return globalThis.Netlify?.env?.get?.(name) ?? process.env[name];
+}
+
 export default async function handler(request) {
   if (request.method !== "POST") {
     return methodNotAllowed(["POST"]);
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  const openAiApiKey = getEnv("OPENAI_API_KEY");
+
+  if (!openAiApiKey) {
     return json({ error: "OPENAI_API_KEY is not configured." }, { status: 500 });
   }
 
@@ -37,11 +43,11 @@ export default async function handler(request) {
     const audio = formData.get("audio");
     const language = String(formData.get("language") || "fr");
 
-    if (!(audio instanceof File)) {
+    if (!audio || typeof audio.arrayBuffer !== "function") {
       return json({ error: "Aucun fichier audio valide n'a ete fourni." }, { status: 400 });
     }
 
-    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const openai = new OpenAI({ apiKey: openAiApiKey });
     const file = await toFile(await audio.arrayBuffer(), audio.name || "audio-file", {
       type: audio.type || "application/octet-stream",
     });
@@ -64,7 +70,3 @@ export default async function handler(request) {
     );
   }
 }
-
-export const config = {
-  path: "/api/transcribe",
-};

@@ -44,7 +44,7 @@ export default async function freeApi(params) {
   responseStatus = status[1];
   console.log("mistralApi status : " + responseStatus);
 
-  const result = await postJson("/api/free-analysis", params);
+  const result = await postJson("/.netlify/functions/free-analysis", params);
 
   responseStatus = status[2];
   console.log("mistralApi status : " + responseStatus);
@@ -56,7 +56,7 @@ export async function labApi(params) {
   responseStatus = status[1];
   console.log(`MistralApi status : ${responseStatus}\n`);
 
-  const result = await postJson("/api/lab-analysis", params);
+  const result = await postJson("/.netlify/functions/lab-analysis", params);
 
   responseStatus = status[2];
   console.log(`MistralApi status : ${responseStatus}\n`);
