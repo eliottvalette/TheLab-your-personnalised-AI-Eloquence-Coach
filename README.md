@@ -17,9 +17,16 @@ HTML/CSS: Pour la mise en page et la stylisation de l'application web.
 Installation et Utilisation
 Clonez le référentiel sur votre machine locale.
 Installez les dépendances en exécutant npm install.
-Configurez les clés d'API nécessaires dans les fichiers correspondants (.env) pour l'API Mistral et l'API OpenAI.
-Lancez l'application en exécutant npm start.
-Accédez à l'application dans votre navigateur en ouvrant http://localhost:3000.
+Configurez les clés d'API côté serveur dans `.env` ou dans les variables d'environnement de votre plateforme d'hébergement:
+`OPENAI_API_KEY=...`
+`MISTRAL_API_KEY=...`
+Pour le développement local avec les fonctions Netlify, utilisez `netlify dev`.
+Pour un build statique, utilisez `npm run build`.
+
+Déploiement Netlify
+Le projet expose désormais des fonctions serveur Netlify pour la transcription audio et les analyses IA.
+Dans Netlify, configurez les variables d'environnement `OPENAI_API_KEY` et `MISTRAL_API_KEY` dans les paramètres du site avant le déploiement.
+Le fichier `netlify.toml` définit le dossier de publication `dist` et le dossier des fonctions `netlify/functions`.
 
 Contribution
 Les contributions à ce projet sont les bienvenues. Si vous souhaitez proposer des améliorations ou des correctifs, veuillez ouvrir une issue pour discuter des changements que vous souhaitez apporter.

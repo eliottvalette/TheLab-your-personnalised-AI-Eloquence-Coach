@@ -63,38 +63,54 @@ export default function FreeAnalysis() {
   };
 
   const launchAnalysis = async () => {
-    setIsLoading(true);
-
-    const audioTranscription = await whisperApi(audiofile, langue);
-
-    let supportText = '';
-    if (support && support instanceof Blob) {
-      supportText = await extractText(support);
+    if (!(audiofile instanceof Blob)) {
+      const errorMessage = langue === 'en'
+        ? 'Please upload an audio file before starting the analysis.'
+        : 'Veuillez importer un fichier audio avant de lancer l’analyse.';
+      document.getElementById('response-container').innerHTML = `<p>${errorMessage}</p>`;
+      document.getElementById('response-container').style.display = 'block';
+      return;
     }
 
-    const MistResponse = await freeApi({
-      userPrompt: audioTranscription,
-      mistralModel: 2,
-      maxTokens: 8000,
-      who: who || 'La chef de pôle d oncologie',
-      context: context || 'Non spécifié',
-      audience: publicValue || 'Non spécifié',
-      aim: aim || 'Non spécifié',
-      support: supportText,
-      language: langue,
-    });
+    setIsLoading(true);
 
-    console.log("MistResponse:", MistResponse);
-    const cleanedResponse = DOMPurify.sanitize(stripCodeFences(MistResponse));
-    const displayedResponse = buildAnalysisHtml({
-      transcript: audioTranscription,
-      analysis: cleanedResponse,
-      language: langue,
-    });
-    setIsLoading(false);
-    saveResponse(displayedResponse);
-    document.getElementById('response-container').innerHTML = displayedResponse;
-    document.getElementById('response-container').style.display = 'block';
+    try {
+      const audioTranscription = await whisperApi(audiofile, langue);
+
+      let supportText = '';
+      if (support && support instanceof Blob) {
+        supportText = await extractText(support);
+      }
+
+      const MistResponse = await freeApi({
+        userPrompt: audioTranscription,
+        mistralModel: 2,
+        maxTokens: 8000,
+        who: who || 'La chef de pôle d oncologie',
+        context: context || 'Non spécifié',
+        audience: publicValue || 'Non spécifié',
+        aim: aim || 'Non spécifié',
+        support: supportText,
+        language: langue,
+      });
+
+      console.log("MistResponse:", MistResponse);
+      const cleanedResponse = DOMPurify.sanitize(stripCodeFences(MistResponse));
+      const displayedResponse = buildAnalysisHtml({
+        transcript: audioTranscription,
+        analysis: cleanedResponse,
+        language: langue,
+      });
+      saveResponse(displayedResponse);
+      document.getElementById('response-container').innerHTML = displayedResponse;
+      document.getElementById('response-container').style.display = 'block';
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Erreur inconnue.";
+      document.getElementById('response-container').innerHTML = `<p>${errorMessage}</p>`;
+      document.getElementById('response-container').style.display = 'block';
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const aestheticFileChange = (e, labelId, id, icon) => {

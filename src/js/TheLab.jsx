@@ -138,29 +138,44 @@ export default function TheLab() {
     if(modelChosen){
       console.log(`Lancement de l'analyse avec pour modèle : ${modelChosen}`)
       setIsLoading(true)
-      const audioTranscription = await whisperApi(audiofile, langue);
-      const modelTranscription = support instanceof Blob ? await whisperApi(support, langue) : "";
-      let MistResponse = await labApi({
-      modelChosen: modelChosen,
-      modelStyle: modelStyle,
-      mistralModel: 2,
-      maxTokens: 3000,
-      userPrompt: audioTranscription,
-      language: langue,
-      support: modelTranscription,
-    });
-      MistResponse = DOMPurify.sanitize(stripCodeFences(MistResponse));
-      const displayedResponse = buildAnalysisHtml({
-        transcript: audioTranscription,
-        modelTranscript: modelTranscription,
-        analysis: MistResponse,
-        language: langue,
-      });
-      console.log(`MistralAi Response : \n ${MistResponse}`);
-      setIsLoading(false);
-      saveResponse(displayedResponse,modelChosen);
-      document.getElementById('response-container').innerHTML = displayedResponse;
-      document.getElementById('response-container').style.display = 'block';
+      try {
+        if (!(audiofile instanceof Blob)) {
+          throw new Error(
+            langue === 'en'
+              ? 'Please upload an audio file before starting the analysis.'
+              : 'Veuillez importer un fichier audio avant de lancer l’analyse.'
+          );
+        }
+
+        const audioTranscription = await whisperApi(audiofile, langue);
+        const modelTranscription = support instanceof Blob ? await whisperApi(support, langue) : "";
+        let MistResponse = await labApi({
+          modelChosen: modelChosen,
+          modelStyle: modelStyle,
+          mistralModel: 2,
+          maxTokens: 3000,
+          userPrompt: audioTranscription,
+          language: langue,
+          support: modelTranscription,
+        });
+        MistResponse = DOMPurify.sanitize(stripCodeFences(MistResponse));
+        const displayedResponse = buildAnalysisHtml({
+          transcript: audioTranscription,
+          modelTranscript: modelTranscription,
+          analysis: MistResponse,
+          language: langue,
+        });
+        console.log(`MistralAi Response : \n ${MistResponse}`);
+        saveResponse(displayedResponse,modelChosen);
+        document.getElementById('response-container').innerHTML = displayedResponse;
+        document.getElementById('response-container').style.display = 'block';
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : "Erreur inconnue.";
+        document.getElementById('response-container').innerHTML = `<p>${errorMessage}</p>`;
+        document.getElementById('response-container').style.display = 'block';
+      } finally {
+        setIsLoading(false);
+      }
     }else{
       const MistResponse = 'Veuillez sélectionner un modèle'
       document.getElementById('response-container').innerHTML = MistResponse;
