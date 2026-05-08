@@ -2,6 +2,26 @@ import OpenAI, { toFile } from "openai";
 import { json, methodNotAllowed } from "./lib/http.mjs";
 
 const transcriptionModel = "gpt-4o-transcribe";
+const retriableErrorCodes = new Set(["ECONNRESET", "ENOTFOUND", "ETIMEDOUT"]);
+
+async function transcribeWithRetry(openai, input) {
+  let lastError;
+
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      return await openai.audio.transcriptions.create(input);
+    } catch (error) {
+      lastError = error;
+      const code = error?.cause?.code;
+
+      if (!retriableErrorCodes.has(code) || attempt === 1) {
+        throw error;
+      }
+    }
+  }
+
+  throw lastError;
+}
 
 export default async function handler(request) {
   if (request.method !== "POST") {
@@ -26,7 +46,7 @@ export default async function handler(request) {
       type: audio.type || "application/octet-stream",
     });
 
-    const completion = await openai.audio.transcriptions.create({
+    const completion = await transcribeWithRetry(openai, {
       file,
       model: transcriptionModel,
       language,
@@ -36,7 +56,10 @@ export default async function handler(request) {
   } catch (error) {
     console.error("Transcription failed:", error);
     return json(
-      { error: "Erreur lors de la transcription audio." },
+      {
+        error: "Erreur lors de la transcription audio.",
+        details: error?.cause?.code || error?.name || "UNKNOWN_ERROR",
+      },
       { status: 500 },
     );
   }

@@ -1,5 +1,26 @@
 const status = ['Waiting', 'in-progress', 'Terminated'];
 
+async function readApiPayload(response) {
+  const contentType = response.headers.get("content-type") || "";
+  const rawBody = await response.text();
+
+  if (contentType.includes("application/json")) {
+    try {
+      return JSON.parse(rawBody);
+    } catch {
+      return {
+        error: "Le serveur a renvoye un JSON invalide.",
+        rawBody,
+      };
+    }
+  }
+
+  return {
+    error: rawBody || `HTTP ${response.status}`,
+    rawBody,
+  };
+}
+
 export default async function whisperApi(audioFile, langue) {
   if (!(audioFile instanceof Blob)) {
     throw new Error("Aucun fichier audio valide n'a ete fourni.");
@@ -17,7 +38,7 @@ export default async function whisperApi(audioFile, langue) {
       body: formData,
     });
 
-    const payload = await response.json();
+    const payload = await readApiPayload(response);
 
     if (!response.ok) {
       throw new Error(payload.error || "Erreur dans la transcription audio.");

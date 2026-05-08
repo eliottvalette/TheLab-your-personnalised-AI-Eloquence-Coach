@@ -1,6 +1,27 @@
 const status = ['Waiting', 'in-progress', 'Terminated'];
 let responseStatus = status[0];
 
+async function readApiPayload(response) {
+  const contentType = response.headers.get("content-type") || "";
+  const rawBody = await response.text();
+
+  if (contentType.includes("application/json")) {
+    try {
+      return JSON.parse(rawBody);
+    } catch {
+      return {
+        error: "Le serveur a renvoye un JSON invalide.",
+        rawBody,
+      };
+    }
+  }
+
+  return {
+    error: rawBody || `HTTP ${response.status}`,
+    rawBody,
+  };
+}
+
 async function postJson(url, payload) {
   const response = await fetch(url, {
     method: "POST",
@@ -10,7 +31,7 @@ async function postJson(url, payload) {
     body: JSON.stringify(payload),
   });
 
-  const result = await response.json();
+  const result = await readApiPayload(response);
 
   if (!response.ok) {
     throw new Error(result.error || "Erreur lors de l'analyse.");
