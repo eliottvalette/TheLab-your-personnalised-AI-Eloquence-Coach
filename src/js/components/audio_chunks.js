@@ -1,5 +1,5 @@
 const targetSampleRate = 16000;
-const targetChunkBytes = 3_200_000;
+const targetChunkSeconds = 20;
 const wavHeaderBytes = 44;
 const bytesPerSample = 2;
 
@@ -84,7 +84,7 @@ function encodeWav(samples, sampleRate) {
 }
 
 function getChunkSampleLength() {
-  return Math.floor((targetChunkBytes - wavHeaderBytes) / bytesPerSample);
+  return targetChunkSeconds * targetSampleRate;
 }
 
 function getBaseName(fileName) {
