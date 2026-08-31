@@ -16,7 +16,7 @@
     "@mistralai/mistralai": "^0.0.10",
     "dompurify": "^3.4.13",
     "dotenv": "^16.4.5",
-    "firebase": "^10.8.1",
+    "firebase": "^12.18.0",
     "i18next": "^24.2.3",
     "netlify": "^13.1.14",
     "openai": "^4.26.0",
