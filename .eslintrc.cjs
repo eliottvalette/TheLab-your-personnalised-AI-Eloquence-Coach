@@ -5,6 +5,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  overrides: [{ files: ["vite.config.js"], env: { node: true } }],
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",

@@ -1,3 +1,4 @@
+import { requireUser } from "./lib/auth.mjs";
 import MistralClient from "@mistralai/mistralai";
 import { json, methodNotAllowed, readJson } from "./lib/http.mjs";
 import { resolveMistralModel } from "./lib/models.mjs";
@@ -11,6 +12,9 @@ export default async function handler(request) {
   if (request.method !== "POST") {
     return methodNotAllowed(["POST"]);
   }
+
+  const authError = await requireUser(request);
+  if (authError) return authError;
 
   const mistralApiKey = getEnv("MISTRAL_API_KEY");
 
@@ -38,6 +42,10 @@ export default async function handler(request) {
       return json({ error: "Le modele oratoire selectionne est requis." }, { status: 400 });
     }
 
+    if (!Number.isInteger(maxTokens) || maxTokens < 1 || maxTokens > 8000 || userPrompt.length > 100000 || JSON.stringify(body).length > 200000) {
+      return json({ error: "Analysis input exceeds the allowed limits." }, { status: 400 });
+    }
+
     const client = new MistralClient(mistralApiKey);
     const chatResponse = await client.chat({
       model: resolveMistralModel(mistralModel),
@@ -54,10 +62,14 @@ export default async function handler(request) {
 
     return json({ html: chatResponse.choices?.[0]?.message?.content || "" });
   } catch (error) {
-    console.error("Lab analysis failed:", error);
+    console.error("Lab analysis failed:", error?.status || error?.name);
     return json(
       { error: "Erreur lors de la generation de l'analyse du Lab." },
       { status: 500 },
     );
   }
 }
+
+export const config = {
+  rateLimit: { windowLimit: 10, windowSize: 60, aggregateBy: ["ip", "domain"] },
+};

@@ -33,3 +33,11 @@ Les contributions à ce projet sont les bienvenues. Si vous souhaitez proposer d
 
 Auteurs
 Ce projet a été développé par Eliott VALETTE. Pour toute question ou commentaire, n'hésitez pas à nous contacter.
+
+Security and deployment
+- OpenAI and Mistral credentials belong only in Netlify Functions environment variables: OPENAI_API_KEY and MISTRAL_API_KEY. Never define a VITE_ credential.
+- The browser calls the existing Netlify functions. Analysis now requires a Firebase login; functions verify the session with Firebase before contacting a paid provider.
+- Each endpoint is limited by Netlify to 10 requests per minute per IP and domain. Analysis output is capped at 8,000 tokens; audio uploads are limited to 4 MiB to fit buffered function request limits.
+- Vite exposes no custom environment variables to the browser. The build rejects provider SDKs and configured private keys in generated client assets.
+- Run npm test and npm run build before pushing. Use netlify dev for the complete local application; vite alone does not serve the backend functions.
+- Revoke and replace all previously exposed OpenAI and Mistral keys. A code deployment cannot revoke credentials or remove older downloaded assets. Configure replacement keys in the Functions scope, redeploy, and remove exposed legacy VITE_ variables from hosting settings.

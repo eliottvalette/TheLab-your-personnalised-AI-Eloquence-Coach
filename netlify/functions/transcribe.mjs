@@ -1,3 +1,4 @@
+import { requireUser } from "./lib/auth.mjs";
 import OpenAI, { toFile } from "openai";
 import { json, methodNotAllowed } from "./lib/http.mjs";
 
@@ -32,6 +33,9 @@ export default async function handler(request) {
     return methodNotAllowed(["POST"]);
   }
 
+  const authError = await requireUser(request);
+  if (authError) return authError;
+
   const openAiApiKey = getEnv("OPENAI_API_KEY");
 
   if (!openAiApiKey) {
@@ -47,6 +51,10 @@ export default async function handler(request) {
       return json({ error: "Aucun fichier audio valide n'a ete fourni." }, { status: 400 });
     }
 
+    if (audio.size === 0 || audio.size > 4 * 1024 * 1024 || !["fr", "en"].includes(language)) {
+      return json({ error: "Audio must be between 1 byte and 4 MiB, with language fr or en." }, { status: 400 });
+    }
+
     const openai = new OpenAI({ apiKey: openAiApiKey });
     const file = await toFile(await audio.arrayBuffer(), audio.name || "audio-file", {
       type: audio.type || "application/octet-stream",
@@ -60,7 +68,7 @@ export default async function handler(request) {
 
     return json({ text: completion.text });
   } catch (error) {
-    console.error("Transcription failed:", error);
+    console.error("Transcription failed:", error?.status || error?.name);
     return json(
       {
         error: "Erreur lors de la transcription audio.",
@@ -70,3 +78,7 @@ export default async function handler(request) {
     );
   }
 }
+
+export const config = {
+  rateLimit: { windowLimit: 10, windowSize: 60, aggregateBy: ["ip", "domain"] },
+};
